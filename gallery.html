@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Soltech Electrical project gallery — browse our completed electrical installations, solar systems, lighting projects, and electrical fencing work across Kenya." />
+  <meta name="keywords" content="electrical project gallery Kenya, solar installation photos, electrical fencing Kenya, Soltech projects" />
+  <title>Project Gallery | Soltech Electrical Kenya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+
+    /* ===== GALLERY HERO ===== */
+    .gallery-hero {
+      background: linear-gradient(135deg, var(--black) 0%, var(--navy) 100%);
+      padding: 150px 0 90px;
+      position: relative;
+      overflow: hidden;
+    }
+    .gallery-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23f5c518' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .gallery-hero::after {
+      content: '';
+      position: absolute;
+      right: -60px; bottom: -60px;
+      width: 440px; height: 440px;
+      background: radial-gradient(circle, rgba(245,197,24,.07) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .gallery-hero .hero-inner {
+      position: relative; z-index: 2;
+      text-align: center;
+    }
+    .gallery-hero h1 { color: var(--white); margin-bottom: 16px; }
+    .gallery-hero p  { color: rgba(255,255,255,.7); font-size: 1.1rem; max-width: 580px; margin: 0 auto; }
+
+    /* ===== STATS BAR ===== */
+    .gallery-stats {
+      background: var(--yellow);
+      padding: 18px 0;
+    }
+    .stats-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+    .stat-item {
+      text-align: center;
+      font-weight: 700;
+      color: var(--black);
+    }
+    .stat-item .sn {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.8rem;
+      display: block;
+      line-height: 1;
+    }
+    .stat-item .sl {
+      font-size: .75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: .7;
+    }
+
+    /* ===== FILTER BAR ===== */
+    .filter-section {
+      background: var(--gray);
+      padding: 36px 0 0;
+      position: sticky;
+      top: 72px;
+      z-index: 100;
+      border-bottom: 1px solid var(--gray2);
+    }
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding-bottom: 20px;
+    }
+    .filter-label {
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-right: 6px;
+    }
+    .filter-btn {
+      padding: 9px 20px;
+      border-radius: 30px;
+      border: 2px solid var(--gray2);
+      background: var(--white);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: .88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .filter-btn:hover {
+      border-color: var(--navy);
+      color: var(--navy);
+    }
+    .filter-btn.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--white);
+      box-shadow: var(--shadow);
+    }
+    .filter-count {
+      margin-left: auto;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    #galleryCount { color: var(--navy); font-weight: 700; }
+
+    /* ===== GALLERY GRID ===== */
+    .gallery-section { background: var(--white); padding: 48px 0 80px; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .gallery-item {
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: opacity .4s ease, transform .4s ease;
+      box-shadow: var(--shadow);
+      background: var(--black);
+    }
+    .gallery-item.hidden {
+      opacity: 0 !important;
+      transform: scale(0.92) !important;
+      pointer-events: none;
+      position: absolute;
+    }
+    .gallery-item.tall { grid-row: span 2; }
+    .gallery-item.wide { grid-column: span 2; }
+
+    .gallery-img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s ease;
+    }
+    .gallery-item.tall .gallery-img  { height: 540px; }
+    .gallery-item.wide .gallery-img  { height: 260px; }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,.85) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity .35s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 22px;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-item:hover .gallery-img { transform: scale(1.06); }
+
+    .gallery-cat {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 5px;
+    }
+    .gallery-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.15rem;
+      color: var(--white);
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .gallery-loc {
+      font-size: .78rem;
+      color: rgba(255,255,255,.65);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .gallery-zoom {
+      position: absolute;
+      top: 14px; right: 14px;
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,.15);
+      backdrop-filter: blur(4px);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white);
+      font-size: .9rem;
+      opacity: 0;
+      transition: var(--transition);
+    }
+    .gallery-item:hover .gallery-zoom { opacity: 1; }
+
+    /* ===== LIGHTBOX ===== */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.95);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease;
+    }
+    .lightbox.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .lightbox-inner {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .lightbox-img {
+      max-width: 90vw;
+      max-height: 75vh;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 20px 80px rgba(0,0,0,.8);
+    }
+    .lightbox-caption {
+      margin-top: 16px;
+      text-align: center;
+      color: rgba(255,255,255,.8);
+    }
+    .lightbox-caption .lc-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.3rem;
+      color: var(--white);
+      letter-spacing: 1.5px;
+    }
+    .lightbox-caption .lc-cat {
+      font-size: .8rem;
+      color: var(--yellow);
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .lightbox-close {
+      position: fixed;
+      top: 22px; right: 22px;
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 50%;
+      color: var(--white);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+    .lightbox-close:hover { background: var(--yellow); color: var(--black); }
+    .lightbox-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px; height: 48px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 50%;
+      color: var(--white);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+    .lightbox-nav:hover { background: var(--yellow); color: var(--black); }
+    .lightbox-prev { left: 18px; }
+    .lightbox-next { right: 18px; }
+
+    /* ===== BEFORE / AFTER ===== */
+    .before-after-section {
+      background: var(--gray);
+    }
+    .ba-header { text-align: center; margin-bottom: 56px; }
+    .ba-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .ba-card {
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--gray2);
+    }
+    .ba-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      position: relative;
+    }
+    .ba-img-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .ba-img-wrap img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .ba-label {
+      position: absolute;
+      top: 12px; left: 12px;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+    .ba-label.before { background: rgba(0,0,0,.65); color: rgba(255,255,255,.8); }
+    .ba-label.after  { background: var(--yellow); color: var(--black); }
+    .ba-divider {
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 100%;
+      background: var(--white);
+      z-index: 2;
+    }
+    .ba-info {
+      padding: 20px 22px 24px;
+    }
+    .ba-info .tag { margin-bottom: 8px; }
+    .ba-info h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: 6px; }
+    .ba-info p  { font-size: .875rem; color: var(--muted); line-height: 1.6; }
+    .ba-info .ba-meta {
+      display: flex;
+      gap: 16px;
+      margin-top: 12px;
+      font-size: .8rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .ba-info .ba-meta span { color: var(--navy); }
+
+    /* ===== NO RESULTS ===== */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+      grid-column: 1 / -1;
+    }
+    .no-results.show { display: block; }
+    .no-results h3 { color: var(--navy); margin-bottom: 8px; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item.wide { grid-column: span 2; }
+      .ba-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .filter-section { position: relative; top: 0; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+      .gallery-item.tall  { grid-row: span 1; }
+      .gallery-item.wide  { grid-column: span 2; }
+      .gallery-img        { height: 190px; }
+      .gallery-item.tall .gallery-img { height: 190px; }
+      .gallery-item.wide .gallery-img { height: 190px; }
+      .stats-inner { gap: 24px; }
+      .lightbox-nav { display: none; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item.wide { grid-column: span 1; }
+      .ba-images { grid-template-columns: 1fr; }
+      .ba-img-wrap img { height: 180px; }
+      .ba-divider { display: none; }
+      .filter-bar { gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===================== NAVBAR ===================== -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">⚡</div>
+      Soltech <span>Electrical</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="gallery.html" class="active">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="contact.html#quote" class="btn btn-yellow">⚡ Request a Quote</a>
+      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav">
+  <a href="index.html">Home</a>
+  <a href="about.html">About Us</a>
+  <a href="services.html">Services</a>
+  <a href="gallery.html" class="active">Gallery</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html#quote" class="btn btn-yellow">⚡ Request a Quote</a>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="gallery-hero">
+  <div class="container">
+    <div class="hero-inner">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span>›</span>
+        <span>Gallery</span>
+      </nav>
+      <span class="tag">Our Work</span>
+      <h1>Projects That<br><span class="yellow">Speak For Themselves</span></h1>
+      <p>Over 500 completed projects across Kenya. Browse our portfolio of electrical installations, solar systems, lighting, and security fencing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STATS ===================== -->
+<div class="gallery-stats">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <span class="sn">500+</span>
+        <span class="sl">Projects Done</span>
+      </div>
+      <div class="stat-item">
+        <span class="sn">15+</span>
+        <span class="sl">Counties Served</span>
+      </div>
+      <div class="stat-item">
+        <span class="sn">200+</span>
+        <span class="sl">Happy Clients</span>
+      </div>
+      <div class="stat-item">
+        <span class="sn">5★</span>
+        <span class="sl">Average Rating</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== FILTER ===================== -->
+<div class="filter-section">
+  <div class="container">
+    <div class="filter-bar">
+      <span class="filter-label">Filter:</span>
+      <button class="filter-btn active" data-cat="all">All Projects</button>
+      <button class="filter-btn" data-cat="installation">Electrical Installation</button>
+      <button class="filter-btn" data-cat="solar">Solar Systems</button>
+      <button class="filter-btn" data-cat="lighting">Lighting</button>
+      <button class="filter-btn" data-cat="fencing">Electric Fencing</button>
+      <button class="filter-btn" data-cat="maintenance">Repairs</button>
+      <span class="filter-count">Showing <span id="galleryCount">18</span> projects</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== GALLERY GRID ===================== -->
+<section class="gallery-section">
+  <div class="container">
+    <div class="gallery-grid" id="galleryGrid">
+
+      <!-- INSTALLATION items -->
+      <div class="gallery-item tall" data-cat="installation" tabindex="0"
+           data-title="Residential Wiring — Karen" data-cat-label="Electrical Installation">
+        <img class="gallery-img" src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&q=80" alt="Residential electrical installation Karen Nairobi" loading="lazy" />
+        <div class="gallery-overlay">
+          <div class="gallery-cat">Electrical Installation</div>
+          <div class="gallery-title">Full Residential Wiring</div>
+          <div class="gallery-loc">📍 Karen, Nairobi</div>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item" data-cat="solar" tabindex="0"
+           data-title="Rooftop Solar — Westlands" data-cat-label="Solar Systems">
+        <img class="gallery-img" src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80" alt="Solar panel installation Westlands" loading="lazy" />
+        <div class="gallery-overlay">
+          <div class="gallery-cat">Solar Systems</div>
+          <div class="gallery-title">5kW Rooftop Solar System</div>
+          <div class="gallery-loc">📍 Westlands, Nairobi</div>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item" data-cat="lighting" tabindex="0"
+           data-title="LED Perimeter Lighting — Thika" data-cat-label="Lighting Solutions">
+        <img class="gallery-img" src="https://images.unsplash.com/photo-1565814636199-ae8133055c1c?w=800&q=80" alt="Perimeter lighting Thika" loading="lazy" />
+        <div class="gallery-overlay">
+          <div class="gallery-cat">Lighting Solutions</div>
+          <div class="gallery-title">LED Perimeter Floodlights</div>
+          <div class="gallery-loc">📍 Thika, Kiambu</div>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item" data-cat="fencing" tabindex="0"
+           data-title="Electric Fence — Syokimau" data-cat-label="Electrical Fencing">
+        <img class="gallery-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Electric security fence Syokimau" loading="lazy" />
+        <div class="gallery-overlay">
+          <div class="gallery-cat">Electrical Fencing</div>
+          <div class="gallery-title">Residential Security Fence</div>
+          <div class="gallery-loc">📍 Syokimau, Machakos</div>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item" data-cat="installation" tabindex="0"
+           data-title="DB Board Upgrade — Ruiru" data-cat-label="Electrical Installation">
+        <img class="gallery-img" src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80" alt="Distribution board upgrade Ruiru" loading="lazy" />
+        <div class="gallery-overlay">
+          <div class="gallery-cat">Electrical Installation</div>
+          <div class="gallery-title">DB Board &amp; Consumer Unit</div>
+          <div class="gallery-loc">📍 Ruiru, Kiambu</div>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item wide" data-cat="solar" tabindex="0"
+           data-title="Farm Solar — Nakuru" data-cat-label="Solar Systems">
+        <img class="gallery-img" src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1200&q=80" alt="Farm solar system Nakuru" loading="lazy" />
+        <div class="gallery-overlay">
+          <div class="gallery-cat">Solar Systems</div>
+          <div class="gallery-title">10kW Farm Solar Installation</div>
+          <div class="gallery-loc">📍 Nakuru County</div>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item" data-cat="lighting" tabindex="0"
+           data-title="Office LED Lighting — CBD" data-cat-label="Lighting Solutions">
+        <img class="gallery-img" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" alt="Office LED lighting Nairobi CBD" loading="lazy" />
+        <div class="gallery-overlay">
+          <div class="gallery-cat">Lighting Solutions</div>
+          <div class="gallery-title">Commercial Office LED Upgrade</div>
+          <div class="gallery-loc">📍 Nairobi CBD</div>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item" data-cat="maintenance" tabindex="0"
+           data-title="Wiring Repair — Kiambu" data-cat-label="Repairs">
+        <img class="gallery-img" src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=80" alt="Electrical repair Kiambu" loading="lazy" />
+        <div class="gallery-overlay">
+          <div class="gallery-cat">Repairs &amp; Maintenance</div>
+          <div class="gallery-title">Emergency Wiring Repair</div>
+          <div class="gallery-loc">📍 Kiambu Town</div>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item tall" data-cat="fencing" tabindex="0"
+           data-title="Commercial Security Fence — Athi River" data-cat-label="Electrical Fencing">
+        <img class="gallery-img" src="https://images.unsplash.com/photo-1513828583688-c52646db42da?w=800&q=80" alt="Commercial electric fence Athi River" loading="lazy" />
+        <div class="gallery-overlay">
+          <div class="gallery-cat">Electrical Fencing</div>
+          <div class="gallery-title">Industrial Perimeter Security</div>
+          <div class="gallery-loc">📍 Athi River, Machakos</div>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item" data-cat="installation" tabindex="0"
+           data-title="Three-Phase Installation — Industrial Area" data-cat-label="Electrical Installation">
+        <img class="gallery-img" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80" alt="Three phase industrial installation" loading="lazy" />
+        <div class="gallery-overlay">
+          <div class="gallery-cat">Electrical Installation</div>
+          <div class="gallery-title">Three-Phase Power Installation</div>
+          <div class="gallery-loc">📍 Industrial Area, Nairobi</div>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item" data-cat="solar" tabindex="0"
+           data-title="Solar + Battery Storage — Ngong" data-cat-label="Solar Systems">
+        <img class="gallery-img" src="https://images.unsplash.com/photo-1548340748-6479ef80ee28?w=800&q=80" alt="Solar battery storage system Ngong" loading="lazy" />
+        <div class="gallery-overlay">
+          <div class="gallery-cat">Solar Systems</div>
+          <div class="gallery-title">Solar + Lithium Battery Storage</div>
+          <div class="gallery-loc">📍 Ngong, Kajiado</div>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item wide" data-cat="lighting" tabindex="0"
+           data-title="Warehouse Lighting — Embakasi" data-cat-label="Lighting Solutions">
+        <img class="gallery-img" src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1200&q=80" alt="Warehouse industrial lighting Embakasi" loading="lazy" />
+        <div class="gallery-overlay">
+          <div class="gallery-cat">Lighting Solutions</div>
+          <div class="gallery-title">Warehouse Industrial Lighting</div>
+          <div class="gallery-loc">📍 Embakasi, Nairobi</div>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item" data-cat="installation" tabindex="0"
+           data-title="Apartment Block Wiring — Kilimani" data-cat-label="Electrical Installation">
+        <img class="gallery-img" src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80" alt="Apartment wiring Kilimani" loading="lazy" />
+        <div class="gallery-overlay">
+          <div class="gallery-cat">Electrical Installation</div>
+          <div class="gallery-title">Apartment Block Full Wiring</div>
+          <div class="gallery-loc">📍 Kilimani, Nairobi</div>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item" data-cat="maintenance" tabindex="0"
+           data-title="Safety Inspection — Upperhill" data-cat-label="Repairs">
+        <img class="gallery-img" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80" alt="Electrical safety inspection Upperhill" loading="lazy" />
+        <div class="gallery-overlay">
+          <div class="gallery-cat">Repairs &amp; Maintenance</div>
+          <div class="gallery-title">Annual Safety Inspection</div>
+          <div class="gallery-loc">📍 Upperhill, Nairobi</div>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item" data-cat="fencing" tabindex="0"
+           data-title="Farm Fencing — Murang'a" data-cat-label="Electrical Fencing">
+        <img class="gallery-img" src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80" alt="Agricultural electric fence Murangas" loading="lazy" />
+        <div class="gallery-overlay">
+          <div class="gallery-cat">Electrical Fencing</div>
+          <div class="gallery-title">Farm Perimeter Electric Fence</div>
+          <div class="gallery-loc">📍 Murang'a County</div>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item" data-cat="solar" tabindex="0"
+           data-title="Solar Water Heating — Meru" data-cat-label="Solar Systems">
+        <img class="gallery-img" src="https://images.unsplash.com/photo-1558449028-b53a39d100fc?w=800&q=80" alt="Solar water heating Meru" loading="lazy" />
+        <div class="gallery-overlay">
+          <div class="gallery-cat">Solar Systems</div>
+          <div class="gallery-title">Solar Water Heating System</div>
+          <div class="gallery-loc">📍 Meru County</div>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item" data-cat="lighting" tabindex="0"
+           data-title="Garden & Landscape Lighting — Lavington" data-cat-label="Lighting Solutions">
+        <img class="gallery-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Garden landscape lighting Lavington" loading="lazy" />
+        <div class="gallery-overlay">
+          <div class="gallery-cat">Lighting Solutions</div>
+          <div class="gallery-title">Garden &amp; Landscape Lighting</div>
+          <div class="gallery-loc">📍 Lavington, Nairobi</div>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <div class="gallery-item" data-cat="installation" tabindex="0"
+           data-title="School Electrical Upgrade — Kisumu" data-cat-label="Electrical Installation">
+        <img class="gallery-img" src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80" alt="School electrical upgrade Kisumu" loading="lazy" />
+        <div class="gallery-overlay">
+          <div class="gallery-cat">Electrical Installation</div>
+          <div class="gallery-title">School Electrical Upgrade</div>
+          <div class="gallery-loc">📍 Kisumu County</div>
+        </div>
+        <div class="gallery-zoom">🔍</div>
+      </div>
+
+      <!-- No results message -->
+      <div class="no-results" id="noResults">
+        <h3>No projects in this category yet</h3>
+        <p>Check back soon — we complete new projects every week.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BEFORE & AFTER ===================== -->
+<section class="before-after-section section">
+  <div class="container">
+    <div class="ba-header reveal">
+      <span class="tag">Transformations</span>
+      <h2 class="section-title">Before &amp; After Projects</h2>
+      <p class="section-sub">See the difference Soltech Electrical makes. Real projects, real transformations — done right the first time.</p>
+    </div>
+    <div class="ba-grid">
+
+      <div class="ba-card reveal delay-1">
+        <div class="ba-images">
+          <div class="ba-img-wrap">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Before: old wiring" loading="lazy" />
+            <span class="ba-label before">Before</span>
+          </div>
+          <div class="ba-img-wrap">
+            <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&q=80" alt="After: new wiring" loading="lazy" />
+            <span class="ba-label after">After</span>
+          </div>
+          <div class="ba-divider"></div>
+        </div>
+        <div class="ba-info">
+          <span class="tag">Electrical Installation</span>
+          <h3>Old Aluminium Wiring Replaced</h3>
+          <p>Dangerous ageing aluminium wiring in a 1980s house fully replaced with modern copper cabling, new DB board and safety devices.</p>
+          <div class="ba-meta">
+            <div>Location: <span>Parklands, Nairobi</span></div>
+            <div>Duration: <span>3 Days</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ba-card reveal delay-2">
+        <div class="ba-images">
+          <div class="ba-img-wrap">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" alt="Before: fluorescent lighting" loading="lazy" />
+            <span class="ba-label before">Before</span>
+          </div>
+          <div class="ba-img-wrap">
+            <img src="https://images.unsplash.com/photo-1565814636199-ae8133055c1c?w=600&q=80" alt="After: LED lighting upgrade" loading="lazy" />
+            <span class="ba-label after">After</span>
+          </div>
+          <div class="ba-divider"></div>
+        </div>
+        <div class="ba-info">
+          <span class="tag">Lighting Solutions</span>
+          <h3>Fluorescent to LED Office Upgrade</h3>
+          <p>Outdated T8 fluorescent tubes across a 3-floor office block replaced with energy-efficient LED panels — cutting power use by 65%.</p>
+          <div class="ba-meta">
+            <div>Location: <span>Upper Hill, Nairobi</span></div>
+            <div>Savings: <span>65% Energy</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ba-card reveal delay-3">
+        <div class="ba-images">
+          <div class="ba-img-wrap">
+            <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600&q=80" alt="Before: no solar panels" loading="lazy" />
+            <span class="ba-label before">Before</span>
+          </div>
+          <div class="ba-img-wrap">
+            <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&q=80" alt="After: solar system installed" loading="lazy" />
+            <span class="ba-label after">After</span>
+          </div>
+          <div class="ba-divider"></div>
+        </div>
+        <div class="ba-info">
+          <span class="tag">Solar Systems</span>
+          <h3>Zero to Full Solar Independence</h3>
+          <p>A family home in Ngong went from 100% grid-reliant with frequent blackouts to a 6kW solar + battery system covering all daytime needs.</p>
+          <div class="ba-meta">
+            <div>Location: <span>Ngong, Kajiado</span></div>
+            <div>System: <span>6kW + Battery</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ba-card reveal delay-4">
+        <div class="ba-images">
+          <div class="ba-img-wrap">
+            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=80" alt="Before: no fence" loading="lazy" />
+            <span class="ba-label before">Before</span>
+          </div>
+          <div class="ba-img-wrap">
+            <img src="https://images.unsplash.com/photo-1513828583688-c52646db42da?w=600&q=80" alt="After: electric fence installed" loading="lazy" />
+            <span class="ba-label after">After</span>
+          </div>
+          <div class="ba-divider"></div>
+        </div>
+        <div class="ba-info">
+          <span class="tag">Electrical Fencing</span>
+          <h3>Unsecured Compound Made Safe</h3>
+          <p>A 0.5-acre residential compound in Syokimau was fitted with a full 8-strand electric fence and integrated alarm system for total peace of mind.</p>
+          <div class="ba-meta">
+            <div>Location: <span>Syokimau, Machakos</span></div>
+            <div>Duration: <span>2 Days</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA ===================== -->
+<section class="cta-section">
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="reveal">
+      <span class="tag">Start Your Project</span>
+      <h2>Want Results Like These?</h2>
+      <p>Join 200+ satisfied clients across Kenya. Get a free quote today — we'll visit your site, assess the job, and give you a clear written price.</p>
+      <div class="cta-buttons">
+        <a href="contact.html#quote" class="btn btn-yellow">⚡ Request a Free Quote</a>
+        <a href="https://wa.me/254110423872" class="btn btn-whatsapp" target="_blank" rel="noopener">💬 WhatsApp Us Now</a>
+        <a href="tel:+254110423872" class="btn btn-outline">📞 +254 110 423 872</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <div class="logo-icon">⚡</div>
+          Soltech <span>Electrical</span>
+        </div>
+        <p class="footer-tagline">Professional electrical installation, solar systems, CCTV, lighting solutions, and electrical fencing across Kenya. Licensed, certified, and trusted.</p>
+        <div class="footer-badges">
+          <div class="footer-badge mpesa">✓ M-Pesa Accepted</div>
+          <div class="footer-badge">ERC Licensed</div>
+          <div class="footer-badge">NCA Registered</div>
+        </div>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Instagram">in</a>
+          <a href="https://wa.me/254110423872" aria-label="WhatsApp">W</a>
+          <a href="#" aria-label="Twitter/X">X</a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="cctv.html">CCTV</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Our Services</h4>
+        <ul class="footer-links">
+          <li><a href="services.html#installation">Electrical Installation</a></li>
+          <li><a href="services.html#maintenance">Repair &amp; Maintenance</a></li>
+          <li><a href="services.html#solar">Solar Systems</a></li>
+          <li><a href="services.html#lighting">Lighting Solutions</a></li>
+          <li><a href="services.html#fencing">Electrical Fencing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact Us</h4>
+        <ul class="footer-contact-list">
+          <li>
+            <div class="icon">📞</div>
+            <div><a href="tel:+254110423872" style="color:rgba(255,255,255,.75);">+254 110 423 872</a></div>
+          </li>
+          <li>
+            <div class="icon">💬</div>
+            <div><a href="https://wa.me/254110423872" target="_blank" style="color:rgba(255,255,255,.75);">WhatsApp Us</a></div>
+          </li>
+          <li>
+            <div class="icon">✉️</div>
+            <div><a href="mailto:info@soltechelectrical.co.ke" style="color:rgba(255,255,255,.75);">info@soltechelectrical.co.ke</a></div>
+          </li>
+          <li>
+            <div class="icon">📍</div>
+            <div>Nairobi, Kenya<br><small style="color:rgba(255,255,255,.4);">Serving 15+ counties</small></div>
+          </li>
+          <li>
+            <div class="icon">🕐</div>
+            <div>Mon–Sat: 7am – 7pm<br><small style="color:rgba(255,255,255,.4);">Emergency: 24/7</small></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Soltech Electrical. All rights reserved.</span>
+      <span>Built with ⚡ in Kenya</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== FLOATING WHATSAPP ===================== -->
+<div class="whatsapp-float">
+  <div class="whatsapp-tooltip">Chat on WhatsApp</div>
+  <a href="https://wa.me/254110423872" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+</div>
+
+<!-- ===================== LIGHTBOX ===================== -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous">‹</button>
+  <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next">›</button>
+  <div class="lightbox-inner">
+    <img class="lightbox-img" id="lightboxImg" alt="" />
+    <div class="lightbox-caption">
+      <div class="lc-title" id="lightboxTitle"></div>
+      <div class="lc-cat" id="lightboxCat"></div>
+    </div>
+  </div>
+</div>
+
+<script src="main.js"></script>
+<script>
+  /* ── ENHANCED GALLERY FILTER WITH COUNT ── */
+  (function () {
+    const filterBtns   = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item[data-cat]');
+    const countEl      = document.getElementById('galleryCount');
+    const noResults    = document.getElementById('noResults');
+
+    function applyFilter(cat) {
+      let visible = 0;
+      galleryItems.forEach(item => {
+        const show = cat === 'all' || item.dataset.cat === cat;
+        if (show) {
+          item.classList.remove('hidden');
+          item.style.position = '';
+          visible++;
+        } else {
+          item.classList.add('hidden');
+          item.style.position = 'absolute';
+        }
+      });
+      countEl.textContent = visible;
+      noResults.classList.toggle('show', visible === 0);
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilter(btn.dataset.cat);
+      });
+    });
+
+    /* ── LIGHTBOX ── */
+    const lightbox    = document.getElementById('lightbox');
+    const lbImg       = document.getElementById('lightboxImg');
+    const lbTitle     = document.getElementById('lightboxTitle');
+    const lbCat       = document.getElementById('lightboxCat');
+    const lbClose     = document.getElementById('lightboxClose');
+    const lbPrev      = document.getElementById('lightboxPrev');
+    const lbNext      = document.getElementById('lightboxNext');
+
+    let currentIndex = 0;
+    let visibleItems = [];
+
+    function getVisible() {
+      return Array.from(galleryItems).filter(i => !i.classList.contains('hidden'));
+    }
+
+    function openLightbox(item) {
+      visibleItems = getVisible();
+      currentIndex = visibleItems.indexOf(item);
+      showLightboxItem(currentIndex);
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function showLightboxItem(index) {
+      const item = visibleItems[index];
+      if (!item) return;
+      const img = item.querySelector('.gallery-img');
+      lbImg.src = img ? img.src : '';
+      lbImg.alt = img ? img.alt : '';
+      lbTitle.textContent = item.dataset.title || '';
+      lbCat.textContent   = item.dataset.catLabel || '';
+      currentIndex = index;
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    galleryItems.forEach(item => {
+      item.addEventListener('click', () => {
+        if (!item.classList.contains('hidden')) openLightbox(item);
+      });
+      item.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          if (!item.classList.contains('hidden')) openLightbox(item);
+        }
+      });
+    });
+
+    lbClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+    lbNext.addEventListener('click', () => {
+      visibleItems = getVisible();
+      showLightboxItem((currentIndex + 1) % visibleItems.length);
+    });
+    lbPrev.addEventListener('click', () => {
+      visibleItems = getVisible();
+      showLightboxItem((currentIndex - 1 + visibleItems.length) % visibleItems.length);
+    });
+
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') lbNext.click();
+      if (e.key === 'ArrowLeft')  lbPrev.click();
+    });
+  })();
+</script>
+</body>
+</html>

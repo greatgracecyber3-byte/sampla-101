@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Professional CCTV installation in Kenya by Soltech Electrical. HD cameras, NVR/DVR systems, remote viewing, night vision. Serving Nairobi and 15+ counties." />
+  <meta name="keywords" content="CCTV installation Kenya, security cameras Nairobi, surveillance systems Kenya, IP cameras, NVR installation" />
+  <meta property="og:title" content="CCTV Installation | Soltech Electrical Kenya" />
+  <meta property="og:description" content="Professional CCTV and security camera installation in Kenya. HD, 4K, night vision, remote viewing. Licensed and trusted." />
+  <meta property="og:type" content="website" />
+  <title>CCTV Installation | Soltech Electrical Kenya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+
+    /* ===== PAGE HERO ===== */
+    .cctv-hero {
+      background: linear-gradient(135deg, var(--black) 0%, #0a1525 60%, var(--navy) 100%);
+      padding: 150px 0 90px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cctv-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23f5c518' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .cctv-hero::after {
+      content: '';
+      position: absolute;
+      right: -60px; top: -80px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(245,197,24,.06) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-inner { position: relative; z-index: 2; text-align: center; }
+    .cctv-hero h1 { color: var(--white); margin-bottom: 16px; }
+    .cctv-hero p  { color: rgba(255,255,255,.7); font-size: 1.1rem; max-width: 600px; margin: 0 auto 28px; }
+    .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+
+    /* ===== INTRO STRIP ===== */
+    .intro-strip {
+      background: var(--yellow);
+      padding: 20px 0;
+    }
+    .strip-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+      flex-wrap: wrap;
+    }
+    .strip-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: .88rem;
+      color: var(--black);
+      letter-spacing: .3px;
+    }
+
+    /* ===== INTRO SECTION ===== */
+    .intro-section { background: var(--white); }
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .intro-image-wrap { position: relative; border-radius: 16px; overflow: hidden; }
+    .intro-image-wrap img { width: 100%; height: 460px; object-fit: cover; border-radius: 16px; }
+    .intro-badge-float {
+      position: absolute; bottom: 20px; right: 20px;
+      background: var(--yellow);
+      color: var(--black);
+      padding: 18px 22px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: var(--shadow2);
+    }
+    .intro-badge-float .big { font-family: 'Bebas Neue', cursive; font-size: 2rem; line-height: 1; }
+    .intro-badge-float .small { font-size: .72rem; font-weight: 700; letter-spacing: 1px; }
+    .intro-text h2 { margin-bottom: 18px; color: var(--navy); }
+    .intro-text p { color: var(--muted); margin-bottom: 16px; }
+    .intro-points { margin: 20px 0 28px; display: flex; flex-direction: column; gap: 12px; }
+    .intro-point {
+      display: flex; align-items: center; gap: 12px;
+      font-size: .95rem; font-weight: 600; color: var(--text);
+    }
+    .intro-point::before {
+      content: '✓';
+      width: 26px; height: 26px; flex-shrink: 0;
+      background: rgba(245,197,24,.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--yellow);
+      font-weight: 900; font-size: .85rem;
+    }
+
+    /* ===== SYSTEMS SECTION ===== */
+    .systems-section { background: var(--gray); }
+    .systems-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .system-card {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--gray2);
+      transition: var(--transition);
+    }
+    .system-card:hover { transform: translateY(-8px); box-shadow: var(--shadow2); }
+    .system-card-img { height: 200px; overflow: hidden; position: relative; }
+    .system-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .system-card:hover .system-card-img img { transform: scale(1.06); }
+    .system-card-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(13,33,55,.7), transparent 60%);
+    }
+    .system-card-icon {
+      position: absolute; top: 14px; left: 14px;
+      width: 40px; height: 40px;
+      background: var(--yellow);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .system-card-body { padding: 22px; }
+    .system-card-body h3 { font-size: 1.15rem; margin-bottom: 10px; color: var(--navy); }
+    .system-card-body p  { color: var(--muted); font-size: .88rem; margin-bottom: 14px; line-height: 1.6; }
+    .system-tag {
+      display: inline-block;
+      background: rgba(245,197,24,.12);
+      color: var(--navy);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-right: 6px;
+      margin-bottom: 4px;
+    }
+
+    /* ===== DETAILED SERVICE BLOCK ===== */
+    .detail-section { background: var(--white); }
+    .detail-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      padding: 72px 0;
+      border-bottom: 1px solid var(--gray2);
+    }
+    .detail-block:last-of-type { border-bottom: none; }
+    .detail-block.reverse { direction: rtl; }
+    .detail-block.reverse > * { direction: ltr; }
+    .detail-img-wrap {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+    .detail-img-wrap img {
+      width: 100%; height: 400px;
+      object-fit: cover;
+      transition: transform .6s ease;
+    }
+    .detail-block:hover .detail-img-wrap img { transform: scale(1.04); }
+    .detail-badge {
+      position: absolute; top: 18px; left: 18px;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: 'Bebas Neue', cursive;
+      font-size: .95rem;
+      letter-spacing: 1.5px;
+      padding: 7px 14px;
+      border-radius: 6px;
+    }
+    .detail-content h2 { margin-bottom: 16px; color: var(--navy); }
+    .detail-content .desc { color: var(--muted); margin-bottom: 24px; font-size: 1.02rem; line-height: 1.8; }
+    .detail-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .det-feat {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: var(--gray);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: .86rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+      transition: var(--transition);
+    }
+    .det-feat:hover {
+      background: rgba(245,197,24,.12);
+      border-left: 3px solid var(--yellow);
+    }
+    .det-feat .fi { font-size: 1rem; flex-shrink: 0; }
+
+    /* ===== PROCESS SECTION ===== */
+    .process-section { background: var(--navy); }
+    .process-header { text-align: center; margin-bottom: 60px; }
+    .process-header h2 { color: var(--white); }
+    .process-header p  { color: rgba(255,255,255,.6); max-width: 560px; margin: 12px auto 0; }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 36px;
+      left: 10%; right: 10%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--yellow), rgba(245,197,24,.3));
+      z-index: 0;
+    }
+    .process-step {
+      text-align: center;
+      padding: 0 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .step-num {
+      width: 72px; height: 72px;
+      background: var(--yellow);
+      color: var(--black);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.6rem;
+      margin: 0 auto 20px;
+      box-shadow: 0 4px 16px rgba(245,197,24,.4);
+    }
+    .step-icon { font-size: 1.8rem; display: block; margin-bottom: 12px; }
+    .process-step h4 { color: var(--white); font-size: 1rem; letter-spacing: 1px; margin-bottom: 8px; }
+    .process-step p  { color: rgba(255,255,255,.55); font-size: .83rem; line-height: 1.6; }
+
+    /* ===== WHY SECTION ===== */
+    .why-cctv-section { background: var(--gray); }
+    .why-cctv-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .why-cctv-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 28px 22px;
+      text-align: center;
+      border: 1px solid var(--gray2);
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+    }
+    .why-cctv-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(245,197,24,.4);
+      box-shadow: var(--shadow2);
+    }
+    .why-cctv-icon { font-size: 2rem; margin-bottom: 14px; display: block; }
+    .why-cctv-card h4 { color: var(--navy); font-size: .95rem; letter-spacing: 1px; margin-bottom: 8px; }
+    .why-cctv-card p  { color: var(--muted); font-size: .85rem; line-height: 1.65; }
+
+    /* ===== PACKAGES SECTION ===== */
+    .packages-section { background: var(--white); }
+    .packages-header { text-align: center; margin-bottom: 48px; }
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .package-card {
+      border-radius: 18px;
+      border: 2px solid var(--gray2);
+      padding: 36px 28px;
+      position: relative;
+      transition: var(--transition);
+    }
+    .package-card:hover { border-color: var(--yellow); box-shadow: var(--shadow2); transform: translateY(-4px); }
+    .package-card.featured {
+      background: var(--navy);
+      border-color: var(--yellow);
+      color: var(--white);
+    }
+    .package-card.featured .pkg-desc,
+    .package-card.featured .pkg-feature { color: rgba(255,255,255,.65); }
+    .package-card.featured h3 { color: var(--white); }
+    .featured-tag {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--yellow);
+      color: var(--black);
+      font-size: .72rem; font-weight: 700; letter-spacing: 1.5px;
+      padding: 5px 16px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .pkg-icon { font-size: 2.2rem; margin-bottom: 14px; display: block; }
+    .package-card h3 { font-size: 1.4rem; margin-bottom: 6px; }
+    .pkg-desc { color: var(--muted); font-size: .88rem; margin-bottom: 20px; }
+    .pkg-features { margin-bottom: 28px; display: flex; flex-direction: column; gap: 10px; }
+    .pkg-feature {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .88rem; font-weight: 600; color: var(--text);
+    }
+    .pkg-feature::before {
+      content: '✓';
+      width: 20px; height: 20px; flex-shrink: 0;
+      background: rgba(245,197,24,.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--yellow);
+      font-weight: 900; font-size: .75rem;
+      margin-top: 1px;
+    }
+    .pkg-cta { display: block; text-align: center; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .systems-grid  { grid-template-columns: repeat(2, 1fr); }
+      .why-cctv-grid { grid-template-columns: repeat(2, 1fr); }
+      .packages-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .process-steps::before { display: none; }
+    }
+    @media (max-width: 768px) {
+      .cctv-hero { padding: 110px 0 60px; }
+      .intro-grid { grid-template-columns: 1fr; }
+      .intro-image-wrap img { height: 300px; }
+      .detail-block { grid-template-columns: 1fr; gap: 28px; padding: 48px 0; }
+      .detail-block.reverse { direction: ltr; }
+      .detail-img-wrap img { height: 260px; }
+      .detail-features { grid-template-columns: 1fr; }
+      .systems-grid  { grid-template-columns: 1fr; }
+      .why-cctv-grid { grid-template-columns: 1fr 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .hero-ctas { flex-direction: column; align-items: center; }
+      .hero-ctas .btn { width: 100%; max-width: 300px; justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      .why-cctv-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr; }
+      .intro-badge-float { right: 10px; bottom: 10px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ===================== NAVBAR ===================== -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">⚡</div>
+      Soltech <span>Electrical</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="cctv.html" class="active">CCTV</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="contact.html#quote" class="btn btn-yellow">⚡ Get a Quote</a>
+      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" role="navigation" aria-label="Mobile menu">
+  <a href="index.html">Home</a>
+  <a href="about.html">About Us</a>
+  <a href="services.html">Services</a>
+  <a href="cctv.html" class="active">CCTV</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html#quote" class="btn btn-yellow">⚡ Request a Quote</a>
+  <a href="https://wa.me/254110423872" class="btn btn-whatsapp" target="_blank" rel="noopener">💬 WhatsApp Us</a>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="cctv-hero">
+  <div class="container">
+    <div class="hero-inner reveal">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span>›</span>
+        <a href="services.html">Services</a>
+        <span>›</span>
+        <span style="color:var(--yellow);">CCTV Installation</span>
+      </div>
+      <span class="tag">Security Systems</span>
+      <h1>Professional CCTV<br>&amp; Security Camera<br><span style="color:var(--yellow);">Installation Kenya</span></h1>
+      <p>HD &amp; 4K cameras, night vision, remote mobile viewing, NVR/DVR systems — professionally installed and configured by Soltech Electrical's licensed team across Nairobi and 15+ counties.</p>
+      <div class="hero-ctas">
+        <a href="contact.html#quote" class="btn btn-yellow">📷 Get a Free Quote</a>
+        <a href="https://wa.me/254110423872?text=Hi%20Soltech%2C%20I%20need%20a%20CCTV%20installation%20quote" class="btn btn-whatsapp" target="_blank" rel="noopener">💬 WhatsApp Us</a>
+        <a href="tel:+254110423872" class="btn btn-outline">📞 Call Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== INTRO STRIP ===================== -->
+<div class="intro-strip">
+  <div class="container">
+    <div class="strip-inner">
+      <div class="strip-item"><span>📷</span> HD &amp; 4K Cameras</div>
+      <div class="strip-item"><span>🌙</span> Night Vision</div>
+      <div class="strip-item"><span>📱</span> Remote Mobile Access</div>
+      <div class="strip-item"><span>🛡️</span> Motion Detection &amp; Alerts</div>
+      <div class="strip-item"><span>⚡</span> Licensed &amp; Insured</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== INTRO SECTION ===================== -->
+<section class="intro-section section">
+  <div class="container">
+    <div class="intro-grid">
+      <div class="intro-image-wrap reveal-left">
+        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80" alt="CCTV camera mounted and installed" loading="lazy" />
+        <div class="intro-badge-float">
+          <div class="big">24/7</div>
+          <div class="small">Always<br>Watching</div>
+        </div>
+      </div>
+      <div class="intro-text reveal-right">
+        <span class="tag">About Our CCTV Service</span>
+        <h2>Full CCTV System Design &amp; Installation</h2>
+        <p>Security starts with seeing what's happening on your property — at any time, from anywhere. Soltech Electrical designs, supplies, and installs complete CCTV systems for homes, businesses, schools, warehouses, and estates across Kenya.</p>
+        <p>We don't just mount cameras. We assess your site, plan the optimal camera placement for maximum coverage, run all cabling neatly, configure your NVR or DVR, set up your mobile viewing app, and train you on using the system before we leave.</p>
+        <div class="intro-points">
+          <div class="intro-point">Full system design — camera placement mapped to your property</div>
+          <div class="intro-point">All cabling installed neatly and concealed where possible</div>
+          <div class="intro-point">Remote viewing configured on your phone on the day</div>
+          <div class="intro-point">12-month workmanship warranty on all installations</div>
+          <div class="intro-point">Serving Nairobi, Kiambu, Nakuru, Mombasa &amp; more</div>
+        </div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;">
+          <a href="contact.html#quote" class="btn btn-yellow">📷 Get a Free Site Survey</a>
+          <a href="https://wa.me/254110423872?text=Hi%20Soltech%2C%20I%20need%20CCTV%20installed" class="btn btn-whatsapp" target="_blank" rel="noopener">💬 WhatsApp Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CCTV SYSTEMS ===================== -->
+<section class="systems-section section">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:48px;">
+      <span class="tag">Systems We Install</span>
+      <h2 class="section-title">CCTV &amp; Camera Systems</h2>
+      <p class="section-sub">We work with proven, quality brands — advising you on the right system for your budget, property size, and security needs.</p>
+    </div>
+    <div class="systems-grid">
+
+      <div class="system-card reveal delay-1">
+        <div class="system-card-img">
+          <img src="https://images.unsplash.com/photo-1595392405051-e77de48de4c8?w=600&q=80" alt="Bullet CCTV camera outdoor" loading="lazy" />
+          <div class="system-card-img-overlay"></div>
+          <div class="system-card-icon">📷</div>
+        </div>
+        <div class="system-card-body">
+          <h3>Outdoor Bullet &amp; Dome Cameras</h3>
+          <p>Weatherproof HD and 4K cameras for perimeter coverage. Ideal for driveways, entrances, compound boundaries, and parking areas. Vandal-resistant housings available.</p>
+          <span class="system-tag">Weatherproof</span>
+          <span class="system-tag">HD / 4K</span>
+          <span class="system-tag">Night Vision</span>
+        </div>
+      </div>
+
+      <div class="system-card reveal delay-2">
+        <div class="system-card-img">
+          <img src="https://images.unsplash.com/photo-1608503396060-14f8b4a65f52?w=600&q=80" alt="Indoor security camera installation" loading="lazy" />
+          <div class="system-card-img-overlay"></div>
+          <div class="system-card-icon">🏠</div>
+        </div>
+        <div class="system-card-body">
+          <h3>Indoor Camera Systems</h3>
+          <p>Discreet dome and PTZ cameras for offices, shops, lobbies, warehouses, and homes. Monitor staff, inventory, and access points with crystal-clear footage.</p>
+          <span class="system-tag">Discreet</span>
+          <span class="system-tag">PTZ Available</span>
+          <span class="system-tag">Wide Angle</span>
+        </div>
+      </div>
+
+      <div class="system-card reveal delay-3">
+        <div class="system-card-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="NVR DVR security recorder setup" loading="lazy" />
+          <div class="system-card-img-overlay"></div>
+          <div class="system-card-icon">💾</div>
+        </div>
+        <div class="system-card-body">
+          <h3>NVR &amp; DVR Recorders</h3>
+          <p>Network Video Recorders (IP systems) and Digital Video Recorders (analogue/HD-CVI) installed and configured. Storage from 1TB up to multi-terabyte arrays for extended recording.</p>
+          <span class="system-tag">IP &amp; Analogue</span>
+          <span class="system-tag">1–30+ Days Storage</span>
+          <span class="system-tag">Remote Access</span>
+        </div>
+      </div>
+
+      <div class="system-card reveal delay-1">
+        <div class="system-card-img">
+          <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&q=80" alt="Night vision CCTV camera" loading="lazy" />
+          <div class="system-card-img-overlay"></div>
+          <div class="system-card-icon">🌙</div>
+        </div>
+        <div class="system-card-body">
+          <h3>Night Vision &amp; IR Cameras</h3>
+          <p>Infrared and full-colour night vision cameras that see clearly in complete darkness. Essential for outdoor compound security during Nairobi's low-light hours.</p>
+          <span class="system-tag">Infrared IR</span>
+          <span class="system-tag">Full Colour Night</span>
+          <span class="system-tag">30–60m Range</span>
+        </div>
+      </div>
+
+      <div class="system-card reveal delay-2">
+        <div class="system-card-img">
+          <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&q=80" alt="Remote mobile CCTV viewing app" loading="lazy" />
+          <div class="system-card-img-overlay"></div>
+          <div class="system-card-icon">📱</div>
+        </div>
+        <div class="system-card-body">
+          <h3>Remote Mobile Viewing</h3>
+          <p>View your cameras live from your smartphone, tablet, or laptop — anywhere in the world. We configure the app on your phone before we leave your site.</p>
+          <span class="system-tag">Android &amp; iOS</span>
+          <span class="system-tag">Live Streaming</span>
+          <span class="system-tag">Playback</span>
+        </div>
+      </div>
+
+      <div class="system-card reveal delay-3">
+        <div class="system-card-img">
+          <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&q=80" alt="CCTV cable installation work" loading="lazy" />
+          <div class="system-card-img-overlay"></div>
+          <div class="system-card-icon">🔧</div>
+        </div>
+        <div class="system-card-body">
+          <h3>Cable Routing &amp; Power</h3>
+          <p>Neat, concealed cable runs using conduit where needed. We handle all power connections for cameras, including PoE switches for IP systems and dedicated power outlets.</p>
+          <span class="system-tag">Concealed Cabling</span>
+          <span class="system-tag">PoE Systems</span>
+          <span class="system-tag">Surge Protection</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DETAILED SERVICES ===================== -->
+<section class="detail-section section">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:12px;">
+      <span class="tag">What's Included</span>
+      <h2 class="section-title">Our CCTV Installation Process</h2>
+    </div>
+
+    <!-- Residential -->
+    <div class="detail-block reveal-left">
+      <div class="detail-img-wrap">
+        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80" alt="Residential home CCTV camera installation" loading="lazy" />
+        <span class="detail-badge">Residential</span>
+      </div>
+      <div class="detail-content">
+        <span class="tag">Home Security</span>
+        <h2>CCTV for Homes &amp; Residential Properties</h2>
+        <p class="desc">Whether it's a maisonette in Kiambu, a gated home in Karen, or an apartment in Kilimani — we design a cost-effective CCTV system that covers your compound, gates, and entry points properly. We use discreet, weather-resistant cameras and set up remote viewing on your phone.</p>
+        <div class="detail-features">
+          <div class="det-feat"><span class="fi">📷</span> Gate &amp; entrance cameras</div>
+          <div class="det-feat"><span class="fi">🔍</span> Driveway &amp; compound coverage</div>
+          <div class="det-feat"><span class="fi">🌙</span> Night vision included</div>
+          <div class="det-feat"><span class="fi">📱</span> Phone app configured</div>
+          <div class="det-feat"><span class="fi">💾</span> 7–30 day storage options</div>
+          <div class="det-feat"><span class="fi">🔧</span> Neat, concealed cabling</div>
+        </div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;">
+          <a href="contact.html#quote" class="btn btn-yellow">📷 Get Home CCTV Quote</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Commercial -->
+    <div class="detail-block reverse reveal-right">
+      <div class="detail-img-wrap">
+        <img src="https://images.unsplash.com/photo-1595392405051-e77de48de4c8?w=800&q=80" alt="Commercial building CCTV camera system" loading="lazy" />
+        <span class="detail-badge">Commercial</span>
+      </div>
+      <div class="detail-content">
+        <span class="tag">Business Security</span>
+        <h2>CCTV for Businesses, Offices &amp; Shops</h2>
+        <p class="desc">Protect your staff, assets, and premises with a professional commercial CCTV system. We install multi-camera systems for offices, retail shops, warehouses, hotels, schools, and estates — with centralised NVR recording and secure remote access for management.</p>
+        <div class="detail-features">
+          <div class="det-feat"><span class="fi">🏢</span> Multi-camera systems (4–64+ cams)</div>
+          <div class="det-feat"><span class="fi">💾</span> NVR with large storage arrays</div>
+          <div class="det-feat"><span class="fi">🔐</span> Access-controlled viewing</div>
+          <div class="det-feat"><span class="fi">🔔</span> Motion alerts &amp; notifications</div>
+          <div class="det-feat"><span class="fi">📺</span> Monitor wall &amp; display setup</div>
+          <div class="det-feat"><span class="fi">🛡️</span> Vandal-proof camera housings</div>
+        </div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;">
+          <a href="contact.html#quote" class="btn btn-yellow">📷 Commercial CCTV Quote</a>
+          <a href="https://wa.me/254110423872?text=Hi%2C%20I%20need%20commercial%20CCTV%20installed" class="btn btn-whatsapp" target="_blank" rel="noopener">💬 WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== PROCESS ===================== -->
+<section class="process-section section">
+  <div class="container">
+    <div class="process-header reveal">
+      <span class="tag">How It Works</span>
+      <h2>From Call to Complete: Our 5-Step Process</h2>
+      <p>Getting your CCTV system installed is simple and hassle-free with Soltech.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step reveal delay-1">
+        <div class="step-num">01</div>
+        <span class="step-icon">📞</span>
+        <h4>Contact Us</h4>
+        <p>Call, WhatsApp, or fill our form. We respond within 2 hours — every time.</p>
+      </div>
+      <div class="process-step reveal delay-2">
+        <div class="step-num">02</div>
+        <span class="step-icon">🏠</span>
+        <h4>Free Site Survey</h4>
+        <p>We visit your property to map optimal camera positions for full coverage.</p>
+      </div>
+      <div class="process-step reveal delay-3">
+        <div class="step-num">03</div>
+        <span class="step-icon">📋</span>
+        <h4>Written Quote</h4>
+        <p>Clear itemised quote — camera count, equipment specs, labour. No surprises.</p>
+      </div>
+      <div class="process-step reveal delay-4">
+        <div class="step-num">04</div>
+        <span class="step-icon">📷</span>
+        <h4>Professional Install</h4>
+        <p>Our team mounts cameras, runs cabling neatly, and configures the recorder.</p>
+      </div>
+      <div class="process-step reveal delay-5">
+        <div class="step-num">05</div>
+        <span class="step-icon">📱</span>
+        <h4>Handover &amp; Training</h4>
+        <p>App set up on your phone, full walkthrough, and 12-month warranty issued.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHY CHOOSE US ===================== -->
+<section class="why-cctv-section section">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:48px;">
+      <span class="tag">Why Choose Soltech</span>
+      <h2 class="section-title">The Soltech CCTV Difference</h2>
+      <p class="section-sub">We're not a camera shop — we're licensed electricians who install complete, properly working systems that protect your property for years.</p>
+    </div>
+    <div class="why-cctv-grid">
+      <div class="why-cctv-card reveal delay-1">
+        <span class="why-cctv-icon">🏅</span>
+        <h4>Licensed Electricians</h4>
+        <p>All installations are done by ERC-licensed electricians — not untrained technicians. Your wiring is safe and compliant.</p>
+      </div>
+      <div class="why-cctv-card reveal delay-2">
+        <span class="why-cctv-icon">📍</span>
+        <h4>Proper Site Planning</h4>
+        <p>We survey first, design your camera layout for maximum coverage, then install — no guesswork, no blind spots.</p>
+      </div>
+      <div class="why-cctv-card reveal delay-3">
+        <span class="why-cctv-icon">📱</span>
+        <h4>Remote Access Set Up</h4>
+        <p>We configure your phone app on the day — you leave with a fully working, accessible system, not just hardware on a wall.</p>
+      </div>
+      <div class="why-cctv-card reveal delay-4">
+        <span class="why-cctv-icon">🛡️</span>
+        <h4>12-Month Warranty</h4>
+        <p>Every installation comes with a full workmanship warranty. If something isn't right, we come back — free of charge.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PACKAGES ===================== -->
+<section class="packages-section section">
+  <div class="container">
+    <div class="packages-header reveal">
+      <span class="tag">Typical Packages</span>
+      <h2 class="section-title">CCTV Package Guide</h2>
+      <p class="section-sub">Prices vary by site and equipment — get a free survey for an exact quote. The guide below gives you a starting point.</p>
+    </div>
+    <div class="packages-grid">
+      <div class="package-card reveal delay-1">
+        <span class="pkg-icon">🏠</span>
+        <h3>Home Starter</h3>
+        <p class="pkg-desc">4-camera system, ideal for standard residential homes and small properties.</p>
+        <div class="pkg-features">
+          <div class="pkg-feature">4 HD outdoor cameras</div>
+          <div class="pkg-feature">4-channel DVR / NVR</div>
+          <div class="pkg-feature">1TB hard drive (7–14 days)</div>
+          <div class="pkg-feature">Night vision on all cameras</div>
+          <div class="pkg-feature">Mobile app setup included</div>
+          <div class="pkg-feature">Full cabling &amp; installation</div>
+        </div>
+        <a href="contact.html#quote" class="btn btn-navy pkg-cta">Get Quote →</a>
+      </div>
+
+      <div class="package-card featured reveal delay-2">
+        <div class="featured-tag">Most Popular</div>
+        <span class="pkg-icon">🏘️</span>
+        <h3>Home Pro</h3>
+        <p class="pkg-desc">8-camera system for larger homes, gated compounds, and small businesses.</p>
+        <div class="pkg-features">
+          <div class="pkg-feature">8 HD / 2MP cameras (mix indoor &amp; outdoor)</div>
+          <div class="pkg-feature">8-channel NVR recorder</div>
+          <div class="pkg-feature">2TB hard drive (14–21 days)</div>
+          <div class="pkg-feature">Night vision &amp; motion detection</div>
+          <div class="pkg-feature">Mobile app + email alerts</div>
+          <div class="pkg-feature">Full cabling, concealed runs</div>
+        </div>
+        <a href="contact.html#quote" class="btn btn-yellow pkg-cta">Get Quote →</a>
+      </div>
+
+      <div class="package-card reveal delay-3">
+        <span class="pkg-icon">🏢</span>
+        <h3>Commercial</h3>
+        <p class="pkg-desc">16+ cameras for offices, warehouses, schools, shops, and large estates.</p>
+        <div class="pkg-features">
+          <div class="pkg-feature">16–64 camera capacity</div>
+          <div class="pkg-feature">16/32-channel NVR + large HDD</div>
+          <div class="pkg-feature">4K &amp; PTZ camera options</div>
+          <div class="pkg-feature">30+ day storage options</div>
+          <div class="pkg-feature">Multi-user remote access</div>
+          <div class="pkg-feature">Full site design &amp; project managed</div>
+        </div>
+        <a href="contact.html#quote" class="btn btn-navy pkg-cta">Get Quote →</a>
+      </div>
+    </div>
+    <p class="text-center reveal" style="margin-top:32px;color:var(--muted);font-size:.88rem;">
+      All prices include equipment supply, installation, configuration, and mobile app setup. M-Pesa accepted. Free site survey before any commitment.
+    </p>
+  </div>
+</section>
+
+<!-- ===================== CTA ===================== -->
+<section class="cta-section">
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="reveal">
+      <span class="tag">Secure Your Property</span>
+      <h2>Ready to Install Your CCTV System?</h2>
+      <p>Get a free site survey and written quote — no obligation. We respond within 2 hours.</p>
+      <div class="cta-buttons">
+        <a href="contact.html#quote" class="btn btn-yellow">📷 Request a Free Quote</a>
+        <a href="https://wa.me/254110423872?text=Hi%20Soltech%2C%20I%20need%20a%20CCTV%20installation%20quote" class="btn btn-whatsapp" target="_blank" rel="noopener">💬 WhatsApp Us Now</a>
+        <a href="tel:+254110423872" class="btn btn-outline">📞 +254 110 423 872</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <div class="logo-icon">⚡</div>
+          Soltech <span>Electrical</span>
+        </div>
+        <p class="footer-tagline">Professional electrical installation, solar systems, CCTV, lighting solutions, and electrical fencing across Kenya. Licensed, certified, and trusted.</p>
+        <div class="footer-badges">
+          <div class="footer-badge mpesa">✓ M-Pesa Accepted</div>
+          <div class="footer-badge">ERC Licensed</div>
+          <div class="footer-badge">NCA Registered</div>
+        </div>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Instagram">in</a>
+          <a href="https://wa.me/254110423872" aria-label="WhatsApp">W</a>
+          <a href="#" aria-label="Twitter/X">X</a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Our Services</h4>
+        <ul class="footer-links">
+          <li><a href="services.html#installation">Electrical Installation</a></li>
+          <li><a href="services.html#maintenance">Repair &amp; Maintenance</a></li>
+          <li><a href="services.html#solar">Solar Systems</a></li>
+          <li><a href="services.html#lighting">Lighting Solutions</a></li>
+          <li><a href="services.html#fencing">Electrical Fencing</a></li>
+          <li><a href="cctv.html">CCTV Installation</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact Us</h4>
+        <ul class="footer-contact-list">
+          <li>
+            <div class="icon">📞</div>
+            <div><a href="tel:+254110423872" style="color:rgba(255,255,255,.75);">+254 110 423 872</a></div>
+          </li>
+          <li>
+            <div class="icon">💬</div>
+            <div><a href="https://wa.me/254110423872" target="_blank" style="color:rgba(255,255,255,.75);">WhatsApp Us</a></div>
+          </li>
+          <li>
+            <div class="icon">✉️</div>
+            <div><a href="mailto:info@soltechelectrical.co.ke" style="color:rgba(255,255,255,.75);">info@soltechelectrical.co.ke</a></div>
+          </li>
+          <li>
+            <div class="icon">📍</div>
+            <div>Nairobi, Kenya<br><small style="color:rgba(255,255,255,.4);">Serving 15+ counties</small></div>
+          </li>
+          <li>
+            <div class="icon">🕐</div>
+            <div>Mon–Sat: 7am – 7pm<br><small style="color:rgba(255,255,255,.4);">Emergency: 24/7</small></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Soltech Electrical. All rights reserved.</span>
+      <span>Built with ⚡ in Kenya</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== FLOATING WHATSAPP ===================== -->
+<div class="whatsapp-float">
+  <div class="whatsapp-tooltip">Chat on WhatsApp</div>
+  <a href="https://wa.me/254110423872" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
