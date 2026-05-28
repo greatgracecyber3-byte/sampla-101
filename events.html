@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Events &amp; Media — EEWM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:wght@300;400;600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --plum:    #1E0A3C;
+      --ivory:   #F9F4EC;
+      --gold:    #C9A84C;
+      --rose:    #C4846A;
+      --charcoal:#2A2A2A;
+      --gold-light: #e0c070;
+      --plum-mid: #2d1255;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Nunito Sans', sans-serif;
+      background: var(--ivory);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    /* ══════════════════════════════
+       NAVIGATION
+    ══════════════════════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(30, 10, 60, 0.97);
+      backdrop-filter: blur(10px);
+      padding: 0 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+      border-bottom: 1px solid rgba(201,168,76,0.25);
+    }
+    .nav-logo {
+      font-family: 'Cinzel', serif;
+      color: var(--gold); font-size: 1.1rem;
+      letter-spacing: 0.12em; text-decoration: none; font-weight: 700;
+    }
+    .nav-logo span { display: block; font-size: 0.55rem; color: var(--gold-light); letter-spacing: 0.28em; font-weight: 400; margin-top: 2px; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Cinzel', serif; font-size: 0.72rem;
+      letter-spacing: 0.15em; color: var(--ivory);
+      text-decoration: none; text-transform: uppercase;
+      position: relative; padding-bottom: 4px; transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; left: 0; bottom: 0;
+      width: 0; height: 1.5px; background: var(--gold); transition: width 0.35s ease;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { color: var(--gold); }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); border-radius: 2px; transition: all 0.3s; }
+    .mobile-menu {
+      display: none; position: fixed; top: 68px; left: 0; right: 0;
+      background: rgba(30,10,60,0.98); flex-direction: column;
+      padding: 2rem; gap: 1.5rem; z-index: 999;
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.2em;
+      color: var(--ivory); text-decoration: none; text-transform: uppercase;
+      padding-bottom: 6px; border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+    .mobile-menu a.active, .mobile-menu a:hover { color: var(--gold); }
+    @media(max-width:768px){ .nav-links { display: none; } .hamburger { display: flex; } }
+
+    /* ══════════════════════════════
+       PAGE HERO (SHORT)
+    ══════════════════════════════ */
+    .page-hero {
+      background: linear-gradient(135deg, #1E0A3C 0%, #2d1255 50%, #1a1040 100%);
+      padding: 9rem 2rem 5rem;
+      position: relative; overflow: hidden;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 60px), 0 100%);
+      margin-bottom: -30px;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(ellipse at 15% 60%, rgba(201,168,76,0.1) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 30%, rgba(196,132,106,0.08) 0%, transparent 50%);
+    }
+    /* decorative circle */
+    .page-hero::after {
+      content: '';
+      position: absolute; right: -5vw; top: 50%; transform: translateY(-50%);
+      width: 40vw; height: 40vw; max-width: 480px; max-height: 480px;
+      border: 1px solid rgba(201,168,76,0.1); border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-deco-line {
+      position: absolute; top: -50%; left: 60%;
+      width: 1px; height: 200%;
+      background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.15), transparent);
+      transform: rotate(12deg); pointer-events: none;
+    }
+    .page-hero-inner {
+      max-width: 1100px; margin: 0 auto; position: relative; z-index: 2;
+    }
+    .page-hero-label {
+      font-family: 'Cinzel', serif; font-size: 0.65rem;
+      letter-spacing: 0.4em; color: var(--gold); text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .page-hero-label::before { content: ''; display: block; width: 36px; height: 1px; background: var(--gold); }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      font-weight: 900; color: var(--ivory); line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .page-hero h1 em { font-style: italic; color: var(--gold); }
+    .page-hero-sub {
+      font-family: 'Libre Baskerville', serif;
+      font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+      color: rgba(249,244,236,0.7); line-height: 1.8;
+      max-width: 560px;
+    }
+    /* Breadcrumb */
+    .page-hero-img {
+      position: absolute; right: 0; top: 0; bottom: 0; width: 42%;
+      opacity: 0.2;
+    }
+    .page-hero-img .img-placeholder {
+      height: 100%; width: 100%;
+    }
+
+    /* ══════════════════════════════
+       SHARED SECTION STYLES
+    ══════════════════════════════ */
+    section { position: relative; }
+
+    .section-label {
+      font-family: 'Cinzel', serif; font-size: 0.65rem;
+      letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+      font-weight: 700; color: var(--plum); margin-bottom: 0.5rem;
+    }
+    .section-title-ivory { color: var(--ivory); }
+    .section-rule {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1rem; margin-bottom: 1rem;
+    }
+    .section-rule::before, .section-rule::after {
+      content: ''; flex: 1; max-width: 80px; height: 1px; background: var(--gold);
+    }
+    .section-header { text-align: center; margin-bottom: 3.5rem; }
+
+    .clip-bottom-right { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 60px), 0 100%); margin-bottom: -30px; }
+    .clip-top-left { clip-path: polygon(0 60px, 100% 0, 100% 100%, 0 100%); margin-top: -30px; padding-top: calc(30px + 5rem); }
+
+    .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+    .stagger-3 { transition-delay: 0.3s; }
+    .stagger-4 { transition-delay: 0.4s; }
+    .stagger-5 { transition-delay: 0.5s; }
+    .stagger-6 { transition-delay: 0.6s; }
+
+    .img-placeholder {
+      background: linear-gradient(135deg, #f0e8d0 0%, #e8dab8 100%);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(30,10,60,0.35);
+      font-family: 'Cinzel', serif; font-size: 0.6rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      text-align: center; padding: 1rem;
+    }
+    .img-placeholder-dark {
+      background: linear-gradient(135deg, #2a1a48 0%, #1E0A3C 100%);
+      color: rgba(201,168,76,0.35);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'Cinzel', serif; font-size: 0.68rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer;
+      padding: 0.8rem 1.7rem;
+      border: 1.5px solid var(--gold);
+      transition: background 0.3s, color 0.3s;
+    }
+    .btn-gold { background: var(--gold); color: var(--plum); }
+    .btn-gold:hover { background: transparent; color: var(--gold); }
+    .btn-outline { background: transparent; color: var(--ivory); }
+    .btn-outline:hover { background: var(--gold); color: var(--plum); }
+    .btn-outline-plum { background: transparent; color: var(--plum); border-color: var(--plum); }
+    .btn-outline-plum:hover { background: var(--plum); color: var(--ivory); }
+    .btn-whatsapp { background: #25D366; border-color: #25D366; color: #fff; }
+    .btn-whatsapp:hover { background: transparent; color: #25D366; border-color: #25D366; }
+    .btn-youtube { background: #FF0000; border-color: #FF0000; color: #fff; }
+    .btn-youtube:hover { background: transparent; color: #FF0000; border-color: #FF0000; }
+    .btn-group { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+    /* ══════════════════════════════
+       SECOND SATURDAY FLAGSHIP
+    ══════════════════════════════ */
+    .flagship-section {
+      background: var(--plum);
+      padding: 7rem 2rem;
+    }
+    .flagship-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: center;
+    }
+    .flagship-text .section-title { color: var(--ivory); }
+    .flagship-text p {
+      font-size: 1rem; line-height: 1.85;
+      color: rgba(249,244,236,0.75); margin-bottom: 1.5rem;
+    }
+    .flagship-text .scripture {
+      font-family: 'Libre Baskerville', serif; font-style: italic;
+      color: var(--gold-light); font-size: 0.92rem;
+      border-left: 2px solid var(--gold); padding-left: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Pulsing card */
+    .flagship-card {
+      background: rgba(201,168,76,0.06);
+      border: 1.5px solid var(--gold);
+      padding: 2.5rem; position: relative;
+      animation: pulse-border 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse-border {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); }
+      50% { box-shadow: 0 0 0 12px rgba(201,168,76,0.12), 0 0 30px rgba(201,168,76,0.08); }
+    }
+    .flagship-card::before {
+      content: 'FLAGSHIP EVENT';
+      font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.4em;
+      color: var(--gold); position: absolute; top: -10px; left: 1.5rem;
+      background: var(--plum); padding: 0 0.75rem;
+    }
+    .flagship-card .event-name {
+      font-family: 'Playfair Display', serif; font-size: 1.9rem;
+      color: var(--ivory); font-weight: 700; line-height: 1.2; margin-bottom: 0.5rem;
+    }
+    .flagship-card .event-date {
+      font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.2em;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 1.2rem;
+    }
+    .flagship-card .event-desc {
+      font-size: 0.92rem; color: rgba(249,244,236,0.7); line-height: 1.7; margin-bottom: 1.8rem;
+    }
+    .flagship-card .event-meta {
+      display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.8rem;
+    }
+    .flagship-card .event-meta span {
+      font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.12em;
+      color: rgba(201,168,76,0.8); text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    /* Next date highlight badge */
+    .next-date-badge {
+      display: inline-block;
+      background: var(--gold); color: var(--plum);
+      font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em;
+      padding: 0.3rem 0.8rem; text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    @media(max-width: 860px){ .flagship-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+    /* ══════════════════════════════
+       UPCOMING EVENTS GRID
+    ══════════════════════════════ */
+    .upcoming-section {
+      background: var(--ivory);
+      padding: 6rem 2rem 7rem;
+    }
+    .events-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+    }
+    .event-card {
+      background: #fff;
+      border-top: 3px solid var(--gold);
+      overflow: hidden;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      position: relative;
+    }
+    .event-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(30,10,60,0.12), 0 0 0 1.5px var(--gold);
+    }
+    .event-card-img { width: 100%; height: 200px; }
+    .event-card-body { padding: 1.8rem; }
+    .event-card-date {
+      font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.25em;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 0.6rem;
+    }
+    .event-card-title {
+      font-family: 'Playfair Display', serif; font-size: 1.3rem;
+      font-weight: 700; color: var(--plum); line-height: 1.3; margin-bottom: 0.7rem;
+    }
+    .event-card-desc {
+      font-size: 0.88rem; line-height: 1.7;
+      color: rgba(42,42,42,0.7); margin-bottom: 1.2rem;
+    }
+    .event-card-meta {
+      font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.1em;
+      color: rgba(30,10,60,0.55); text-transform: uppercase; margin-bottom: 1.3rem;
+      display: flex; flex-direction: column; gap: 0.3rem;
+    }
+    .event-tag {
+      display: inline-block; background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.3);
+      font-family: 'Cinzel', serif; font-size: 0.55rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); padding: 0.25rem 0.6rem;
+      position: absolute; top: 1rem; right: 1rem;
+    }
+
+    @media(max-width: 860px){ .events-grid { grid-template-columns: 1fr; } }
+    @media(min-width: 560px) and (max-width: 860px){ .events-grid { grid-template-columns: 1fr 1fr; } }
+
+    /* ══════════════════════════════
+       PAST EVENTS / RECAPS
+    ══════════════════════════════ */
+    .past-section {
+      background: linear-gradient(135deg, var(--plum) 0%, #2d1255 50%, var(--plum-mid) 100%);
+      padding: 6rem 2rem;
+      clip-path: polygon(0 40px, 100% 0, 100% calc(100% - 40px), 0 100%);
+      margin: -20px 0;
+      padding-top: calc(40px + 5rem);
+    }
+    .past-section .section-title { color: var(--ivory); }
+    .past-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+    }
+    .past-card {
+      position: relative; overflow: hidden;
+      border: 1px solid rgba(201,168,76,0.2);
+      transition: border-color 0.35s;
+    }
+    .past-card:hover { border-color: var(--gold); }
+    .past-card-img { width: 100%; height: 260px; }
+    .past-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(30,10,60,0.92) 0%, rgba(30,10,60,0.2) 60%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 1.8rem;
+    }
+    .past-card-tag {
+      font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.3em;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 0.5rem;
+    }
+    .past-card-title {
+      font-family: 'Playfair Display', serif; font-size: 1.25rem;
+      font-weight: 700; color: var(--ivory); line-height: 1.3; margin-bottom: 1rem;
+    }
+    @media(max-width: 700px){ .past-grid { grid-template-columns: 1fr; } }
+
+    /* ══════════════════════════════
+       SERMON ARCHIVE
+    ══════════════════════════════ */
+    .sermons-section {
+      background: var(--ivory);
+      padding: 6rem 2rem 7rem;
+    }
+    .sermons-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+    }
+    .sermon-card {
+      background: #fff; overflow: hidden;
+      border: 1px solid rgba(201,168,76,0.15);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+    .sermon-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 45px rgba(30,10,60,0.1), 0 0 0 1.5px var(--gold);
+    }
+    .sermon-thumb {
+      width: 100%; height: 180px;
+      position: relative;
+    }
+    .sermon-thumb .img-placeholder { height: 100%; width: 100%; }
+    /* Play button overlay */
+    .sermon-thumb::after {
+      content: '▶';
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; color: rgba(249,244,236,0.85);
+      background: rgba(30,10,60,0.45);
+      transition: background 0.3s;
+    }
+    .sermon-card:hover .sermon-thumb::after { background: rgba(30,10,60,0.65); }
+    .sermon-card:hover .sermon-thumb::after { color: var(--gold); }
+    .sermon-body { padding: 1.5rem; }
+    .sermon-series {
+      font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.3em;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 0.5rem;
+    }
+    .sermon-title {
+      font-family: 'Playfair Display', serif; font-size: 1.15rem;
+      font-weight: 700; color: var(--plum); line-height: 1.35; margin-bottom: 0.5rem;
+    }
+    .sermon-speaker {
+      font-family: 'Libre Baskerville', serif; font-style: italic;
+      font-size: 0.82rem; color: rgba(42,42,42,0.55); margin-bottom: 0.4rem;
+    }
+    .sermon-date {
+      font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.15em;
+      color: rgba(201,168,76,0.7); text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .sermon-scripture {
+      font-family: 'Libre Baskerville', serif; font-style: italic;
+      font-size: 0.78rem; color: var(--gold);
+      border-top: 1px solid rgba(201,168,76,0.2); padding-top: 0.8rem;
+      margin-bottom: 1rem;
+    }
+    @media(max-width: 860px){ .sermons-grid { grid-template-columns: 1fr; } }
+    @media(min-width: 560px) and (max-width: 860px){ .sermons-grid { grid-template-columns: 1fr 1fr; } }
+
+    /* ══════════════════════════════
+       PHOTO GALLERY (MASONRY)
+    ══════════════════════════════ */
+    .gallery-section {
+      background: var(--plum);
+      padding: 6rem 2rem;
+      clip-path: polygon(0 40px, 100% 0, 100% 100%, 0 100%);
+      margin-top: -20px;
+      padding-top: calc(40px + 5rem);
+    }
+    .gallery-section .section-title { color: var(--ivory); }
+    .gallery-section .section-label { color: var(--gold-light); }
+
+    .gallery-masonry {
+      max-width: 1100px; margin: 0 auto;
+      columns: 3; gap: 1rem;
+    }
+    .gallery-item {
+      break-inside: avoid; margin-bottom: 1rem;
+      overflow: hidden; position: relative;
+      border: 1px solid rgba(201,168,76,0.15);
+      transition: border-color 0.35s;
+      cursor: pointer;
+    }
+    .gallery-item:hover { border-color: var(--gold); }
+    .gallery-item .img-placeholder {
+      width: 100%; display: block;
+      background: linear-gradient(135deg, #2a1a48 0%, #1E0A3C 100%);
+      color: rgba(201,168,76,0.3);
+    }
+    .gallery-item:nth-child(1) .img-placeholder { height: 260px; }
+    .gallery-item:nth-child(2) .img-placeholder { height: 200px; }
+    .gallery-item:nth-child(3) .img-placeholder { height: 300px; }
+    .gallery-item:nth-child(4) .img-placeholder { height: 220px; }
+    .gallery-item:nth-child(5) .img-placeholder { height: 280px; }
+    .gallery-item:nth-child(6) .img-placeholder { height: 240px; }
+    .gallery-item-overlay {
+      position: absolute; inset: 0;
+      background: rgba(30,10,60,0.0);
+      transition: background 0.35s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gallery-item:hover .gallery-item-overlay { background: rgba(30,10,60,0.55); }
+    .gallery-item-overlay span {
+      font-family: 'Cinzel', serif; font-size: 0.6rem;
+      letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase;
+      opacity: 0; transition: opacity 0.35s;
+    }
+    .gallery-item:hover .gallery-item-overlay span { opacity: 1; }
+
+    @media(max-width: 768px){ .gallery-masonry { columns: 2; } }
+    @media(max-width: 480px){ .gallery-masonry { columns: 1; } }
+
+    /* ══════════════════════════════
+       GATHERING VENUE SECTION
+    ══════════════════════════════ */
+    .venue-section {
+      background: var(--ivory);
+      padding: 6rem 2rem;
+    }
+    .venue-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: center;
+    }
+    .venue-img-wrap { position: relative; }
+    .venue-img-wrap .img-placeholder { height: 380px; width: 100%; }
+    .venue-img-wrap::after {
+      content: '';
+      position: absolute; top: 16px; left: 16px;
+      right: -16px; bottom: -16px;
+      border: 1.5px solid var(--gold);
+      z-index: -1; pointer-events: none;
+    }
+    .venue-info .section-title { margin-bottom: 1rem; }
+    .venue-info p {
+      font-size: 0.95rem; line-height: 1.85;
+      color: rgba(42,42,42,0.72); margin-bottom: 1.2rem;
+    }
+    .venue-details {
+      display: flex; flex-direction: column; gap: 0.7rem;
+      margin-bottom: 2rem;
+    }
+    .venue-detail {
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      font-size: 0.88rem; color: rgba(42,42,42,0.75);
+    }
+    .venue-detail-icon {
+      font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.1em;
+      color: var(--gold); text-transform: uppercase; min-width: 80px; margin-top: 2px;
+    }
+    @media(max-width: 860px){ .venue-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+    /* ══════════════════════════════
+       CTA STRIP
+    ══════════════════════════════ */
+    .cta-strip {
+      background: linear-gradient(90deg, #1E0A3C 0%, #2d1255 50%, #1E0A3C 100%);
+      padding: 3.5rem 2rem;
+      text-align: center; border-top: 1px solid rgba(201,168,76,0.2);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+    .cta-strip h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      color: var(--ivory); margin-bottom: 0.5rem;
+    }
+    .cta-strip h3 em { font-style: italic; color: var(--gold); }
+    .cta-strip p {
+      font-family: 'Libre Baskerville', serif; font-style: italic;
+      color: rgba(249,244,236,0.6); font-size: 0.9rem; margin-bottom: 2rem;
+    }
+
+    /* ══════════════════════════════
+       FOOTER
+    ══════════════════════════════ */
+    footer {
+      background: var(--charcoal);
+      padding: 4rem 2rem 0;
+      margin-top: 30px;
+    }
+    .footer-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem;
+      padding-bottom: 3rem;
+    }
+    .footer-logo {
+      font-family: 'Cinzel', serif; font-size: 1.1rem;
+      font-weight: 700; color: var(--gold); letter-spacing: 0.1em;
+      text-decoration: none; display: block; margin-bottom: 0.5rem;
+    }
+    .footer-tagline {
+      font-family: 'Libre Baskerville', serif; font-style: italic;
+      font-size: 0.82rem; color: rgba(249,244,236,0.5);
+      line-height: 1.6; margin-top: 0.5rem;
+    }
+    .footer-heading {
+      font-family: 'Cinzel', serif; font-size: 0.62rem;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.2rem;
+      padding-bottom: 0.5rem; border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.6rem; }
+    .footer-links a {
+      font-size: 0.85rem; color: rgba(249,244,236,0.6);
+      text-decoration: none; transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .social-icons { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+    .social-icon {
+      width: 36px; height: 36px; border: 1px solid rgba(201,168,76,0.3);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(249,244,236,0.6); font-size: 0.8rem;
+      text-decoration: none; transition: all 0.3s;
+    }
+    .social-icon:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.1); }
+    .email-capture { display: flex; flex-direction: column; gap: 0.7rem; }
+    .email-capture input {
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(201,168,76,0.25);
+      color: var(--ivory); padding: 0.6rem 0.9rem; font-family: 'Nunito Sans', sans-serif;
+      font-size: 0.85rem; outline: none; transition: border-color 0.3s;
+    }
+    .email-capture input::placeholder { color: rgba(249,244,236,0.35); }
+    .email-capture input:focus { border-color: var(--gold); }
+    .email-capture button {
+      font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.18em;
+      text-transform: uppercase; cursor: pointer;
+      padding: 0.65rem; background: var(--gold); color: var(--plum);
+      border: none; transition: background 0.3s, color 0.3s;
+    }
+    .email-capture button:hover { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
+    .footer-bottom {
+      border-top: 1px solid rgba(201,168,76,0.2);
+      padding: 1.2rem 0;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .footer-bottom p {
+      font-family: 'Cinzel', serif; font-size: 0.6rem;
+      letter-spacing: 0.12em; color: rgba(249,244,236,0.35);
+    }
+    @media(max-width: 860px){ .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media(max-width: 480px){ .footer-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     NAVIGATION
+══════════════════════════════ -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">EEWM<span>Eternal Excellencies Women Ministry</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="events.html" class="active">Events &amp; Media</a></li>
+    <li><a href="bookstore.html">Bookstore</a></li>
+    <li><a href="join.html">Join Us</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="about.html">About Us</a>
+  <a href="events.html" class="active">Events &amp; Media</a>
+  <a href="bookstore.html">Bookstore</a>
+  <a href="join.html">Join Us</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE HERO
+══════════════════════════════ -->
+<section class="page-hero">
+  <div class="hero-deco-line"></div>
+  <div class="page-hero-img">
+    <div class="img-placeholder img-placeholder-dark" data-label="events-hero.jpg" style="height:100%;">events-hero.jpg</div>
+  </div>
+  <div class="page-hero-inner">
+    <p class="page-hero-label">Gather. Worship. Grow.</p>
+    <h1>Events &amp; <em>Media</em></h1>
+    <p class="page-hero-sub">Every gathering is a divine appointment. Join us for the Second Saturday, special events, and explore our library of messages that will stir your faith.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     SECOND SATURDAY FLAGSHIP
+══════════════════════════════ -->
+<section class="flagship-section clip-top-left" id="flagship">
+  <div class="flagship-inner">
+    <div class="flagship-text fade-up">
+      <p class="section-label">&#9670; Monthly Gathering</p>
+      <h2 class="section-title">The Second Saturday<br />Experience</h2>
+      <p>Every Second Saturday, the EEWM family gathers for an encounter that goes beyond a regular meeting. Through worship that breaks chains, teaching that transforms minds, and fellowship that heals hearts — you leave different.</p>
+      <p>No matter where you are in your journey with God, there is a seat for you at this table. Come as you are and watch what God does.</p>
+      <p class="scripture">"And let us not neglect our meeting together, as some people do, but encourage one another." — Hebrews 10:25</p>
+      <div class="btn-group">
+        <a href="https://wa.me/254790822347?text=Hello%2C%20I%27d%20like%20to%20attend%20the%20next%20Second%20Saturday%20gathering." class="btn btn-whatsapp" target="_blank" rel="noopener">
+          &#128172; WhatsApp to Confirm
+        </a>
+        <a href="https://maps.google.com/?q=Kingdom+Envoys+Ministries+Nairobi" class="btn btn-outline" target="_blank" rel="noopener">
+          &#128205; Get Directions
+        </a>
+      </div>
+    </div>
+
+    <div class="flagship-card fade-up stagger-2">
+      <p class="event-name">Second Saturday</p>
+      <span class="next-date-badge">&#9670; Recurring Monthly</span>
+      <p class="event-date">&#9670; Every 2nd Saturday of the Month</p>
+      <p class="event-desc">A powerful gathering of women united in faith — featuring worship, teaching, testimonies, and community. You will not leave the same way you came.</p>
+      <div class="event-meta">
+        <span>&#128336; 9:00 AM — 1:00 PM</span>
+        <span>&#127968; Kingdom Envoys Ministries, Nairobi</span>
+        <span>&#128222; 0790822347</span>
+        <span>&#9993; eternalexcellencies@gmail.com</span>
+        <span>&#128722; Free Entry — All Welcome</span>
+      </div>
+      <div class="btn-group">
+        <a href="https://wa.me/254790822347?text=I%20want%20to%20attend%20the%20next%20Second%20Saturday%20gathering." class="btn btn-gold" target="_blank" rel="noopener">Reserve My Spot</a>
+        <a href="#upcoming" class="btn btn-outline">All Events ↓</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     UPCOMING EVENTS
+══════════════════════════════ -->
+<section class="upcoming-section clip-bottom-right" id="upcoming">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-header fade-up">
+      <p class="section-label">&#9670; Coming Up</p>
+      <div class="section-rule">
+        <h2 class="section-title">Upcoming Events</h2>
+      </div>
+      <p style="font-size:0.95rem;color:rgba(42,42,42,0.6);max-width:520px;margin:0 auto;line-height:1.75;">Don't miss what God is doing through EEWM. Mark your calendar and come ready to receive.</p>
+    </div>
+
+    <div class="events-grid">
+      <!-- Event 1 -->
+      <div class="event-card fade-up stagger-1">
+        <div class="event-card-img img-placeholder" data-label="event-1.jpg">event-1.jpg</div>
+        <span class="event-tag">Special Event</span>
+        <div class="event-card-body">
+          <p class="event-card-date">&#9670; July 12, 2025</p>
+          <h3 class="event-card-title">Women of Worth Conference</h3>
+          <p class="event-card-desc">A full-day conference celebrating the God-given worth of every woman. Keynote speakers, breakout sessions, worship, and a marketplace of inspiration.</p>
+          <div class="event-card-meta">
+            <span>&#128336; 8:00 AM — 5:00 PM</span>
+            <span>&#127968; Kingdom Envoys Ministries, Nairobi</span>
+          </div>
+          <a href="https://wa.me/254790822347?text=I%27m%20interested%20in%20the%20Women%20of%20Worth%20Conference." class="btn btn-gold" style="font-size:0.62rem;padding:0.7rem 1.4rem;" target="_blank" rel="noopener">Register via WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- Event 2 -->
+      <div class="event-card fade-up stagger-2">
+        <div class="event-card-img img-placeholder" data-label="event-2.jpg">event-2.jpg</div>
+        <span class="event-tag">Monthly</span>
+        <div class="event-card-body">
+          <p class="event-card-date">&#9670; August 9, 2025</p>
+          <h3 class="event-card-title">Second Saturday — August Gathering</h3>
+          <p class="event-card-desc">Our beloved monthly gathering returns. Come with expectation. The theme this month: "Daughters of Promise — Walking in Your Inheritance."</p>
+          <div class="event-card-meta">
+            <span>&#128336; 9:00 AM — 1:00 PM</span>
+            <span>&#127968; Kingdom Envoys Ministries, Nairobi</span>
+          </div>
+          <a href="https://wa.me/254790822347?text=I%27d%20like%20to%20attend%20the%20August%20Second%20Saturday." class="btn btn-gold" style="font-size:0.62rem;padding:0.7rem 1.4rem;" target="_blank" rel="noopener">Confirm Attendance</a>
+        </div>
+      </div>
+
+      <!-- Event 3 -->
+      <div class="event-card fade-up stagger-3">
+        <div class="event-card-img img-placeholder" data-label="event-3.jpg">event-3.jpg</div>
+        <span class="event-tag">Workshop</span>
+        <div class="event-card-body">
+          <p class="event-card-date">&#9670; September 20, 2025</p>
+          <h3 class="event-card-title">Faith &amp; Finance Workshop</h3>
+          <p class="event-card-desc">Practical wisdom on stewardship, entrepreneurship, and building a life of biblical financial excellence. Facilitated by EEWM leadership and special guests.</p>
+          <div class="event-card-meta">
+            <span>&#128336; 10:00 AM — 3:00 PM</span>
+            <span>&#127968; Venue TBC — Nairobi</span>
+          </div>
+          <a href="https://wa.me/254790822347?text=I%27m%20interested%20in%20the%20Faith%20and%20Finance%20Workshop." class="btn btn-gold" style="font-size:0.62rem;padding:0.7rem 1.4rem;" target="_blank" rel="noopener">Express Interest</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     GATHERING VENUE
+══════════════════════════════ -->
+<section class="venue-section clip-top-left" id="venue">
+  <div class="venue-inner">
+    <div class="venue-img-wrap fade-up">
+      <div class="img-placeholder" data-label="gathering-venue.jpg" style="height:380px;width:100%;">gathering-venue.jpg</div>
+    </div>
+    <div class="venue-info fade-up stagger-2">
+      <p class="section-label">&#9670; Where We Gather</p>
+      <h2 class="section-title">Kingdom Envoys<br />Ministries</h2>
+      <p>Our gathering place is more than a venue — it is holy ground where women encounter the living God. Located in the heart of Nairobi, it is accessible, welcoming, and filled with the presence of the Spirit each time we gather.</p>
+      <div class="venue-details">
+        <div class="venue-detail">
+          <span class="venue-detail-icon">Address</span>
+          <span>Kingdom Envoys Ministries, Nairobi, Kenya</span>
+        </div>
+        <div class="venue-detail">
+          <span class="venue-detail-icon">Phone</span>
+          <span><a href="tel:+254790822347" style="color:var(--plum);text-decoration:none;">0790822347</a></span>
+        </div>
+        <div class="venue-detail">
+          <span class="venue-detail-icon">Email</span>
+          <span><a href="mailto:eternalexcellencies@gmail.com" style="color:var(--plum);text-decoration:none;">eternalexcellencies@gmail.com</a></span>
+        </div>
+        <div class="venue-detail">
+          <span class="venue-detail-icon">Time</span>
+          <span>9:00 AM — 1:00 PM (Every 2nd Saturday)</span>
+        </div>
+      </div>
+      <div class="btn-group">
+        <a href="https://maps.google.com/?q=Kingdom+Envoys+Ministries+Nairobi" class="btn btn-gold" target="_blank" rel="noopener">&#128205; Get Directions</a>
+        <a href="https://wa.me/254790822347?text=I%20need%20directions%20to%20the%20EEWM%20gathering." class="btn btn-outline-plum" target="_blank" rel="noopener">&#128172; Ask Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     PAST EVENTS RECAPS
+══════════════════════════════ -->
+<section class="past-section" id="recaps">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-header fade-up">
+      <p class="section-label">&#9670; Relive the Moments</p>
+      <div class="section-rule">
+        <h2 class="section-title section-title-ivory">Past Event Recaps</h2>
+      </div>
+      <p style="font-size:0.92rem;color:rgba(249,244,236,0.55);max-width:500px;margin:0 auto;line-height:1.75;">Missed a gathering? Catch up on the messages, worship, and testimonies that moved us.</p>
+    </div>
+
+    <div class="past-grid">
+      <div class="past-card fade-up stagger-1">
+        <div class="past-card-img img-placeholder img-placeholder-dark" data-label="past-event-1.jpg" style="height:260px;width:100%;">past-event-1.jpg</div>
+        <div class="past-card-overlay">
+          <p class="past-card-tag">&#9670; June 2025 Recap</p>
+          <h3 class="past-card-title">"Arise, Shine" — June Second Saturday</h3>
+          <a href="#" class="btn btn-youtube" style="font-size:0.6rem;padding:0.6rem 1.2rem;" target="_blank" rel="noopener">&#9654; Watch Recap</a>
+        </div>
+      </div>
+      <div class="past-card fade-up stagger-2">
+        <div class="past-card-img img-placeholder img-placeholder-dark" data-label="past-event-2.jpg" style="height:260px;width:100%;">past-event-2.jpg</div>
+        <div class="past-card-overlay">
+          <p class="past-card-tag">&#9670; May 2025 Recap</p>
+          <h3 class="past-card-title">"Restored &amp; Renewed" — May Second Saturday</h3>
+          <a href="#" class="btn btn-youtube" style="font-size:0.6rem;padding:0.6rem 1.2rem;" target="_blank" rel="noopener">&#9654; Watch Recap</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="#" class="btn btn-outline" target="_blank" rel="noopener">&#9654; Visit Our YouTube Channel</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     SERMON ARCHIVE
+══════════════════════════════ -->
+<section class="sermons-section" id="sermons">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-header fade-up">
+      <p class="section-label">&#9670; The Word</p>
+      <div class="section-rule">
+        <h2 class="section-title">Sermon Archive</h2>
+      </div>
+      <p style="font-size:0.95rem;color:rgba(42,42,42,0.6);max-width:520px;margin:0 auto;line-height:1.75;">Every message carries an impartation. Listen again, share freely, and let the Word do its work.</p>
+    </div>
+
+    <div class="sermons-grid">
+      <!-- Sermon 1 -->
+      <div class="sermon-card fade-up stagger-1">
+        <div class="sermon-thumb">
+          <div class="img-placeholder img-placeholder-dark" data-label="sermon-1.jpg">sermon-1.jpg</div>
+        </div>
+        <div class="sermon-body">
+          <p class="sermon-series">Series: Daughters of Promise</p>
+          <h3 class="sermon-title">You Were Born for This Season</h3>
+          <p class="sermon-speaker">Speaker: Jane Muthoni</p>
+          <p class="sermon-date">&#9670; June 14, 2025</p>
+          <p class="sermon-scripture">"For such a time as this…" — Esther 4:14</p>
+          <a href="#" class="btn btn-gold" style="font-size:0.6rem;padding:0.65rem 1.3rem;" target="_blank" rel="noopener">&#9654; Watch on YouTube</a>
+        </div>
+      </div>
+
+      <!-- Sermon 2 -->
+      <div class="sermon-card fade-up stagger-2">
+        <div class="sermon-thumb">
+          <div class="img-placeholder img-placeholder-dark" data-label="sermon-2.jpg">sermon-2.jpg</div>
+        </div>
+        <div class="sermon-body">
+          <p class="sermon-series">Series: Unshakeable Women</p>
+          <h3 class="sermon-title">Strength in the Secret Place</h3>
+          <p class="sermon-speaker">Speaker: EEWM Leadership</p>
+          <p class="sermon-date">&#9670; May 10, 2025</p>
+          <p class="sermon-scripture">"She is clothed with strength and dignity." — Proverbs 31:25</p>
+          <a href="#" class="btn btn-gold" style="font-size:0.6rem;padding:0.65rem 1.3rem;" target="_blank" rel="noopener">&#9654; Watch on YouTube</a>
+        </div>
+      </div>
+
+      <!-- Sermon 3 -->
+      <div class="sermon-card fade-up stagger-3">
+        <div class="sermon-thumb">
+          <div class="img-placeholder img-placeholder-dark" data-label="sermon-3.jpg">sermon-3.jpg</div>
+        </div>
+        <div class="sermon-body">
+          <p class="sermon-series">Series: Faith That Works</p>
+          <h3 class="sermon-title">Building With What You Already Have</h3>
+          <p class="sermon-speaker">Speaker: Jane Muthoni</p>
+          <p class="sermon-date">&#9670; April 12, 2025</p>
+          <p class="sermon-scripture">"Go, sell the oil and pay your debt." — 2 Kings 4:7</p>
+          <a href="#" class="btn btn-gold" style="font-size:0.6rem;padding:0.65rem 1.3rem;" target="_blank" rel="noopener">&#9654; Watch on YouTube</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="#" class="btn btn-outline-plum" target="_blank" rel="noopener">View Full Sermon Library &#8594;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     PHOTO GALLERY
+══════════════════════════════ -->
+<section class="gallery-section" id="gallery">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-header fade-up" style="margin-bottom:3rem;">
+      <p class="section-label">&#9670; Moments of Grace</p>
+      <div class="section-rule" style="--rule-color: rgba(201,168,76,0.5);">
+        <h2 class="section-title section-title-ivory">Our Gallery</h2>
+      </div>
+      <p style="font-size:0.92rem;color:rgba(249,244,236,0.55);max-width:480px;margin:0 auto;line-height:1.75;">Glimpses of the beauty, the worship, and the sisterhood that EEWM carries.</p>
+    </div>
+
+    <div class="gallery-masonry fade-up">
+      <div class="gallery-item">
+        <div class="img-placeholder img-placeholder-dark" data-label="gallery-1.jpg" style="height:260px;width:100%;">gallery-1.jpg</div>
+        <div class="gallery-item-overlay"><span>View Photo</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="img-placeholder img-placeholder-dark" data-label="gallery-2.jpg" style="height:200px;width:100%;">gallery-2.jpg</div>
+        <div class="gallery-item-overlay"><span>View Photo</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="img-placeholder img-placeholder-dark" data-label="gallery-3.jpg" style="height:300px;width:100%;">gallery-3.jpg</div>
+        <div class="gallery-item-overlay"><span>View Photo</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="img-placeholder img-placeholder-dark" data-label="gallery-4.jpg" style="height:220px;width:100%;">gallery-4.jpg</div>
+        <div class="gallery-item-overlay"><span>View Photo</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="img-placeholder img-placeholder-dark" data-label="gallery-5.jpg" style="height:280px;width:100%;">gallery-5.jpg</div>
+        <div class="gallery-item-overlay"><span>View Photo</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="img-placeholder img-placeholder-dark" data-label="gallery-6.jpg" style="height:240px;width:100%;">gallery-6.jpg</div>
+        <div class="gallery-item-overlay"><span>View Photo</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     CTA STRIP
+══════════════════════════════ -->
+<div class="cta-strip">
+  <h3>Don't Walk This Journey <em>Alone</em></h3>
+  <p>"Two are better than one, because they have a good return for their labor." — Ecclesiastes 4:9</p>
+  <div class="btn-group" style="justify-content:center;">
+    <a href="join.html" class="btn btn-gold">Join the EEWM Family</a>
+    <a href="https://wa.me/254790822347?text=Hello%2C%20I%27d%20like%20to%20connect%20with%20EEWM." class="btn btn-whatsapp" target="_blank" rel="noopener">&#128172; WhatsApp Us</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     FOOTER
+══════════════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-logo">EEWM</a>
+      <p class="footer-tagline">"A Joy of Many Generations"</p>
+      <p style="font-size:0.8rem;color:rgba(249,244,236,0.4);margin-top:1rem;line-height:1.6;">A faith-based women's discipleship and empowerment movement based in Kenya.</p>
+    </div>
+    <div>
+      <p class="footer-heading">Quick Links</p>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="events.html">Events &amp; Media</a></li>
+        <li><a href="bookstore.html">Bookstore</a></li>
+        <li><a href="join.html">Join Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-heading">Connect With Us</p>
+      <div class="social-icons" style="margin-bottom:1.2rem;">
+        <a href="#" class="social-icon" title="Facebook" aria-label="Facebook">f</a>
+        <a href="#" class="social-icon" title="Instagram" aria-label="Instagram">&#9749;</a>
+        <a href="#" class="social-icon" title="YouTube" aria-label="YouTube">&#9654;</a>
+        <a href="https://wa.me/254790822347" class="social-icon" title="WhatsApp" aria-label="WhatsApp" target="_blank" rel="noopener">&#128172;</a>
+      </div>
+      <p style="font-size:0.78rem;color:rgba(249,244,236,0.45);line-height:1.6;">
+        WhatsApp: <a href="https://wa.me/254790822347" style="color:var(--gold);text-decoration:none;">0790822347</a><br />
+        Email: <a href="mailto:eternalexcellencies@gmail.com" style="color:var(--gold);text-decoration:none;">eternalexcellencies@gmail.com</a>
+      </p>
+    </div>
+    <div>
+      <p class="footer-heading">Stay Inspired</p>
+      <p style="font-size:0.8rem;color:rgba(249,244,236,0.45);line-height:1.6;margin-bottom:1rem;">Receive devotionals, event updates, and encouragement straight to your inbox.</p>
+      <div class="email-capture">
+        <input type="text" placeholder="Your name" id="footer-name" />
+        <input type="email" placeholder="Your email address" id="footer-email" />
+        <button onclick="subscribeFooter()">Subscribe</button>
+      </div>
+      <p id="footer-msg" style="font-size:0.75rem;color:var(--gold);margin-top:0.5rem;display:none;">Thank you! You're now subscribed. ✦</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 EEWM — Eternal Excellencies Women Ministry. All rights reserved.</p>
+    <p>Made with faith &amp; purpose in Kenya ✦</p>
+  </div>
+</footer>
+
+<script>
+  // ── Hamburger ──
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => { mobileMenu.classList.toggle('open'); });
+
+  // ── Sticky nav shadow ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('main-nav').style.boxShadow = window.scrollY > 10
+      ? '0 4px 30px rgba(0,0,0,0.35)' : 'none';
+  });
+
+  // ── Scroll animations ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // ── Footer subscribe ──
+  function subscribeFooter() {
+    const email = document.getElementById('footer-email').value.trim();
+    if (!email) return;
+    document.getElementById('footer-msg').style.display = 'block';
+    document.getElementById('footer-name').value = '';
+    document.getElementById('footer-email').value = '';
+  }
+</script>
+</body>
+</html>
