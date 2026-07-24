@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Jeremy Jeradi Ministry</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root{
+    --ink:#14123B; --plum:#3A1F5C; --gold:#F5B841; --gold-dim:#C99432;
+    --cream:#FFF7E8; --cream-dim:rgba(255,247,232,0.7); --cream-faint:rgba(255,247,232,0.14);
+    --danger:#E4574C;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; font-family:'Segoe UI',Helvetica,Arial,sans-serif; background:var(--ink); color:var(--cream); min-height:100vh; }
+  a{ color:inherit; }
+  .wrap{ max-width:1000px; margin:0 auto; padding:0 24px; }
+
+  /* ---- LOGIN SCREEN ---- */
+  #login-screen{ min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
+  .login-box{ background:rgba(255,247,232,0.04); border:1px solid var(--cream-faint); border-radius:16px; padding:40px; max-width:380px; width:100%; }
+  .login-box h1{ font-size:1.4rem; margin:0 0 6px; }
+  .login-box p{ color:var(--cream-dim); font-size:0.9rem; margin:0 0 24px; }
+  input, textarea{ width:100%; padding:12px 14px; border-radius:8px; border:1px solid var(--cream-faint); background:rgba(255,247,232,0.03); color:var(--cream); font-size:0.95rem; margin-bottom:12px; font-family:inherit; }
+  input::placeholder, textarea::placeholder{ color:rgba(255,247,232,0.4); }
+  button{ font-family:inherit; cursor:pointer; border:none; }
+  .btn{ background:var(--gold); color:#1a1420; font-weight:700; padding:12px 20px; border-radius:8px; font-size:0.95rem; width:100%; }
+  .btn:hover{ background:var(--gold-dim); }
+  .btn-outline{ background:transparent; border:1px solid var(--cream-faint); color:var(--cream); width:auto; padding:8px 16px; font-size:0.85rem; }
+  .btn-danger{ background:var(--danger); color:#fff; width:auto; padding:8px 14px; font-size:0.82rem; }
+  #login-error{ color:var(--danger); font-size:0.85rem; margin-top:-6px; margin-bottom:12px; display:none; }
+
+  /* ---- DASHBOARD ---- */
+  #dashboard{ display:none; }
+  header{ border-bottom:1px solid var(--cream-faint); padding:20px 0; }
+  header .wrap{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+  header h1{ font-size:1.2rem; margin:0; color:var(--gold); }
+  header .sub{ font-size:0.8rem; color:var(--cream-dim); }
+
+  nav.tabs{ display:flex; gap:6px; flex-wrap:wrap; padding:20px 0 0; }
+  nav.tabs button{ background:rgba(255,247,232,0.04); color:var(--cream-dim); padding:10px 16px; border-radius:8px; font-size:0.85rem; }
+  nav.tabs button.active{ background:var(--gold); color:#1a1420; font-weight:700; }
+
+  .panel{ display:none; padding:28px 0 60px; }
+  .panel.active{ display:block; }
+  .panel h2{ font-size:1.3rem; margin:0 0 4px; }
+  .panel .desc{ color:var(--cream-dim); font-size:0.88rem; margin:0 0 24px; }
+
+  .form-card{ background:rgba(255,247,232,0.03); border:1px solid var(--cream-faint); border-radius:12px; padding:22px; margin-bottom:28px; }
+  .form-card h3{ margin:0 0 14px; font-size:1rem; color:var(--gold); }
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media (max-width:640px){ .form-row{ grid-template-columns:1fr; } }
+  .file-input-wrap{ margin-bottom:12px; }
+  .file-input-wrap label{ display:block; font-size:0.82rem; color:var(--cream-dim); margin-bottom:6px; }
+  .upload-status{ font-size:0.8rem; color:var(--gold); margin-top:6px; display:none; }
+
+  .item-list{ display:flex; flex-direction:column; gap:12px; }
+  .item-row{ background:rgba(255,247,232,0.03); border:1px solid var(--cream-faint); border-radius:10px; padding:16px; display:flex; gap:14px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; }
+  .item-row .item-content{ flex:1; min-width:220px; display:flex; gap:14px; }
+  .item-row img{ width:64px; height:64px; object-fit:cover; border-radius:8px; flex-shrink:0; }
+  .item-row .item-text h4{ margin:0 0 4px; font-size:0.95rem; }
+  .item-row .item-text p{ margin:0; font-size:0.85rem; color:var(--cream-dim); line-height:1.4; }
+  .item-row .item-text .meta{ font-size:0.75rem; color:var(--gold-dim); margin-top:6px; }
+  .empty-note{ color:var(--cream-dim); font-size:0.88rem; font-style:italic; padding:20px 0; }
+  .loading-note{ color:var(--cream-dim); font-size:0.88rem; padding:20px 0; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- ============ LOGIN SCREEN ============ -->
+  <div id="login-screen">
+    <div class="login-box">
+      <h1 id="login-title">Ministry Admin</h1>
+      <p id="login-desc">Log in to manage testimonies, devotionals, events, and view submissions.</p>
+      <div id="login-error">Incorrect password. Try again.</div>
+      <input type="password" id="login-password" placeholder="Password" autocomplete="current-password">
+      <button class="btn" id="login-btn">Log In</button>
+    </div>
+  </div>
+
+  <!-- ============ DASHBOARD ============ -->
+  <div id="dashboard">
+    <header>
+      <div class="wrap">
+        <div>
+          <h1>Jeremy Jeradi Ministry — Admin</h1>
+          <div class="sub" id="logged-in-as"></div>
+        </div>
+        <button class="btn-outline" id="logout-btn">Log Out</button>
+      </div>
+    </header>
+
+    <div class="wrap">
+      <div style="background:rgba(245,184,65,0.08); border:1px solid rgba(245,184,65,0.3); border-radius:10px; padding:14px 16px; margin-top:20px; font-size:0.85rem; color:var(--cream-dim);">
+        Everything you add here is saved <strong>online</strong> and shows up for every visitor, on any device. Prayer and Partner requests submitted by visitors anywhere will appear here too.
+      </div>
+      <nav class="tabs">
+        <button data-tab="testimonies" class="active">Testimonies</button>
+        <button data-tab="devotionals">Devotionals</button>
+        <button data-tab="events">Events</button>
+        <button data-tab="gallery">Gallery</button>
+        <button data-tab="prayer">Prayer Requests</button>
+        <button data-tab="partner">Partner Requests</button>
+      </nav>
+
+      <!-- TESTIMONIES -->
+      <section class="panel active" id="panel-testimonies">
+        <h2>Testimonies</h2>
+        <p class="desc">Add a testimony with the person's name, their words, and (optionally) a photo.</p>
+        <div class="form-card">
+          <h3>Add a new testimony</h3>
+          <div class="form-row">
+            <input type="text" id="t-name" placeholder="Name (e.g. Grace M.)">
+            <div class="file-input-wrap" style="margin-bottom:0;">
+              <label>Photo (optional)</label>
+              <input type="file" id="t-image" accept="image/*">
+            </div>
+          </div>
+          <textarea id="t-quote" placeholder="Their testimony, in their own words..." rows="3"></textarea>
+          <div class="upload-status" id="t-status"></div>
+          <button class="btn" style="width:auto;" id="t-submit">Add Testimony</button>
+        </div>
+        <div class="item-list" id="testimonies-list"><div class="loading-note">Loading...</div></div>
+      </section>
+
+      <!-- DEVOTIONALS -->
+      <section class="panel" id="panel-devotionals">
+        <h2>Weekly Devotionals</h2>
+        <p class="desc">Post a devotional — it will show on the site with the date you choose.</p>
+        <div class="form-card">
+          <h3>Add a new devotional</h3>
+          <div class="form-row">
+            <input type="text" id="d-title" placeholder="Title (e.g. Walking in Faith)">
+            <input type="date" id="d-date">
+          </div>
+          <div class="file-input-wrap">
+            <label>Image (optional)</label>
+            <input type="file" id="d-image" accept="image/*">
+          </div>
+          <textarea id="d-body" placeholder="Write the devotional here..." rows="5"></textarea>
+          <div class="upload-status" id="d-status"></div>
+          <button class="btn" style="width:auto;" id="d-submit">Post Devotional</button>
+        </div>
+        <div class="item-list" id="devotionals-list"><div class="loading-note">Loading...</div></div>
+      </section>
+
+      <!-- EVENTS -->
+      <section class="panel" id="panel-events">
+        <h2>Upcoming Events</h2>
+        <p class="desc">These show in the "Upcoming gatherings" section on the home page.</p>
+        <div class="form-card">
+          <h3>Add a new event</h3>
+          <div class="form-row">
+            <input type="text" id="e-title" placeholder="Event title">
+            <input type="date" id="e-date">
+          </div>
+          <textarea id="e-desc" placeholder="Short description..." rows="2"></textarea>
+          <button class="btn" style="width:auto;" id="e-submit">Add Event</button>
+        </div>
+        <div class="item-list" id="events-list"><div class="loading-note">Loading...</div></div>
+      </section>
+
+      <!-- GALLERY -->
+      <section class="panel" id="panel-gallery">
+        <h2>Gallery</h2>
+        <p class="desc">Add extra photos — these appear alongside the main ministry gallery on the About page.</p>
+        <div class="form-card">
+          <h3>Upload a new photo</h3>
+          <div class="file-input-wrap">
+            <label>Photo</label>
+            <input type="file" id="g-image" accept="image/*">
+          </div>
+          <input type="text" id="g-caption" placeholder="Caption (optional)">
+          <div class="upload-status" id="g-status"></div>
+          <button class="btn" style="width:auto;" id="g-submit">Upload Photo</button>
+        </div>
+        <div class="item-list" id="gallery-list"><div class="loading-note">Loading...</div></div>
+      </section>
+
+      <!-- PRAYER REQUESTS -->
+      <section class="panel" id="panel-prayer">
+        <h2>Prayer Requests</h2>
+        <p class="desc">Everyone who submits the Prayer Request form on the site shows up here. Not visible to the public.</p>
+        <div class="item-list" id="prayer-list"><div class="loading-note">Loading...</div></div>
+      </section>
+
+      <!-- PARTNER REQUESTS -->
+      <section class="panel" id="panel-partner">
+        <h2>Partner Requests</h2>
+        <p class="desc">Everyone who submits the Partnership form on the site shows up here. Not visible to the public.</p>
+        <div class="item-list" id="partner-list"><div class="loading-note">Loading...</div></div>
+      </section>
+    </div>
+  </div>
+
+<script>
+  // ================================================================
+  // Supabase-backed admin. Content is shared online for every visitor.
+  // Admin login uses a real Supabase Auth account (fixed email, the
+  // password you set for that account in the Supabase dashboard) so
+  // that write/delete access is actually enforced by the database,
+  // not just hidden in the browser.
+  // ================================================================
+  const SUPABASE_URL = 'https://qgrrqcmthqwshwqaadnb.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_A4Xdq7DI_ejQIgZCbY4Jog_Kr3SInhV';
+  const ADMIN_EMAIL = 'admin@jeremyjeradiministry.app';
+  const MEDIA_BUCKET = 'site-media';
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  function genId(){ return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+  function escapeHtml(str){
+    if(!str) return '';
+    return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  // Upload a file to Supabase Storage and return its public URL (or null if no file).
+  async function uploadImage(file, folder){
+    if (!file) return null;
+    const path = folder + '/' + genId() + '-' + file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
+    const { error } = await sb.storage.from(MEDIA_BUCKET).upload(path, file);
+    if (error) { alert('Image upload failed: ' + error.message); return null; }
+    const { data } = sb.storage.from(MEDIA_BUCKET).getPublicUrl(path);
+    return data.publicUrl;
+  }
+
+  const loginScreen = document.getElementById('login-screen');
+  const dashboard = document.getElementById('dashboard');
+  const loginError = document.getElementById('login-error');
+  const loginBtn = document.getElementById('login-btn');
+  const passwordInput = document.getElementById('login-password');
+
+  loginBtn.addEventListener('click', async () => {
+    const pw = passwordInput.value;
+    loginError.style.display = 'none';
+    if (!pw){ loginError.textContent = 'Please enter a password.'; loginError.style.display = 'block'; return; }
+    loginBtn.disabled = true; loginBtn.textContent = 'Logging in...';
+    const { error } = await sb.auth.signInWithPassword({ email: ADMIN_EMAIL, password: pw });
+    loginBtn.disabled = false; loginBtn.textContent = 'Log In';
+    if (error){
+      loginError.textContent = 'Incorrect password. Try again.';
+      loginError.style.display = 'block';
+      return;
+    }
+    showDashboard();
+  });
+
+  passwordInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') loginBtn.click(); });
+
+  document.getElementById('logout-btn').addEventListener('click', async () => {
+    await sb.auth.signOut();
+    location.reload();
+  });
+
+  function showDashboard(){
+    loginScreen.style.display = 'none';
+    dashboard.style.display = 'block';
+    document.getElementById('logged-in-as').textContent = 'Logged in as admin';
+    loadTestimonies(); loadDevotionals(); loadEvents(); loadGallery(); loadPrayerRequests(); loadPartnerRequests();
+  }
+
+  (async () => {
+    const { data: { session } } = await sb.auth.getSession();
+    if (session) showDashboard();
+  })();
+
+  // ---- TABS ----
+  document.querySelectorAll('nav.tabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ---- TESTIMONIES ----
+  async function loadTestimonies(){
+    const list = document.getElementById('testimonies-list');
+    const { data, error } = await sb.from('testimonies').select('*').order('created_at', { ascending: false });
+    if (error){ list.innerHTML = '<div class="empty-note">Could not load testimonies.</div>'; return; }
+    if (!data.length){ list.innerHTML = '<div class="empty-note">No testimonies yet.</div>'; return; }
+    list.innerHTML = data.map(t => `
+      <div class="item-row">
+        <div class="item-content">
+          ${t.image_url ? `<img src="${t.image_url}" alt="">` : ''}
+          <div class="item-text"><h4>${escapeHtml(t.name)}</h4><p>${escapeHtml(t.quote)}</p></div>
+        </div>
+        <button class="btn-danger" onclick="deleteRow('testimonies','${t.id}', loadTestimonies)">Delete</button>
+      </div>`).join('');
+  }
+
+  document.getElementById('t-submit').addEventListener('click', async () => {
+    const name = document.getElementById('t-name').value.trim();
+    const quote = document.getElementById('t-quote').value.trim();
+    const file = document.getElementById('t-image').files[0];
+    const statusEl = document.getElementById('t-status');
+    if (!name || !quote){ alert('Please add a name and testimony text.'); return; }
+    if (statusEl){ statusEl.style.display = 'block'; statusEl.textContent = 'Saving...'; }
+    const image_url = await uploadImage(file, 'testimonies');
+    const { error } = await sb.from('testimonies').insert({ name, quote, image_url });
+    if (error) alert('Could not save: ' + error.message);
+    document.getElementById('t-name').value=''; document.getElementById('t-quote').value=''; document.getElementById('t-image').value='';
+    if (statusEl) statusEl.style.display = 'none';
+    loadTestimonies();
+  });
+
+  // ---- DEVOTIONALS ----
+  async function loadDevotionals(){
+    const list = document.getElementById('devotionals-list');
+    const { data, error } = await sb.from('devotionals').select('*').order('devotional_date', { ascending: false });
+    if (error){ list.innerHTML = '<div class="empty-note">Could not load devotionals.</div>'; return; }
+    if (!data.length){ list.innerHTML = '<div class="empty-note">No devotionals yet.</div>'; return; }
+    list.innerHTML = data.map(d => `
+      <div class="item-row">
+        <div class="item-content">
+          ${d.image_url ? `<img src="${d.image_url}" alt="">` : ''}
+          <div class="item-text"><h4>${escapeHtml(d.title)}</h4><p>${escapeHtml(d.body).slice(0,140)}${d.body.length>140?'…':''}</p><div class="meta">${d.devotional_date}</div></div>
+        </div>
+        <button class="btn-danger" onclick="deleteRow('devotionals','${d.id}', loadDevotionals)">Delete</button>
+      </div>`).join('');
+  }
+
+  document.getElementById('d-submit').addEventListener('click', async () => {
+    const title = document.getElementById('d-title').value.trim();
+    const body = document.getElementById('d-body').value.trim();
+    const devotional_date = document.getElementById('d-date').value;
+    const file = document.getElementById('d-image').files[0];
+    const statusEl = document.getElementById('d-status');
+    if (!title || !body || !devotional_date){ alert('Please fill in title, date, and body.'); return; }
+    if (statusEl){ statusEl.style.display = 'block'; statusEl.textContent = 'Saving...'; }
+    const image_url = await uploadImage(file, 'devotionals');
+    const { error } = await sb.from('devotionals').insert({ title, body, devotional_date, image_url });
+    if (error) alert('Could not save: ' + error.message);
+    document.getElementById('d-title').value=''; document.getElementById('d-body').value=''; document.getElementById('d-date').value=''; document.getElementById('d-image').value='';
+    if (statusEl) statusEl.style.display = 'none';
+    loadDevotionals();
+  });
+
+  // ---- EVENTS ----
+  async function loadEvents(){
+    const list = document.getElementById('events-list');
+    const { data, error } = await sb.from('events').select('*').order('event_date', { ascending: true });
+    if (error){ list.innerHTML = '<div class="empty-note">Could not load events.</div>'; return; }
+    if (!data.length){ list.innerHTML = '<div class="empty-note">No upcoming events yet.</div>'; return; }
+    list.innerHTML = data.map(e => `
+      <div class="item-row">
+        <div class="item-content"><div class="item-text"><h4>${escapeHtml(e.title)}</h4><p>${escapeHtml(e.description||'')}</p><div class="meta">${e.event_date}</div></div></div>
+        <button class="btn-danger" onclick="deleteRow('events','${e.id}', loadEvents)">Delete</button>
+      </div>`).join('');
+  }
+
+  document.getElementById('e-submit').addEventListener('click', async () => {
+    const title = document.getElementById('e-title').value.trim();
+    const event_date = document.getElementById('e-date').value;
+    const description = document.getElementById('e-desc').value.trim();
+    if (!title || !event_date){ alert('Please fill in a title and date.'); return; }
+    const { error } = await sb.from('events').insert({ title, event_date, description });
+    if (error) alert('Could not save: ' + error.message);
+    document.getElementById('e-title').value=''; document.getElementById('e-date').value=''; document.getElementById('e-desc').value='';
+    loadEvents();
+  });
+
+  // ---- GALLERY ----
+  async function loadGallery(){
+    const list = document.getElementById('gallery-list');
+    const { data, error } = await sb.from('gallery_uploads').select('*').order('created_at', { ascending: false });
+    if (error){ list.innerHTML = '<div class="empty-note">Could not load gallery.</div>'; return; }
+    if (!data.length){ list.innerHTML = '<div class="empty-note">No extra photos yet.</div>'; return; }
+    list.innerHTML = data.map(g => `
+      <div class="item-row">
+        <div class="item-content"><img src="${g.image_url}" alt=""><div class="item-text"><p>${escapeHtml(g.caption||'(no caption)')}</p></div></div>
+        <button class="btn-danger" onclick="deleteRow('gallery_uploads','${g.id}', loadGallery)">Delete</button>
+      </div>`).join('');
+  }
+
+  document.getElementById('g-submit').addEventListener('click', async () => {
+    const file = document.getElementById('g-image').files[0];
+    const caption = document.getElementById('g-caption').value.trim();
+    const statusEl = document.getElementById('g-status');
+    if (!file){ alert('Please choose a photo.'); return; }
+    if (statusEl){ statusEl.style.display = 'block'; statusEl.textContent = 'Saving...'; }
+    const image_url = await uploadImage(file, 'gallery');
+    const { error } = await sb.from('gallery_uploads').insert({ image_url, caption });
+    if (error) alert('Could not save: ' + error.message);
+    document.getElementById('g-image').value=''; document.getElementById('g-caption').value='';
+    if (statusEl) statusEl.style.display = 'none';
+    loadGallery();
+  });
+
+  // ---- PRAYER REQUESTS (read-only, filled in by the public site form) ----
+  async function loadPrayerRequests(){
+    const list = document.getElementById('prayer-list');
+    const { data, error } = await sb.from('prayer_requests').select('*').order('created_at', { ascending: false });
+    if (error){ list.innerHTML = '<div class="empty-note">Could not load prayer requests.</div>'; return; }
+    if (!data.length){ list.innerHTML = '<div class="empty-note">No prayer requests yet.</div>'; return; }
+    list.innerHTML = data.map(p => `
+      <div class="item-row">
+        <div class="item-content"><div class="item-text"><h4>${escapeHtml(p.name)} — ${escapeHtml(p.contact)}</h4><p>${escapeHtml(p.message)}</p><div class="meta">${new Date(p.created_at).toLocaleString()}</div></div></div>
+        <button class="btn-danger" onclick="deleteRow('prayer_requests','${p.id}', loadPrayerRequests)">Delete</button>
+      </div>`).join('');
+  }
+
+  // ---- PARTNER REQUESTS (read-only, filled in by the public site form) ----
+  async function loadPartnerRequests(){
+    const list = document.getElementById('partner-list');
+    const { data, error } = await sb.from('partner_requests').select('*').order('created_at', { ascending: false });
+    if (error){ list.innerHTML = '<div class="empty-note">Could not load partner requests.</div>'; return; }
+    if (!data.length){ list.innerHTML = '<div class="empty-note">No partner requests yet.</div>'; return; }
+    list.innerHTML = data.map(p => `
+      <div class="item-row">
+        <div class="item-content"><div class="item-text"><h4>${escapeHtml(p.name)} — ${escapeHtml(p.contact)}</h4><p>${escapeHtml(p.message||'')}</p><div class="meta">${new Date(p.created_at).toLocaleString()}</div></div></div>
+        <button class="btn-danger" onclick="deleteRow('partner_requests','${p.id}', loadPartnerRequests)">Delete</button>
+      </div>`).join('');
+  }
+
+  // ---- DELETE ----
+  async function deleteRow(table, id, reloadFn){
+    if (!confirm('Delete this permanently?')) return;
+    const { error } = await sb.from(table).delete().eq('id', id);
+    if (error){ alert('Could not delete: ' + error.message); return; }
+    reloadFn();
+  }
+</script>
+</body>
+</html>
