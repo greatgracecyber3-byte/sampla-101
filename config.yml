@@ -1,0 +1,146 @@
+# ============================================================
+# Dashboard configuration — External Excellencies Global Foundation
+# ------------------------------------------------------------
+# The only line you MUST change before the dashboard works is `repo:`.
+# ============================================================
+
+backend:
+  name: github
+  repo: YOUR-GITHUB-USERNAME/YOUR-REPO-NAME   # <-- CHANGE THIS, e.g. janemakau/eegf-website
+  branch: main
+  # No Netlify anywhere: the live dashboard (admin.html) runs on Sveltia CMS,
+  # which signs in with "Sign in with GitHub" or a personal access token —
+  # no OAuth proxy, no third-party service to deploy or pay for.
+
+# This file is kept only as a reference for anyone who prefers a normal
+# admin/config.yml setup instead of the single-file admin.html dashboard.
+# admin.html does not read this file (load_config_file: false) — its own
+# settings are the ones that matter for the live site.
+
+# Uncomment to try the dashboard on your own laptop with no login
+# (run `npx decap-server` in another terminal first).
+# local_backend: true
+
+media_folder: "images/gallery"
+public_folder: "/images/gallery"
+
+publish_mode: simple
+logo_url: ""
+
+collections:
+  # ----------------------------------------------------------
+  # 1. HOMEPAGE SLIDER — always has photos, add as many as you like
+  # ----------------------------------------------------------
+  - name: "slider"
+    label: "Homepage slider"
+    description: "The rotating photos at the top of the home page. Add, remove or drag to reorder."
+    files:
+      - file: "content/gallery.json"
+        label: "Homepage slider photos"
+        name: "gallery"
+        format: json
+        fields:
+          - label: "Slides"
+            name: "slides"
+            widget: list
+            summary: "{{fields.caption}}"
+            label_singular: "Slide"
+            fields:
+              - { label: "Photo", name: "image", widget: image, hint: "Portrait works best here. At least 1200px on the long edge." }
+              - { label: "Caption shown on the photo", name: "caption", widget: string, required: false }
+
+  # ----------------------------------------------------------
+  # 2. PHOTOS AROUND THE SITE — 17 spots. Anything you don't add
+  #    is removed from the page and the layout closes the gap.
+  # ----------------------------------------------------------
+  - name: "photos"
+    label: "Photos around the site"
+    description: "Add a photo only where you have one. Any spot you leave out has its frame removed from the live site and the layout closes up around it — no empty boxes."
+    files:
+      - file: "content/images.json"
+        label: "Site photos"
+        name: "photos"
+        format: json
+        fields:
+          - label: "Display settings"
+            name: "settings"
+            widget: object
+            collapsed: true
+            fields:
+              - label: "Show labelled empty boxes while collecting photos"
+                name: "showPlaceholders"
+                widget: boolean
+                default: false
+                hint: "Off (recommended): empty frames are removed and the page closes the gap. On: the grey '[ADD PHOTO]' boxes show, which is useful while you are still gathering pictures."
+
+          - label: "Photos"
+            name: "photos"
+            widget: list
+            label_singular: "Photo"
+            required: false
+            summary: "{{fields.slot}}"
+            hint: "Delete an entry to take that photo off the site and close the gap."
+            fields:
+              - label: "Where does this photo go?"
+                name: "slot"
+                widget: select
+                options:
+                      - { label: "Accelerator 2026 — official programme graphic (Home + programme page)", value: "accelerator-hero" }
+                      - { label: "Programme — Women's Empowerment (Home + Our Work)", value: "programme-women" }
+                      - { label: "Programme — Youth Development (Home + Our Work)", value: "programme-youth" }
+                      - { label: "Programme — Health (Home)", value: "programme-health" }
+                      - { label: "Programme — Education & Skills (Home + Our Work)", value: "programme-education" }
+                      - { label: "Programme — Economic Empowerment (Home + Our Work)", value: "programme-economic" }
+                      - { label: "Programme — Leadership (Home + Our Work)", value: "programme-leadership" }
+                      - { label: "Programme — Community Development (Home + Our Work)", value: "programme-community" }
+                      - { label: "Feature — Medical outreach band (Home + Our Work)", value: "feature-health" }
+                      - { label: "Portrait — Rev. Dr. Jane Mwikali Makau (Home + About)", value: "founder" }
+                      - { label: "Story card 1 (Home + Stories)", value: "story-1" }
+                      - { label: "Story card 2 (Home + Stories)", value: "story-2" }
+                      - { label: "Story card 3 (Home + Stories)", value: "story-3" }
+                      - { label: "Latest news card 1 (Home)", value: "news-1" }
+                      - { label: "Latest news card 2 (Home)", value: "news-2" }
+                      - { label: "Latest news card 3 (Home)", value: "news-3" }
+                      - { label: "Contact — map or office photo", value: "contact-map" }
+                      - { label: "Story template — main photo", value: "story-template" }
+              - { label: "Photo", name: "image", widget: image }
+              - { label: "Description for screen readers", name: "alt", widget: string, required: false, hint: "Say what is in the photo, e.g. 'Nurses register patients at the South B medical camp.'" }
+              - { label: "Caption shown under the photo", name: "caption", widget: string, required: false }
+
+          - label: "Project photos (Our Impact)"
+            name: "projects"
+            widget: list
+            label_singular: "Project"
+            required: false
+            summary: "{{fields.project}}"
+            hint: "Pick a project, then add as many photos as you have — one, three, six, or none. The first photo becomes the large one; the rest form a group underneath. A project with no photos shows no photo area at all."
+            fields:
+              - label: "Which project?"
+                name: "project"
+                widget: select
+                options:
+                      - { label: "Accelerator 2026 — programme gallery (Orientation, training, mentorship, KIRDI activities)", value: "accelerator-2026" }
+                      - { label: "Women's Empowerment — Women's Entrepreneurship Seminars", value: "p01" }
+                      - { label: "Women's Empowerment — Seed Capital for Women and Widows", value: "p02" }
+                      - { label: "Youth Empowerment — Youth Media Training Workshops", value: "p03" }
+                      - { label: "Health & Medical Outreach — Early Medical Camps", value: "p04" }
+                      - { label: "Education & Student Support — Kako Special School — Beds, Mattresses and Student", value: "p05" }
+                      - { label: "Water & Environment — Makueni Water Initiatives", value: "p06" }
+                      - { label: "Water & Environment — Water Tank Donation in Makueni", value: "p07" }
+                      - { label: "Water & Environment — Borehole Drilling Initiatives", value: "p08" }
+                      - { label: "Community Development — CSR Projects Across 32 Counties", value: "p09" }
+                      - { label: "Humanitarian Support — Food Donations", value: "p10" }
+                      - { label: "Health & Medical Outreach — Community Medical Camp — South B", value: "p11" }
+                      - { label: "Health & Medical Outreach — South C Cancer Awareness & Screening", value: "p12" }
+                      - { label: "Health & Medical Outreach — Seven-County Free Wellness Medical Camp Initiative", value: "p13" }
+                      - { label: "Humanitarian Support · Water & Environment — Widows and Orphans Community Suppor", value: "p14" }
+                      - { label: "Health & Medical Outreach — Foundation Medical Outreach — 2023 Onward", value: "p15" }
+                      - { label: "Women's Empowerment · Community Development — External Excellencies Empowerment ", value: "p16" }
+              - label: "Photos"
+                name: "photos"
+                widget: list
+                label_singular: "Photo"
+                fields:
+                  - { label: "Photo", name: "image", widget: image }
+                  - { label: "Description for screen readers", name: "alt", widget: string, required: false }
+                  - { label: "Caption", name: "caption", widget: string, required: false }

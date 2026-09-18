@@ -1,0 +1,91 @@
+/* ============ ACCELERATOR PROGRAMME PAGE ============ */
+
+/* ---- Hero ---- */
+.prog-hero { background: linear-gradient(180deg, var(--forest-deep) 0%, var(--forest) 100%); padding: clamp(40px, 6vw, 76px) var(--gutter); }
+.prog-hero-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(28px, 5vw, 60px);
+  align-items: center;
+}
+.prog-hero-media { aspect-ratio: 4/5; border-radius: var(--radius); border-color: var(--line-on-dark); }
+.prog-status {
+  display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em;
+  color: var(--forest-deep); background: var(--gold); padding: 6px 14px; border-radius: 20px; margin-bottom: 18px;
+}
+.prog-hero-copy h1 { color: var(--ivory); font-size: clamp(1.9rem, 4vw, 3rem); max-width: 18ch; }
+.prog-tagline { font-family: var(--font-display); font-style: italic; color: var(--clay-soft); font-size: 1.2rem; margin-top: 12px; }
+.prog-hero-facts {
+  margin: 24px 0 30px; padding: 18px 0; border-top: 1px solid var(--line-on-dark); border-bottom: 1px solid var(--line-on-dark);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.prog-hero-facts li { list-style: none; color: rgba(250,248,243,0.85); font-size: 0.95rem; }
+
+/* ---- Key info panel ---- */
+.prog-keyinfo { background: var(--ivory-soft); border-bottom: 1px solid var(--line); padding: 28px var(--gutter); }
+.prog-keyinfo-grid {
+  max-width: var(--max); margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px 28px;
+}
+.prog-keyinfo-grid > div { display: flex; flex-direction: column; gap: 4px; }
+.ki-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.03em; color: var(--sand); }
+.ki-value { font-family: var(--font-display); font-size: 1.02rem; color: var(--forest-deep); }
+
+/* ---- Prose sections ---- */
+.prog-section--alt { background: var(--ivory-soft); }
+.prog-prose { max-width: var(--max); margin: 0 auto; }
+.prog-prose p { max-width: 68ch; margin-bottom: 16px; }
+.prog-caveat { color: var(--sand); font-size: 0.92rem; border-left: 2px solid var(--gold); padding-left: 14px; }
+
+/* ---- Focus grid ---- */
+.prog-focus-grid { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+.prog-focus-card { border-top: 2px solid var(--gold); padding-top: 16px; }
+.prog-focus-card:nth-child(4n+2) { border-top-color: var(--forest); }
+.prog-focus-card:nth-child(4n+3) { border-top-color: var(--clay); }
+.prog-focus-card:nth-child(4n+4) { border-top-color: var(--sand); }
+.pf-num { font-family: var(--font-display); font-size: 0.85rem; color: var(--sand); }
+.prog-focus-card h3 { margin: 6px 0 8px; font-size: 1.05rem; }
+.prog-focus-card p { font-size: 0.9rem; color: #4a473f; }
+
+/* ---- Journey timeline ---- */
+.prog-journey { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; position: relative; }
+.prog-journey::before { content: ""; position: absolute; top: 6px; left: 6%; right: 6%; height: 1px; background: var(--line); }
+.pj-step { position: relative; padding-top: 26px; }
+.pj-marker { position: absolute; top: 0; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--gold); border: 2px solid var(--ivory-soft); }
+.pj-date { font-size: 0.8rem; font-weight: 600; color: var(--sand); margin-bottom: 6px; }
+.pj-step h3 { font-size: 1.05rem; margin-bottom: 8px; }
+.pj-step p { font-size: 0.92rem; color: #4a473f; }
+
+/* ---- Gallery ---- */
+.prog-gallery { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.prog-gallery-item { aspect-ratio: 4/3; border-radius: var(--radius); }
+
+/* ---- CTA band ---- */
+.prog-cta { background: var(--forest-deep); text-align: center; }
+.prog-cta-inner { max-width: 640px; margin: 0 auto; }
+.prog-cta h2 { color: var(--ivory); }
+.prog-cta p { color: rgba(250,248,243,0.75); margin: 14px 0 28px; }
+.prog-cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* ---- Responsive ---- */
+@media (max-width: 980px) {
+  .prog-hero-inner { grid-template-columns: 1fr; }
+  .prog-hero-media { max-width: 380px; margin: 0 auto; }
+  .prog-keyinfo-grid { grid-template-columns: repeat(2, 1fr); }
+  .prog-focus-grid { grid-template-columns: repeat(2, 1fr); }
+  .prog-journey { grid-template-columns: 1fr; }
+  .prog-journey::before { display: none; }
+}
+@media (max-width: 640px) {
+  .prog-gallery { grid-template-columns: 1fr 1fr; }
+  .prog-focus-grid { grid-template-columns: 1fr; }
+}
+
+/* Wraps the embedded Accelerator block inside Our Work, so it reads as one
+   distinct programme entry, not a random switch in page style. */
+.upcoming-programme { position: relative; padding: 0; border-bottom: 1px solid var(--line); }
+.upcoming-programme-flag {
+  position: absolute; top: 18px; left: var(--gutter); z-index: 2;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.03em;
+  color: var(--forest-deep); background: var(--gold); padding: 5px 12px; border-radius: 20px;
+}
+.upcoming-programme .prog-hero { padding-top: clamp(56px, 7vw, 88px); }

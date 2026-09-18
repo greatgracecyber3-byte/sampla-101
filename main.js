@@ -1,199 +1,176 @@
-/* ============================================================
-   SOLTECH ELECTRICAL — main.js
-   ============================================================ */
+// External Excellencies Global Foundation — Stage 1 interactions
+document.addEventListener('DOMContentLoaded', function () {
 
-document.addEventListener('DOMContentLoaded', () => {
+  // Footer year
+  var yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  /* ── 1. NAVBAR SCROLL ── */
-  const navbar = document.querySelector('.navbar');
-  const onScroll = () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 40);
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  // Mobile nav toggle
+  var toggle = document.getElementById('nav-toggle');
+  var nav = document.getElementById('main-nav');
+  if (toggle && nav) {
+    // Dim + lock the page behind the menu panel so the nav links never read
+    // as if they are sitting on top of the page content.
+    var scrim = document.createElement('div');
+    scrim.className = 'nav-scrim';
+    document.body.appendChild(scrim);
 
-  /* ── 2. MOBILE MENU ── */
-  const hamburger = document.querySelector('.hamburger');
-  const mobileNav = document.querySelector('.mobile-nav');
+    function setMenu(open) {
+      nav.classList.toggle('is-open', open);
+      document.body.classList.toggle('nav-open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (!open) closeAllDropdowns();
+    }
 
-  if (hamburger && mobileNav) {
-    hamburger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = mobileNav.classList.contains('open');
-      hamburger.classList.toggle('open', !isOpen);
-      mobileNav.classList.toggle('open', !isOpen);
-      // prevent body scroll when menu open
-      document.body.style.overflow = isOpen ? '' : 'hidden';
+    toggle.addEventListener('click', function () {
+      setMenu(!nav.classList.contains('is-open'));
     });
-
-    // Close on link click
-    mobileNav.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        hamburger.classList.remove('open');
-        mobileNav.classList.remove('open');
-        document.body.style.overflow = '';
-      });
+    scrim.addEventListener('click', function () { setMenu(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') setMenu(false);
     });
-
-    // Close on outside click
-    document.addEventListener('click', (e) => {
-      if (mobileNav.classList.contains('open') &&
-          !mobileNav.contains(e.target) &&
-          !hamburger.contains(e.target)) {
-        hamburger.classList.remove('open');
-        mobileNav.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-    });
-
-    // Close on Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
-        hamburger.classList.remove('open');
-        mobileNav.classList.remove('open');
-        document.body.style.overflow = '';
-      }
+    // close menu when a plain nav link (not a dropdown toggle) is clicked
+    nav.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () { setMenu(false); });
     });
   }
 
-  /* ── 3. ACTIVE NAV LINK ── */
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(a => {
-    const href = a.getAttribute('href');
-    if (href && (href === currentPage || href.split('#')[0] === currentPage ||
-        (currentPage === '' && href === 'index.html'))) {
-      a.classList.add('active');
-    }
+  // Nav dropdowns (About Us / Our Work / Get Involved) — click to open,
+  // like a standard multi-level nav. Works the same on desktop and mobile.
+  var dropdownItems = Array.prototype.slice.call(document.querySelectorAll('.has-dropdown'));
+  function closeAllDropdowns(except) {
+    dropdownItems.forEach(function (item) {
+      if (item === except) return;
+      item.classList.remove('is-open');
+      var btn = item.querySelector('.dropdown-toggle');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    });
+  }
+  dropdownItems.forEach(function (item) {
+    var btn = item.querySelector('.dropdown-toggle');
+    if (!btn) return;
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var isOpen = item.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      if (isOpen) closeAllDropdowns(item);
+    });
+  });
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.has-dropdown')) closeAllDropdowns();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeAllDropdowns();
   });
 
-  /* ── 4. SCROLL REVEAL ── */
-  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-  if (revealEls.length) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
+  // Hero image carousel — auto-fetches uploaded photos from content/gallery.json
+  // (written by the /admin image dashboard). Falls back to the placeholder
+  // slides already in the HTML if that file is empty or missing.
+  var heroCarousel = document.getElementById('hero-carousel');
+  if (heroCarousel) {
+    var track = document.getElementById('hero-carousel-track');
+    var dotsWrap = document.getElementById('hero-dots');
+    var prevBtn = document.getElementById('hero-prev');
+    var nextBtn = document.getElementById('hero-next');
+    var current = 0;
+    var timer = null;
+
+    function getSlides() { return Array.prototype.slice.call(track.querySelectorAll('.hero-slide')); }
+
+    function buildDots() {
+      var slides = getSlides();
+      dotsWrap.innerHTML = '';
+      slides.forEach(function (_, i) {
+        var b = document.createElement('button');
+        b.setAttribute('aria-label', 'Go to photo ' + (i + 1));
+        if (i === current) b.classList.add('is-active');
+        b.addEventListener('click', function () { goTo(i); restart(); });
+        dotsWrap.appendChild(b);
+      });
+    }
+
+    function goTo(index) {
+      var slides = getSlides();
+      if (!slides.length) return;
+      current = (index + slides.length) % slides.length;
+      slides.forEach(function (s, i) { s.classList.toggle('is-active', i === current); });
+      var dots = dotsWrap.querySelectorAll('button');
+      dots.forEach(function (d, i) { d.classList.toggle('is-active', i === current); });
+    }
+
+    function restart() {
+      if (timer) clearInterval(timer);
+      timer = setInterval(function () { goTo(current + 1); }, 5000);
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', function () { goTo(current - 1); restart(); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { goTo(current + 1); restart(); });
+    heroCarousel.addEventListener('mouseenter', function () { if (timer) clearInterval(timer); });
+    heroCarousel.addEventListener('mouseleave', restart);
+
+    // Try to load images uploaded via the admin dashboard
+    fetch('content/gallery.json')
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        if (data && Array.isArray(data.slides) && data.slides.length) {
+          track.innerHTML = data.slides.map(function (s, i) {
+            return '<div class="hero-slide' + (i === 0 ? ' is-active' : '') + '">' +
+              '<img class="visual-block ph-photo" src="' + s.image + '" alt="' + (s.caption || '') + '">' +
+              (s.caption ? '<p class="hero-slide-caption">' + s.caption + '</p>' : '') +
+              '</div>';
+          }).join('');
+        }
+        buildDots();
+        restart();
+      })
+      .catch(function () { buildDots(); restart(); });
+  }
+
+  // Scroll cue: jump to next section
+  var cue = document.getElementById('scroll-cue');
+  if (cue) {
+    cue.addEventListener('click', function () {
+      var next = document.getElementById('focus');
+      if (next) next.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  // Verified stat counter — runs once when it enters the viewport
+  var statEl = document.querySelector('.stat-number[data-count]');
+  if (statEl && 'IntersectionObserver' in window) {
+    var target = parseInt(statEl.getAttribute('data-count'), 10) || 0;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var animateCount = function () {
+      if (reduceMotion) {
+        statEl.textContent = target;
+        return;
+      }
+      var duration = 1200;
+      var start = null;
+      function step(ts) {
+        if (!start) start = ts;
+        var progress = Math.min((ts - start) / duration, 1);
+        statEl.textContent = Math.floor(progress * target);
+        if (progress < 1) requestAnimationFrame(step);
+        else statEl.textContent = target;
+      }
+      requestAnimationFrame(step);
+    };
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          animateCount();
+          observer.disconnect();
         }
       });
-    }, { threshold: 0.1 });
-    revealEls.forEach(el => observer.observe(el));
-  }
-
-  /* ── 5. HERO SLIDESHOW ── */
-  const slides = document.querySelectorAll('.hero-slide');
-  const dots   = document.querySelectorAll('.hero-dot');
-  if (slides.length) {
-    let current = 0;
-    const showSlide = (n) => {
-      slides.forEach((s, i) => s.classList.toggle('active', i === n));
-      dots.forEach((d,  i) => d.classList.toggle('active', i === n));
-      current = n;
-    };
-    dots.forEach((d, i) => d.addEventListener('click', () => showSlide(i)));
-    let timer = setInterval(() => showSlide((current + 1) % slides.length), 5000);
-    const heroEl = document.querySelector('.hero');
-    if (heroEl) {
-      heroEl.addEventListener('mouseenter', () => clearInterval(timer));
-      heroEl.addEventListener('mouseleave', () => {
-        timer = setInterval(() => showSlide((current + 1) % slides.length), 5000);
-      });
-    }
-    showSlide(0);
-  }
-
-  /* ── 6. COUNTER ANIMATION ── */
-  const counters = document.querySelectorAll('.counter');
-  if (counters.length) {
-    const countObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        const el = e.target;
-        const target = parseInt(el.dataset.target, 10);
-        const duration = 1800;
-        const step = target / (duration / 16);
-        let current = 0;
-        const tick = () => {
-          current = Math.min(current + step, target);
-          el.textContent = Math.floor(current).toLocaleString();
-          if (current < target) requestAnimationFrame(tick);
-        };
-        tick();
-        countObserver.unobserve(el);
-      });
     }, { threshold: 0.5 });
-    counters.forEach(c => countObserver.observe(c));
-  }
 
-  /* ── 7. FAQ ACCORDION ── */
-  const faqItems = document.querySelectorAll('.faq-item');
-  faqItems.forEach(item => {
-    const q = item.querySelector('.faq-question');
-    if (!q) return;
-    q.addEventListener('click', () => {
-      const isOpen = item.classList.contains('open');
-      faqItems.forEach(f => f.classList.remove('open'));
-      if (!isOpen) item.classList.add('open');
-    });
-  });
-
-  /* ── 8. GALLERY FILTER ── */
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const galleryItems = document.querySelectorAll('.gallery-item');
-  if (filterBtns.length) {
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const cat = btn.dataset.cat;
-        galleryItems.forEach(item => {
-          const show = cat === 'all' || item.dataset.cat === cat;
-          item.style.opacity   = show ? '1'      : '0';
-          item.style.transform = show ? 'scale(1)' : 'scale(0.92)';
-          item.style.pointerEvents = show ? 'all' : 'none';
-          item.style.position  = show ? 'relative' : 'absolute';
-        });
-      });
-    });
-  }
-
-  /* ── 9. SMOOTH SCROLL for anchor links ── */
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', e => {
-      const target = document.querySelector(anchor.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        const offset = 80;
-        const top = target.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top, behavior: 'smooth' });
-      }
-    });
-  });
-
-  /* ── 10. TESTIMONIALS SLIDER ── */
-  const testimonialSlides = document.querySelectorAll('.testimonial-slide');
-  const prevBtn = document.querySelector('.testi-prev');
-  const nextBtn = document.querySelector('.testi-next');
-  if (testimonialSlides.length && prevBtn && nextBtn) {
-    let tCurrent = 0;
-    const showTesti = (n) => {
-      testimonialSlides.forEach((s, i) => s.classList.toggle('active', i === n));
-      tCurrent = n;
-    };
-    nextBtn.addEventListener('click', () => showTesti((tCurrent + 1) % testimonialSlides.length));
-    prevBtn.addEventListener('click', () => showTesti((tCurrent - 1 + testimonialSlides.length) % testimonialSlides.length));
-    showTesti(0);
-    setInterval(() => showTesti((tCurrent + 1) % testimonialSlides.length), 6000);
-  }
-
-  /* ── 11. CONTACT FORM SUCCESS ── */
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('sent') === '1') {
-    const banner = document.createElement('div');
-    banner.style.cssText = 'position:fixed;top:80px;left:50%;transform:translateX(-50%);background:#27ae60;color:#fff;padding:14px 28px;border-radius:50px;font-weight:700;font-size:.95rem;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.2);white-space:nowrap;';
-    banner.textContent = '✅ Message sent! We\'ll respond within 2 hours.';
-    document.body.appendChild(banner);
-    setTimeout(() => banner.remove(), 5000);
+    observer.observe(statEl);
+  } else if (statEl) {
+    statEl.textContent = statEl.getAttribute('data-count');
   }
 
 });

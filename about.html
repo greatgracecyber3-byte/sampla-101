@@ -1,760 +1,408 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Us — EEWM</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:wght@300;400;600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --plum:    #1E0A3C;
-      --ivory:   #F9F4EC;
-      --gold:    #C9A84C;
-      --rose:    #C4846A;
-      --charcoal:#2A2A2A;
-      --gold-light: #e0c070;
-      --plum-mid: #2d1255;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us | External Excellencies Global Foundation</title>
+<meta name="description" content="From a women's ministry founded in 2017 to a global foundation empowering women, youth and communities — our story, mission, values and founder.">
+<meta property="og:title" content="About External Excellencies Global Foundation">
+<meta property="og:description" content="Our story, mission, vision, values and the founder behind the work.">
+<meta property="og:type" content="website">
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Nunito Sans', sans-serif;
-      background: var(--ivory);
-      color: var(--charcoal);
-      overflow-x: hidden;
-    }
-
-    /* ══════════════════════════════
-       NAVIGATION (identical)
-    ══════════════════════════════ */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      background: rgba(30, 10, 60, 0.97);
-      backdrop-filter: blur(10px);
-      padding: 0 2.5rem;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 68px;
-      border-bottom: 1px solid rgba(201,168,76,0.25);
-    }
-    .nav-logo {
-      font-family: 'Cinzel', serif; color: var(--gold);
-      font-size: 1.1rem; letter-spacing: 0.12em;
-      text-decoration: none; font-weight: 700;
-    }
-    .nav-logo span { display: block; font-size: 0.55rem; color: var(--gold-light); letter-spacing: 0.28em; font-weight: 400; margin-top: 2px; }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      font-family: 'Cinzel', serif; font-size: 0.72rem;
-      letter-spacing: 0.15em; color: var(--ivory);
-      text-decoration: none; text-transform: uppercase;
-      position: relative; padding-bottom: 4px; transition: color 0.3s;
-    }
-    .nav-links a::after {
-      content: ''; position: absolute; left: 0; bottom: 0;
-      width: 0; height: 1.5px; background: var(--gold); transition: width 0.35s ease;
-    }
-    .nav-links a:hover { color: var(--gold); }
-    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-    .nav-links a.active { color: var(--gold); }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-    .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); border-radius: 2px; transition: all 0.3s; }
-    .mobile-menu {
-      display: none; position: fixed; top: 68px; left: 0; right: 0;
-      background: rgba(30,10,60,0.98); flex-direction: column;
-      padding: 2rem; gap: 1.5rem; z-index: 999;
-      border-bottom: 1px solid rgba(201,168,76,0.3);
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.2em;
-      color: var(--ivory); text-decoration: none; text-transform: uppercase;
-      padding-bottom: 6px; border-bottom: 1px solid rgba(201,168,76,0.15);
-    }
-    .mobile-menu a.active, .mobile-menu a:hover { color: var(--gold); }
-    @media(max-width:768px){ .nav-links { display: none; } .hamburger { display: flex; } }
-
-    /* ══════════════════════════════
-       SHORT HERO
-    ══════════════════════════════ */
-    .page-hero {
-      position: relative;
-      height: 55vh; min-height: 420px;
-      display: flex; align-items: center;
-      overflow: hidden;
-    }
-    .page-hero-bg {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, #1E0A3C 0%, #2d1255 45%, #3a1a6e 75%, #1E0A3C 100%);
-    }
-    .page-hero-bg::after {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        radial-gradient(ellipse at 15% 60%, rgba(201,168,76,0.1) 0%, transparent 55%),
-        radial-gradient(ellipse at 85% 30%, rgba(196,132,106,0.08) 0%, transparent 50%);
-    }
-    /* Photo overlay */
-    .page-hero-photo {
-      position: absolute; inset: 0;
-      background: url('about-hero.jpg') center/cover no-repeat;
-      opacity: 0.22;
-    }
-    .page-hero-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to right, rgba(30,10,60,0.88) 0%, rgba(30,10,60,0.5) 60%, rgba(30,10,60,0.2) 100%);
-    }
-    /* decorative lines */
-    .page-hero-deco {
-      position: absolute; inset: 0; pointer-events: none; overflow: hidden;
-    }
-    .page-hero-deco::before {
-      content: ''; position: absolute; top: -50%; left: 60%;
-      width: 1px; height: 200%;
-      background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.18), transparent);
-      transform: rotate(12deg);
-    }
-    .page-hero-circle {
-      position: absolute; right: -8vw; top: 50%; transform: translateY(-50%);
-      width: 50vw; height: 50vw; max-width: 560px; max-height: 560px;
-      border: 1px solid rgba(201,168,76,0.1); border-radius: 50%; pointer-events: none;
-    }
-    .page-hero-circle::before {
-      content: ''; position: absolute; inset: 25px;
-      border: 1px solid rgba(201,168,76,0.06); border-radius: 50%;
-    }
-    .page-hero-content {
-      position: relative; z-index: 2;
-      padding: 0 6vw; margin-top: 68px;
-    }
-    .page-hero-label {
-      font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.4em;
-      color: var(--gold); text-transform: uppercase; margin-bottom: 1rem;
-      display: flex; align-items: center; gap: 1rem;
-    }
-    .page-hero-label::before { content: ''; display: block; width: 30px; height: 1px; background: var(--gold); }
-    .page-hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
-      font-weight: 900; color: var(--ivory); line-height: 1.08;
-      margin-bottom: 1rem;
-    }
-    .page-hero-title em { font-style: italic; color: var(--gold); }
-    .page-hero-sub {
-      font-family: 'Libre Baskerville', serif; font-style: italic;
-      font-size: 1rem; color: rgba(249,244,236,0.7); max-width: 460px; line-height: 1.7;
-    }
-    /* Breadcrumb */
-    .breadcrumb {
-      position: absolute; bottom: 1.5rem; left: 6vw; z-index: 2;
-      font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.2em;
-      color: rgba(201,168,76,0.55); text-transform: uppercase;
-    }
-    .breadcrumb a { color: rgba(201,168,76,0.55); text-decoration: none; }
-    .breadcrumb a:hover { color: var(--gold); }
-    .breadcrumb span { color: var(--gold); }
-
-    /* ══════════════════════════════
-       SHARED SECTION STYLES
-    ══════════════════════════════ */
-    .section-label {
-      font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.4em;
-      text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem;
-    }
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.9rem, 3.5vw, 2.9rem);
-      font-weight: 700; color: var(--plum); margin-bottom: 0.5rem;
-    }
-    .section-title-ivory { color: var(--ivory); }
-    .section-rule {
-      display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 0.8rem;
-    }
-    .section-rule::before, .section-rule::after {
-      content: ''; flex: 1; max-width: 80px; height: 1px; background: var(--gold);
-    }
-    .section-header { text-align: center; margin-bottom: 3.5rem; }
-    .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
-    .stagger-1 { transition-delay: 0.1s; }
-    .stagger-2 { transition-delay: 0.22s; }
-    .stagger-3 { transition-delay: 0.34s; }
-    .stagger-4 { transition-delay: 0.46s; }
-    .img-placeholder {
-      background: linear-gradient(135deg, #f0e8d0 0%, #e8dab8 100%);
-      display: flex; align-items: center; justify-content: center;
-      color: rgba(30,10,60,0.35); font-family: 'Cinzel', serif;
-      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
-      text-align: center; padding: 1rem;
-    }
-    .btn {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      font-family: 'Cinzel', serif; font-size: 0.68rem;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      text-decoration: none; cursor: pointer;
-      padding: 0.8rem 1.7rem;
-      border: 1.5px solid var(--gold);
-      transition: background 0.3s, color 0.3s;
-    }
-    .btn-gold { background: var(--gold); color: var(--plum); }
-    .btn-gold:hover { background: transparent; color: var(--gold); }
-    .btn-outline-plum { background: transparent; color: var(--plum); border-color: var(--plum); }
-    .btn-outline-plum:hover { background: var(--plum); color: var(--ivory); }
-    .btn-outline-ivory { background: transparent; color: var(--ivory); border-color: var(--gold); }
-    .btn-outline-ivory:hover { background: var(--gold); color: var(--plum); }
-    .btn-whatsapp { background: #25D366; border-color: #25D366; color: #fff; }
-    .btn-whatsapp:hover { background: transparent; color: #25D366; border-color: #25D366; }
-    .btn-group { display: flex; flex-wrap: wrap; gap: 1rem; }
-
-    /* ══════════════════════════════
-       VISION & MISSION
-    ══════════════════════════════ */
-    .vision-mission {
-      padding: 6rem 2rem;
-      background: var(--ivory);
-    }
-    .vm-grid {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
-      align-items: start;
-    }
-    .vm-intro { grid-column: 1 / -1; }
-    .vm-intro p {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 1.08rem; line-height: 1.9;
-      color: rgba(42,42,42,0.8); max-width: 680px; margin: 0 auto;
-      text-align: center;
-    }
-    .vm-divider {
-      grid-column: 1 / -1;
-      display: flex; align-items: center; gap: 1.5rem;
-      margin: 1rem 0;
-    }
-    .vm-divider::before, .vm-divider::after {
-      content: ''; flex: 1; height: 1px; background: rgba(201,168,76,0.3);
-    }
-    .vm-divider span {
-      font-family: 'Cinzel', serif; font-size: 0.55rem;
-      letter-spacing: 0.4em; color: var(--gold); text-transform: uppercase;
-    }
-    .vm-card {
-      background: #fff;
-      border-top: 3px solid var(--gold);
-      padding: 2.5rem;
-      position: relative;
-    }
-    .vm-card-icon {
-      font-size: 2rem; margin-bottom: 1rem;
-    }
-    .vm-card h3 {
-      font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.35em;
-      text-transform: uppercase; color: var(--gold); margin-bottom: 0.7rem;
-    }
-    .vm-card h2 {
-      font-family: 'Playfair Display', serif; font-size: 1.6rem;
-      font-weight: 700; color: var(--plum); margin-bottom: 1rem; line-height: 1.25;
-    }
-    .vm-card p {
-      font-size: 0.93rem; line-height: 1.8; color: rgba(42,42,42,0.72);
-    }
-    .vm-scripture {
-      margin-top: 1.5rem; padding: 1rem 1.2rem;
-      border-left: 3px solid var(--gold);
-      background: rgba(201,168,76,0.05);
-    }
-    .vm-scripture p {
-      font-family: 'Libre Baskerville', serif; font-style: italic;
-      font-size: 0.88rem; color: var(--gold); line-height: 1.65;
-    }
-    @media(max-width:700px){ .vm-grid { grid-template-columns: 1fr; } .vm-intro { grid-column: 1; } .vm-divider { grid-column: 1; } }
-
-    /* ══════════════════════════════
-       LEADERSHIP
-    ══════════════════════════════ */
-    .leadership {
-      background: var(--plum);
-      padding: 6rem 2rem;
-      position: relative; overflow: hidden;
-    }
-    .leadership::before {
-      content: '';
-      position: absolute; top: -30%; right: -10%;
-      width: 600px; height: 600px;
-      border: 1px solid rgba(201,168,76,0.08); border-radius: 50%;
-      pointer-events: none;
-    }
-    .leadership .section-label { color: var(--gold); }
-    .leadership .section-title { color: var(--ivory); }
-    .leadership .section-rule::before,
-    .leadership .section-rule::after { background: rgba(201,168,76,0.4); }
-    .leadership-grid {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
-    }
-    .leader-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(201,168,76,0.18);
-      padding: 2rem;
-      transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s;
-      position: relative; overflow: hidden;
-    }
-    .leader-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 3px; background: var(--gold); transform: scaleX(0);
-      transform-origin: left; transition: transform 0.4s ease;
-    }
-    .leader-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.3); border-color: rgba(201,168,76,0.5); }
-    .leader-card:hover::before { transform: scaleX(1); }
-    .leader-photo {
-      width: 100%; height: 220px; margin-bottom: 1.4rem; overflow: hidden;
-      position: relative;
-    }
-    .leader-photo .img-placeholder { height: 100%; }
-    .leader-name {
-      font-family: 'Playfair Display', serif; font-size: 1.22rem;
-      font-weight: 700; color: var(--ivory); margin-bottom: 0.3rem;
-    }
-    .leader-role {
-      font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.25em;
-      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
-    }
-    .leader-bio {
-      font-size: 0.85rem; line-height: 1.75;
-      color: rgba(249,244,236,0.6);
-    }
-    @media(max-width:860px){ .leadership-grid { grid-template-columns: 1fr 1fr; } }
-    @media(max-width:520px){ .leadership-grid { grid-template-columns: 1fr; } }
-
-    /* ══════════════════════════════
-       OUR PILLARS (full descriptions)
-    ══════════════════════════════ */
-    .pillars-about {
-      background: var(--ivory);
-      padding: 6rem 2rem;
-    }
-    .pillars-list {
-      max-width: 1000px; margin: 0 auto;
-      display: flex; flex-direction: column; gap: 4rem;
-    }
-    .pillar-row {
-      display: grid; grid-template-columns: 1fr 1.4fr; gap: 3.5rem;
-      align-items: center;
-    }
-    .pillar-row.reverse { direction: rtl; }
-    .pillar-row.reverse > * { direction: ltr; }
-    .pillar-row-img { width: 100%; height: 280px; }
-    .pillar-row-text {}
-    .pillar-row-number {
-      font-family: 'Playfair Display', serif; font-size: 4rem;
-      font-weight: 900; color: rgba(201,168,76,0.15); line-height: 1;
-      margin-bottom: -0.5rem;
-    }
-    .pillar-row-label {
-      font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.35em;
-      text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem;
-    }
-    .pillar-row-name {
-      font-family: 'Playfair Display', serif; font-size: 1.75rem;
-      font-weight: 700; color: var(--plum); margin-bottom: 1rem; line-height: 1.2;
-    }
-    .pillar-row-desc {
-      font-size: 0.93rem; line-height: 1.85; color: rgba(42,42,42,0.72);
-      margin-bottom: 1.2rem;
-    }
-    .pillar-row-scripture {
-      font-family: 'Libre Baskerville', serif; font-style: italic;
-      font-size: 0.85rem; color: var(--gold);
-      padding-left: 1rem; border-left: 2px solid var(--gold);
-    }
-    @media(max-width:700px){
-      .pillar-row, .pillar-row.reverse { grid-template-columns: 1fr; direction: ltr; }
-    }
-
-    /* ══════════════════════════════
-       FOOTER (identical)
-    ══════════════════════════════ */
-    footer { background: var(--charcoal); padding: 4rem 2rem 0; margin-top: 30px; }
-    .footer-grid {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem;
-      padding-bottom: 3rem;
-    }
-    .footer-logo {
-      font-family: 'Cinzel', serif; font-size: 1.1rem;
-      font-weight: 700; color: var(--gold); letter-spacing: 0.1em;
-      text-decoration: none; display: block; margin-bottom: 0.5rem;
-    }
-    .footer-tagline {
-      font-family: 'Libre Baskerville', serif; font-style: italic;
-      font-size: 0.82rem; color: rgba(249,244,236,0.5);
-      line-height: 1.6; margin-top: 0.5rem;
-    }
-    .footer-heading {
-      font-family: 'Cinzel', serif; font-size: 0.62rem;
-      letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 1.2rem;
-      padding-bottom: 0.5rem; border-bottom: 1px solid rgba(201,168,76,0.2);
-    }
-    .footer-links { list-style: none; }
-    .footer-links li { margin-bottom: 0.6rem; }
-    .footer-links a { font-size: 0.85rem; color: rgba(249,244,236,0.6); text-decoration: none; transition: color 0.3s; }
-    .footer-links a:hover { color: var(--gold); }
-    .social-icons { display: flex; flex-wrap: wrap; gap: 0.7rem; }
-    .social-icon {
-      width: 36px; height: 36px; border: 1px solid rgba(201,168,76,0.3);
-      display: flex; align-items: center; justify-content: center;
-      color: rgba(249,244,236,0.6); font-size: 0.8rem;
-      text-decoration: none; transition: all 0.3s;
-    }
-    .social-icon:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.1); }
-    .email-capture { display: flex; flex-direction: column; gap: 0.7rem; }
-    .email-capture input {
-      background: rgba(255,255,255,0.07); border: 1px solid rgba(201,168,76,0.25);
-      color: var(--ivory); padding: 0.6rem 0.9rem;
-      font-family: 'Nunito Sans', sans-serif; font-size: 0.85rem;
-      outline: none; transition: border-color 0.3s;
-    }
-    .email-capture input::placeholder { color: rgba(249,244,236,0.35); }
-    .email-capture input:focus { border-color: var(--gold); }
-    .email-capture button {
-      font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.18em;
-      text-transform: uppercase; cursor: pointer;
-      padding: 0.65rem; background: var(--gold); color: var(--plum);
-      border: none; transition: background 0.3s, color 0.3s;
-    }
-    .email-capture button:hover { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
-    .footer-bottom {
-      border-top: 1px solid rgba(201,168,76,0.2);
-      padding: 1.2rem 0;
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
-      max-width: 1100px; margin: 0 auto;
-    }
-    .footer-bottom p { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.12em; color: rgba(249,244,236,0.35); }
-    @media(max-width: 860px){ .footer-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media(max-width: 480px){ .footer-grid { grid-template-columns: 1fr; } }
-
-    /* ══════════════════════════════
-       CLIP DIVIDERS
-    ══════════════════════════════ */
-    .clip-bottom-right { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 60px), 0 100%); margin-bottom: -30px; }
-    .clip-top-left { clip-path: polygon(0 60px, 100% 0, 100% 100%, 0 100%); margin-top: -30px; padding-top: calc(30px + 5rem); }
-
-    /* CTA Banner */
-    .cta-banner {
-      background: var(--plum);
-      padding: 5rem 2rem;
-      text-align: center;
-      position: relative; overflow: hidden;
-    }
-    .cta-banner::before {
-      content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      width: 700px; height: 700px;
-      border: 1px solid rgba(201,168,76,0.07); border-radius: 50%;
-      pointer-events: none;
-    }
-    .cta-banner h2 {
-      font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      font-weight: 700; color: var(--ivory); margin-bottom: 1rem; position: relative;
-    }
-    .cta-banner h2 em { font-style: italic; color: var(--gold); }
-    .cta-banner p {
-      font-size: 0.95rem; color: rgba(249,244,236,0.65);
-      max-width: 500px; margin: 0 auto 2rem; line-height: 1.75; position: relative;
-    }
-    .cta-banner .btn-group { justify-content: center; position: relative; }
-  </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="about.css">
 </head>
 <body>
 
-<!-- ══════════════════════════════
-     NAVIGATION
-══════════════════════════════ -->
-<nav id="main-nav">
-  <a href="index.html" class="nav-logo">EEWM<span>Eternal Excellencies Women Ministry</span></a>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html" class="active">About Us</a></li>
-    <li><a href="events.html">Events &amp; Media</a></li>
-    <li><a href="bookstore.html">Bookstore</a></li>
-    <li><a href="join.html">Join Us</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-  <div class="hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </div>
-</nav>
-<div class="mobile-menu" id="mobile-menu">
-  <a href="index.html">Home</a>
-  <a href="about.html" class="active">About Us</a>
-  <a href="events.html">Events &amp; Media</a>
-  <a href="bookstore.html">Bookstore</a>
-  <a href="join.html">Join Us</a>
-  <a href="contact.html">Contact</a>
-</div>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<!-- ══════════════════════════════
-     SHORT HERO
-══════════════════════════════ -->
-<section class="page-hero">
-  <div class="page-hero-bg"></div>
-  <div class="page-hero-photo" style="background-image:url('about-hero.jpg');"></div>
-  <div class="page-hero-overlay"></div>
-  <div class="page-hero-deco"></div>
-  <div class="page-hero-circle"></div>
-
-  <div class="page-hero-content">
-    <p class="page-hero-label">Our Story</p>
-    <h1 class="page-hero-title">Women Walking<br />in <em>Eternal</em> Purpose</h1>
-    <p class="page-hero-sub">Discover the heart, mission, and women behind the movement that is transforming lives across Kenya.</p>
-  </div>
-
-  <div class="breadcrumb">
-    <a href="index.html">Home</a> &nbsp;/&nbsp; <span>About Us</span>
-  </div>
-</section>
-
-<!-- ══════════════════════════════
-     VISION & MISSION
-══════════════════════════════ -->
-<section class="vision-mission" id="vision">
-  <div class="vm-grid">
-    <div class="vm-intro fade-up">
-      <div class="section-header">
-        <p class="section-label">&#9670; Who We Are</p>
-        <div class="section-rule">
-          <h2 class="section-title">EEWM at a Glance</h2>
-        </div>
-        <p>Eternal Excellencies Women Ministry (EEWM) is a faith-based women's discipleship and empowerment movement rooted in Nairobi, Kenya. Founded on the conviction that every woman carries a God-given excellence within her, we walk alongside women to awaken, develop, and release that potential — for the glory of God and the good of generations to come.</p>
-      </div>
-    </div>
-
-    <div class="vm-divider fade-up"><span>&#9670; Our Foundations &#9670;</span></div>
-
-    <!-- Vision -->
-    <div class="vm-card fade-up stagger-1">
-      <div class="vm-card-icon">&#10024;</div>
-      <h3>Our Vision</h3>
-      <h2>A Woman Fully Alive in God</h2>
-      <p>We envision a generation of women who know who they are in Christ — women of unshakeable identity, bold faith, and transformative influence in their homes, churches, communities, and nations. We see a movement that outlasts us, a joy of many generations.</p>
-      <div class="vm-scripture">
-        <p>"She is clothed with strength and dignity; she can laugh at the days to come." — Proverbs 31:25</p>
-      </div>
-    </div>
-
-    <!-- Mission -->
-    <div class="vm-card fade-up stagger-2">
-      <div class="vm-card-icon">&#127775;</div>
-      <h3>Our Mission</h3>
-      <h2>Disciple. Empower. Connect.</h2>
-      <p>EEWM exists to disciple women in the Word of God, empower them with practical tools for life and purpose, and connect them in authentic community — so that together, they flourish in every dimension of their calling as daughters of the Most High.</p>
-      <div class="vm-scripture">
-        <p>"Go and make disciples of all nations, baptizing them… teaching them to observe all that I have commanded." — Matthew 28:19–20</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════
-     LEADERSHIP TEAM
-══════════════════════════════ -->
-<section class="leadership clip-bottom-right" id="leadership">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div class="section-header fade-up">
-      <p class="section-label">&#9670; The Faces Behind EEWM</p>
-      <div class="section-rule">
-        <h2 class="section-title section-title-ivory">Our Leadership Team</h2>
-      </div>
-      <p style="font-size:0.93rem;color:rgba(249,244,236,0.6);max-width:520px;margin:0 auto;line-height:1.75;">
-        These women carry the vision, steward the ministry, and walk faithfully with every member of the EEWM family.
-      </p>
-    </div>
-
-    <div class="leadership-grid">
-
-      <!-- Leader 1 — Jane -->
-      <div class="leader-card fade-up stagger-1">
-        <div class="leader-photo">
-          <div class="img-placeholder" style="height:100%;" data-label="leader-jane.jpg">leader‑jane.jpg</div>
-        </div>
-        <p class="leader-name">Jane Muthoni</p>
-        <p class="leader-role">Founder &amp; Lead Minister</p>
-        <p class="leader-bio">Jane founded EEWM with a burden for women to know their true identity in Christ. With over two decades in women's ministry, she brings deep wisdom, prophetic insight, and a mother's heart to everything she does.</p>
-      </div>
-
-      <!-- Leader 2 -->
-      <div class="leader-card fade-up stagger-2">
-        <div class="leader-photo">
-          <div class="img-placeholder" style="height:100%;" data-label="leader-2.jpg">leader‑2.jpg</div>
-        </div>
-        <p class="leader-name">Grace Wanjiku</p>
-        <p class="leader-role">Director of Discipleship</p>
-        <p class="leader-bio">Grace leads our Bible study programmes and mentorship circles with contagious passion and scholarly depth. She believes no woman should walk through life without someone walking alongside her in the Word.</p>
-      </div>
-
-      <!-- Leader 3 -->
-      <div class="leader-card fade-up stagger-3">
-        <div class="leader-photo">
-          <div class="img-placeholder" style="height:100%;" data-label="leader-3.jpg">leader‑3.jpg</div>
-        </div>
-        <p class="leader-name">Miriam Achieng</p>
-        <p class="leader-role">Director of Empowerment</p>
-        <p class="leader-bio">Miriam bridges faith and everyday life. A trained entrepreneur and business coach, she equips women with tools to build sustainable livelihoods — all grounded in the wisdom of scripture.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════
-     OUR PILLARS — FULL
-══════════════════════════════ -->
-<section class="pillars-about clip-top-left" id="pillars">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div class="section-header fade-up">
-      <p class="section-label">&#9670; Built on Solid Ground</p>
-      <div class="section-rule">
-        <h2 class="section-title">Our Three Pillars</h2>
-      </div>
-      <p style="font-size:0.93rem;color:rgba(42,42,42,0.65);max-width:520px;margin:0 auto;line-height:1.75;">
-        Every programme, gathering, and resource at EEWM flows from three pillars that define how we walk with women toward wholeness and purpose.
-      </p>
-    </div>
-
-    <div class="pillars-list">
-
-      <!-- Pillar 1: Discipleship -->
-      <div class="pillar-row fade-up">
-        <div class="pillar-row-img img-placeholder" data-label="pillar-discipleship.jpg">pillar‑discipleship.jpg</div>
-        <div class="pillar-row-text">
-          <p class="pillar-row-number">01</p>
-          <p class="pillar-row-label">&#9670; First Pillar</p>
-          <h3 class="pillar-row-name">Discipleship</h3>
-          <p class="pillar-row-desc">We believe every woman is called to grow deeper in the Word of God — not just to know scripture, but to be transformed by it. Through structured Bible studies, mentorship circles, and one-on-one accountability, EEWM creates environments where women encounter God authentically and are shaped into His image.</p>
-          <p class="pillar-row-desc">Discipleship at EEWM is never a solitary journey. We walk together — the seasoned guiding the new, the young energising the established — in a chain of grace that spans generations.</p>
-          <p class="pillar-row-scripture">"Go and make disciples of all nations… teaching them to observe all that I have commanded you." — Matthew 28:19–20</p>
-        </div>
-      </div>
-
-      <!-- Pillar 2: Empowerment -->
-      <div class="pillar-row reverse fade-up stagger-1">
-        <div class="pillar-row-img img-placeholder" data-label="pillar-empowerment.jpg">pillar‑empowerment.jpg</div>
-        <div class="pillar-row-text">
-          <p class="pillar-row-number">02</p>
-          <p class="pillar-row-label">&#9670; Second Pillar</p>
-          <h3 class="pillar-row-name">Empowerment</h3>
-          <p class="pillar-row-desc">Faith without action is incomplete. EEWM equips women with practical tools — entrepreneurial skills, financial literacy, leadership development, and health education — ensuring that spiritual growth translates into tangible transformation in her home, workplace, and community.</p>
-          <p class="pillar-row-desc">We champion the Proverbs 31 woman: not as an impossible standard, but as a beautiful picture of a woman whose faith energises her excellence in every arena of life.</p>
-          <p class="pillar-row-scripture">"She sees that her trading is profitable, and her lamp does not go out at night." — Proverbs 31:18</p>
-        </div>
-      </div>
-
-      <!-- Pillar 3: Community -->
-      <div class="pillar-row fade-up stagger-2">
-        <div class="pillar-row-img img-placeholder" data-label="pillar-community.jpg">pillar‑community.jpg</div>
-        <div class="pillar-row-text">
-          <p class="pillar-row-number">03</p>
-          <p class="pillar-row-label">&#9670; Third Pillar</p>
-          <h3 class="pillar-row-name">Community</h3>
-          <p class="pillar-row-desc">Iron sharpens iron. EEWM is a sisterhood — a safe, joyful, and honest community where women are known, celebrated, and carried. We create spaces where vulnerability is welcomed, victories are shared, and no woman walks alone through the challenges of life.</p>
-          <p class="pillar-row-desc">From our flagship Second Saturday gatherings to intimate small groups, we believe that life-giving community is not optional — it is the soil in which everything else grows.</p>
-          <p class="pillar-row-scripture">"As iron sharpens iron, so one person sharpens another." — Proverbs 27:17</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════
-     CTA BANNER
-══════════════════════════════ -->
-<section class="cta-banner fade-up">
-  <h2>Ready to Walk with <em>Purpose</em>?</h2>
-  <p>Join a community of women rising in faith, excellence, and sisterhood. Your journey begins with one step.</p>
-  <div class="btn-group">
-    <a href="join.html" class="btn btn-gold">Join EEWM Today</a>
-    <a href="https://wa.me/254790822347?text=Hello%2C%20I%27d%20love%20to%20connect%20with%20EEWM." class="btn btn-whatsapp" target="_blank" rel="noopener">&#128172; WhatsApp Us</a>
-    <a href="contact.html" class="btn btn-outline-ivory">Contact Us</a>
-  </div>
-</section>
-
-<!-- ══════════════════════════════
-     FOOTER
-══════════════════════════════ -->
-<footer>
-  <div class="footer-grid">
-    <div>
-      <a href="index.html" class="footer-logo">EEWM</a>
-      <p class="footer-tagline">"A Joy of Many Generations"</p>
-      <p style="font-size:0.8rem;color:rgba(249,244,236,0.4);margin-top:1rem;line-height:1.6;">A faith-based women's discipleship and empowerment movement based in Kenya.</p>
-    </div>
-    <div>
-      <p class="footer-heading">Quick Links</p>
-      <ul class="footer-links">
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo"><img src="images/logo.jpg" alt="External Excellencies Global Foundation logo" class="logo-mark">External Excellencies<span>Global Foundation</span></a>
+    <nav class="main-nav" id="main-nav" aria-label="Primary">
+      <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="events.html">Events &amp; Media</a></li>
-        <li><a href="bookstore.html">Bookstore</a></li>
-        <li><a href="join.html">Join Us</a></li>
+        <li class="has-dropdown">
+          <a href="about.html" class="active">About Us</a>
+          <button class="dropdown-toggle" aria-expanded="false" aria-label="Show About Us submenu"><span></span></button>
+          <ul class="dropdown-menu">
+            <li><a href="about.html#story">Our Story</a></li>
+            <li><a href="about.html#values">Our Values</a></li>
+            <li><a href="about.html#founder">Meet the Founder</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="our-work.html">Our Work</a>
+          <button class="dropdown-toggle" aria-expanded="false" aria-label="Show Our Work submenu"><span></span></button>
+          <ul class="dropdown-menu">
+            <li><a href="our-work.html#accelerator">Youth &amp; Women Accelerator 2026</a></li>
+            <li><a href="our-work.html#women">Women's Empowerment</a></li>
+            <li><a href="our-work.html#youth">Youth Development</a></li>
+            <li><a href="our-work.html#health">Health</a></li>
+            <li><a href="our-work.html#education">Education</a></li>
+            <li><a href="our-work.html#economic">Economic Empowerment</a></li>
+            <li><a href="our-work.html#leadership">Leadership</a></li>
+            <li><a href="our-work.html#community">Community</a></li>
+          </ul>
+        </li>
+        <li><a href="impact.html">Our Impact</a></li>
+        <li class="has-dropdown">
+          <a href="get-involved.html">Get Involved</a>
+          <button class="dropdown-toggle" aria-expanded="false" aria-label="Show Get Involved submenu"><span></span></button>
+          <ul class="dropdown-menu">
+            <li><a href="get-involved.html#donate">Donate</a></li>
+            <li><a href="get-involved.html#partner">Partner</a></li>
+            <li><a href="get-involved.html#volunteer">Volunteer</a></li>
+            <li><a href="get-involved.html#support-program">Support a Program</a></li>
+            <li><a href="get-involved.html#advocate">Advocate</a></li>
+          </ul>
+        </li>
+        <li><a href="stories.html">Stories &amp; News</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
+    </nav>
+    <div class="header-actions">
+      <a href="get-involved.html#donate" class="btn btn-donate">Donate</a>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-    <div>
-      <p class="footer-heading">Connect With Us</p>
-      <div class="social-icons" style="margin-bottom:1.2rem;">
-        <a href="#" class="social-icon" title="Facebook" aria-label="Facebook">f</a>
-        <a href="#" class="social-icon" title="Instagram" aria-label="Instagram">&#9749;</a>
-        <a href="#" class="social-icon" title="YouTube" aria-label="YouTube">&#9654;</a>
-        <a href="https://wa.me/254790822347" class="social-icon" title="WhatsApp" aria-label="WhatsApp" target="_blank" rel="noopener">&#128172;</a>
-      </div>
-      <p style="font-size:0.78rem;color:rgba(249,244,236,0.45);line-height:1.6;">WhatsApp: <a href="https://wa.me/254790822347" style="color:var(--gold);text-decoration:none;">0790822347</a><br />
-      Email: <a href="mailto:eternalexcellencies@gmail.com" style="color:var(--gold);text-decoration:none;">eternalexcellencies@gmail.com</a></p>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ PAGE INTRO ============ -->
+  <section class="about-intro">
+    <div class="about-intro-inner">
+      <p class="hero-kicker">About Us</p>
+      <h1>A ministry that grew into a foundation — without losing what it started for.</h1>
     </div>
-    <div>
-      <p class="footer-heading">Stay Inspired</p>
-      <p style="font-size:0.8rem;color:rgba(249,244,236,0.45);line-height:1.6;margin-bottom:1rem;">Receive devotionals, event updates, and encouragement straight to your inbox.</p>
-      <div class="email-capture">
-        <input type="text" placeholder="Your name" id="footer-name" />
-        <input type="email" placeholder="Your email address" id="footer-email" />
-        <button onclick="subscribeFooter()">Subscribe</button>
+  </section>
+
+  <!-- ============ OUR STORY ============ -->
+  <section class="our-story" id="story">
+    <div class="section-head">
+      <p class="section-eyebrow">Our story</p>
+      <h2>From a women's ministry to a global foundation</h2>
+    </div>
+    <div class="story-columns">
+      <div class="story-text">
+        <p>Our roots trace back to 2017, to the <strong>External Excellencies Women's Ministry</strong> — practical, community-level work focused on empowering women and youth. That work included entrepreneurship seminars, women empowerment, youth development, youth media training, medical camps, community outreach, leadership development and economic empowerment, including seed-capital support that helped widows and women start businesses.</p>
+        <p>By 2023, that work had outgrown its original structure. It became the <strong>External Excellencies Global Foundation</strong> — a broader platform for the same mission, built to carry women's empowerment, youth development, healthcare, education, skills development, entrepreneurship, leadership and community development further than a ministry alone could reach.</p>
+        <p>In 2025, that expansion took visible shape in community health work, including the South B Community Medical Camp — a single day, delivered with partners, that reached 921 participants. It's one data point in a longer story we're still writing.</p>
       </div>
-      <p id="footer-msg" style="font-size:0.75rem;color:var(--gold);margin-top:0.5rem;display:none;">Thank you! You're now subscribed. ✦</p>
+      <ol class="story-timeline">
+        <li>
+          <span class="timeline-year">2017</span>
+          <h3>The ministry begins</h3>
+          <p>External Excellencies Women's Ministry starts its work empowering women and youth in the community.</p>
+        </li>
+        <li>
+          <span class="timeline-year">2023</span>
+          <h3>A foundation emerges</h3>
+          <p>The work is restructured and broadened into External Excellencies Global Foundation.</p>
+        </li>
+        <li>
+          <span class="timeline-year">2025</span>
+          <h3>Community health impact</h3>
+          <p>South B Community Medical Camp — 921 participants, delivered with KEMRI, the Betting Control and Licensing Board, and MobiLab Africa.</p>
+        </li>
+        <li>
+          <span class="timeline-year">2026 &rarr;</span>
+          <h3>Building the next chapter</h3>
+          <p>[ADD OFFICIAL INFORMATION on upcoming plans as they are confirmed]</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ WHY WE EXIST ============ -->
+  <section class="why-exist">
+    <div class="why-inner">
+      <div class="why-copy">
+        <p class="section-eyebrow">Why we exist</p>
+        <h2>The gap between ability and opportunity</h2>
+        <p>In the communities we work in, we see this pattern again and again: real ability, discipline and ambition, met with limited access to the things that turn ability into a livelihood.</p>
+      </div>
+      <ul class="why-list">
+        <li><strong>Limited access to opportunity</strong><span>Skill without a route to income stays untapped.</span></li>
+        <li><strong>Economic vulnerability</strong><span>Widows, single mothers and youth are often one setback away from crisis.</span></li>
+        <li><strong>Skills gaps</strong><span>Formal training is often out of reach financially or geographically.</span></li>
+        <li><strong>Youth unemployment and disconnection</strong><span>Ambition with nowhere structured to go.</span></li>
+        <li><strong>Healthcare access</strong><span>Basic screening and care aren't always within reach.</span></li>
+        <li><strong>The need for sustainable community development</strong><span>Interventions that outlast a single program cycle.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="dark-band">
+    <div class="dark-band-inner">
+      <p class="section-eyebrow">Our conviction</p>
+      <h2>Talent is never the shortage. Access is.</h2>
+      <p>Everything we build — from a single mentoring session to a community health outreach — starts from that belief.</p>
+    </div>
+  </section>
+
+  <!-- ============ VISION & MISSION ============ -->
+  <section class="vision-mission">
+    <div class="vm-grid">
+      <div class="vm-block">
+        <p class="section-eyebrow">Our vision</p>
+        <p class="vm-statement">To empower women and youth globally for sustainable, impactful lives.</p>
+      </div>
+      <div class="vm-block vm-block--dark">
+        <p class="section-eyebrow" style="color:var(--gold)">Our mission</p>
+        <p class="vm-statement" style="color:var(--ivory)">To build pathways for women and youth to thrive by offering educational resources, skill development, health support, and social networks that foster economic stability and personal growth.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VALUES ============ -->
+  <section class="values" id="values">
+    <div class="section-head">
+      <p class="section-eyebrow">Our values</p>
+      <h2>What guides how we work</h2>
+    </div>
+    <ul class="values-accordion" id="values-accordion">
+      <li class="value-item is-open">
+        <button class="value-trigger" aria-expanded="true">
+          <span>Empowerment</span>
+          <span class="value-icon" aria-hidden="true"></span>
+        </button>
+        <div class="value-panel">
+          <p>Creating pathways for individuals and communities to realize their potential.</p>
+        </div>
+      </li>
+      <li class="value-item">
+        <button class="value-trigger" aria-expanded="false">
+          <span>Integrity</span>
+          <span class="value-icon" aria-hidden="true"></span>
+        </button>
+        <div class="value-panel">
+          <p>Operating with honesty, accountability and transparency.</p>
+        </div>
+      </li>
+      <li class="value-item">
+        <button class="value-trigger" aria-expanded="false">
+          <span>Inclusivity</span>
+          <span class="value-icon" aria-hidden="true"></span>
+        </button>
+        <div class="value-panel">
+          <p>Ensuring that people from diverse backgrounds have opportunities to participate and benefit.</p>
+        </div>
+      </li>
+      <li class="value-item">
+        <button class="value-trigger" aria-expanded="false">
+          <span>Innovation</span>
+          <span class="value-icon" aria-hidden="true"></span>
+        </button>
+        <div class="value-panel">
+          <p>Encouraging creative and practical approaches to solving community challenges.</p>
+        </div>
+      </li>
+      <li class="value-item">
+        <button class="value-trigger" aria-expanded="false">
+          <span>Collaboration</span>
+          <span class="value-icon" aria-hidden="true"></span>
+        </button>
+        <div class="value-panel">
+          <p>Working with partners and communities to achieve greater impact.</p>
+        </div>
+      </li>
+      <li class="value-item">
+        <button class="value-trigger" aria-expanded="false">
+          <span>Resilience</span>
+          <span class="value-icon" aria-hidden="true"></span>
+        </button>
+        <div class="value-panel">
+          <p>Helping individuals and communities develop the capacity to overcome challenges.</p>
+        </div>
+      </li>
+      <li class="value-item">
+        <button class="value-trigger" aria-expanded="false">
+          <span>Sustainability</span>
+          <span class="value-icon" aria-hidden="true"></span>
+        </button>
+        <div class="value-panel">
+          <p>Creating solutions that generate lasting social and economic value.</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ============ OBJECTIVES ============ -->
+  <section class="objectives">
+    <div class="section-head">
+      <p class="section-eyebrow">Our objectives</p>
+      <h2>What we're working toward</h2>
+    </div>
+    <div class="objectives-grid">
+      <p class="objective">Empower women and youth economically.</p>
+      <p class="objective">Provide educational and skills-development opportunities.</p>
+      <p class="objective">Promote health and wellness.</p>
+      <p class="objective">Encourage entrepreneurship.</p>
+      <p class="objective">Develop leadership capacity.</p>
+      <p class="objective">Support vulnerable and underserved communities.</p>
+      <p class="objective">Build partnerships that create sustainable community impact.</p>
+    </div>
+  </section>
+
+  <!-- ============ OUR APPROACH ============ -->
+  <section class="approach">
+    <div class="section-head">
+      <p class="section-eyebrow">Our approach</p>
+      <h2>Community-centered, not one-time</h2>
+    </div>
+    <ol class="approach-flow">
+      <li><span>1</span>Listen</li>
+      <li><span>2</span>Understand</li>
+      <li><span>3</span>Empower</li>
+      <li><span>4</span>Collaborate</li>
+      <li><span>5</span>Build</li>
+      <li><span>6</span>Sustain</li>
+    </ol>
+    <p class="approach-note">We start by listening to what a community actually needs, not what we assume it needs — and we design toward solutions that outlast our involvement, not interventions that end when the program does.</p>
+  </section>
+
+  <!-- ============ FOUNDER ============ -->
+  <section class="founder-full" id="founder">
+    <div class="founder-full-inner">
+      <div class="founder-full-media ph-photo" data-slot="founder"><span class="ph-label">[ADD PHOTO — Rev. Dr. Jane Mwikali Makau]</span></div>
+      <div class="founder-full-copy">
+        <p class="section-eyebrow">Founder</p>
+        <h2>Rev. Dr. Jane Mwikali Makau</h2>
+        <p class="founder-role">Founder &amp; Visionary Leader — Chairperson, Board of the National Water Harvesting and Storage Authority (NWHSA)</p>
+        <p>Rev. Dr. Jane Mwikali Makau is a governance leader, entrepreneur, ordained minister, author and women's-empowerment advocate. Her community work laid the foundation for what began as the External Excellencies Women's Ministry in 2017 and grew into External Excellencies Global Foundation in 2023. She currently chairs the Board of the National Water Harvesting and Storage Authority (NWHSA), a national government appointment effective 24 October 2025 for a three-year term.</p>
+
+        <div class="founder-detail-grid">
+          <div>
+            <h4>Biography</h4>
+            <p>Dr. Makau holds an MBA and a BA (Hons) in Business and Management from the University of Sunderland, UK, alongside a Higher National Diploma from Edexcel (UK), a Diploma in Marketing, Sales and Advertising from Graffins College, and an entrepreneurship certificate from Babson College, USA. She is a NITA-certified lead trainer and the Founder and President of Great Grace Empowerment Institute.</p>
+          </div>
+          <div>
+            <h4>Leadership journey</h4>
+            <p>She first served the NWHSA as an Independent Board Director from February 2019 to February 2022, chairing its Strategy, Technical and Business Development Committee and sitting on its Governance, Risk and Audit Committee. She went on to chair the Betting Control and Licensing Board (BCLB) from December 2022, before returning to NWHSA in October 2025 as Board Chairperson — the position she holds today.</p>
+          </div>
+          <div>
+            <h4>Publications</h4>
+            <p>She is the author of 15 inspirational books, including <em>The Strength of a Woman</em>, <em>The Refinement of Personality</em>, <em>The Power of the Blessing</em>, <em>He Made It Another Vessel</em>, <em>Healing Scars No One Can See</em>, <em>Gold in the Fire</em>, <em>Enforcing the Will of God</em>, <em>The Efficacy of the Word</em>, <em>The Kingdom Protocol</em>, <em>Kingdom Excellence</em>, <em>Unbreakable</em>, <em>The Benefits of Pain</em>, <em>The Blessing of the Rejected</em>, and <em>God — A Loving Father</em>, addressing themes of resilience, faith, leadership and personal transformation.</p>
+          </div>
+          <div>
+            <h4>Speaking &amp; recognition</h4>
+            <p>Her honors include Top Women Entrepreneur in Kenya; the 2024 Most Outstanding Licensing Board in Africa (Africa Public Service Optimum Awards); 2024 Best CSR Regulator in Africa (Gaming Tech Summit); 2024 Top 50 Most Influential Women in Gaming in Africa; and the 2025 Regulatory Alliance Award, presented at the AGE Lagos Summit in Nigeria on 6 March 2025. She speaks widely on governance, entrepreneurship and women's empowerment.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CUSTOM PHOTO GALLERY (added via /admin) ============ -->
+  <section class="custom-gallery" data-zone="about">
+    <div class="section-head">
+      <p class="section-eyebrow">Gallery</p>
+      <h2>Photo gallery</h2>
+    </div>
+    <div class="custom-gallery-grid"></div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <p class="footer-name">External Excellencies<br>Global Foundation</p>
+      <p class="footer-mission">Building pathways for women, youth and communities to thrive.</p>
+      <form class="newsletter-form" action="#" method="post">
+        <label for="newsletter-email">Stay connected</label>
+        <p class="newsletter-sub">Receive stories, updates and opportunities from the Foundation.</p>
+        <div class="newsletter-row">
+          <input type="email" id="newsletter-email" name="email" placeholder="Your email address" required>
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </div>
+        <p class="newsletter-consent">By subscribing you agree to receive occasional emails from us. Unsubscribe anytime.</p>
+      </form>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li class="has-dropdown">
+          <a href="about.html">About Us</a>
+          <button class="dropdown-toggle" aria-expanded="false" aria-label="Show About Us submenu"><span></span></button>
+          <ul class="dropdown-menu">
+            <li><a href="about.html#story">Our Story</a></li>
+            <li><a href="about.html#values">Our Values</a></li>
+            <li><a href="about.html#founder">Meet the Founder</a></li>
+          </ul>
+        </li>
+          <li class="has-dropdown">
+          <a href="our-work.html">Our Work</a>
+          <button class="dropdown-toggle" aria-expanded="false" aria-label="Show Our Work submenu"><span></span></button>
+          <ul class="dropdown-menu">
+            <li><a href="our-work.html#accelerator">Youth &amp; Women Accelerator 2026</a></li>
+            <li><a href="our-work.html#women">Women's Empowerment</a></li>
+            <li><a href="our-work.html#youth">Youth Development</a></li>
+            <li><a href="our-work.html#health">Health</a></li>
+            <li><a href="our-work.html#education">Education</a></li>
+            <li><a href="our-work.html#economic">Economic Empowerment</a></li>
+            <li><a href="our-work.html#leadership">Leadership</a></li>
+            <li><a href="our-work.html#community">Community</a></li>
+          </ul>
+        </li>
+          <li><a href="impact.html">Our Impact</a></li>
+          <li><a href="stories.html">Stories &amp; News</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Programs</h4>
+        <ul>
+          <li><a href="our-work.html#women">Women Empowerment</a></li>
+          <li><a href="our-work.html#youth">Youth Development</a></li>
+          <li><a href="our-work.html#health">Health &amp; Wellness</a></li>
+          <li><a href="our-work.html#education">Education &amp; Skills</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get Involved</h4>
+        <ul>
+          <li><a href="get-involved.html#donate">Donate</a></li>
+          <li><a href="get-involved.html#partner">Partner With Us</a></li>
+          <li><a href="get-involved.html#volunteer">Volunteer</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul class="footer-social">
+          <li><a href="https://www.facebook.com/p/External-Excellencies-Global-Foundation-61575571245237/" target="_blank" rel="noopener">Facebook</a></li>
+          <li><span class="social-soon">Instagram (link coming soon)</span></li>
+          <li><span class="social-soon">LinkedIn (link coming soon)</span></li>
+          <li><span class="social-soon">X / Twitter (link coming soon)</span></li>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; 2025 EEWM — Eternal Excellencies Women Ministry. All rights reserved.</p>
-    <p>Made with faith &amp; purpose in Kenya ✦</p>
+    <p>&copy; <span id="year"></span> External Excellencies Global Foundation. All rights reserved.</p>
+    <ul>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="terms.html">Terms</a></li>
+      <li><a href="safeguarding.html">Safeguarding</a></li>
+      <li><a href="accessibility.html">Accessibility</a></li>
+      <li><a href="admin.html" class="footer-admin-link">Admin</a></li>
+    </ul>
   </div>
 </footer>
 
-<!-- SCRIPTS -->
-<script>
-  // Hamburger
-  document.getElementById('hamburger').addEventListener('click', () => {
-    document.getElementById('mobile-menu').classList.toggle('open');
-  });
-
-  // Sticky nav
-  window.addEventListener('scroll', () => {
-    document.getElementById('main-nav').style.boxShadow =
-      window.scrollY > 10 ? '0 4px 30px rgba(0,0,0,0.35)' : 'none';
-  });
-
-  // Scroll animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-  // Footer subscribe
-  function subscribeFooter() {
-    const email = document.getElementById('footer-email').value.trim();
-    if (!email) return;
-    document.getElementById('footer-msg').style.display = 'block';
-    document.getElementById('footer-name').value = '';
-    document.getElementById('footer-email').value = '';
-  }
-</script>
+<script src="main.js"></script>
+<script src="about.js"></script>
+<script src="site-images.js"></script>
+<script src="custom-photos.js"></script>
 </body>
 </html>

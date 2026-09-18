@@ -1,0 +1,41 @@
+{
+  "settings": {
+    "showPlaceholders": false
+  },
+  "photos": [
+    { "slot": "founder", "image": "images/founder-dr-jane-mwikali.jpg", "alt": "Dr. Jane Mwikali, Founder" },
+
+    { "slot": "slider-1", "image": "images/south-c-screening-activity.jpg", "alt": "Health workers at the South C cancer awareness and screening event" },
+    { "slot": "slider-2", "image": "images/south-c-screening-partners.jpg", "alt": "Foundation staff and partner organizations at a community health outreach" },
+    { "slot": "slider-3", "image": "images/graduation-ceremony.jpg", "alt": "Graduates on stage at a foundation-supported graduation ceremony" },
+
+    { "slot": "feature-health", "image": "images/south-c-screening-beneficiaries.jpg", "alt": "A health worker conducting a screening test on a community member" },
+
+    { "slot": "programme-health", "image": "images/south-c-screening-partners.jpg", "alt": "Health workers and partner organizations at a medical outreach event" },
+    { "slot": "programme-community", "image": "images/food-donations.jpg", "alt": "Food supplies being distributed to community members" },
+    { "slot": "programme-education", "image": "images/graduation-ceremony.jpg", "alt": "Graduates celebrating at a graduation ceremony" },
+    { "slot": "programme-youth", "image": "images/youth-engagement.jpg", "alt": "Young people participating in a foundation event" }
+  ],
+  "projects": [
+    {
+      "project": "p10",
+      "photos": [
+        { "image": "images/food-donations.jpg", "alt": "Food supplies being distributed during a Thanksgiving Service", "caption": "Food package distribution during a Thanksgiving Service." }
+      ]
+    },
+    {
+      "project": "p11",
+      "photos": [
+        { "image": "images/south-b-medical-camp.jpg", "alt": "A health worker conducting a finger-prick test on a participant at the South B Community Medical Camp", "caption": "South B Community Medical Camp, 31 May 2025." }
+      ]
+    },
+    {
+      "project": "p12",
+      "photos": [
+        { "image": "images/south-c-screening-beneficiaries.jpg", "alt": "A health worker conducting a screening test on a community member at Kongoni Primary School", "caption": "Cancer awareness and screening, Kongoni Primary School, South C, 27 July 2025." },
+        { "image": "images/south-c-screening-activity.jpg", "alt": "Foundation and partner staff at the South C cancer screening event" },
+        { "image": "images/south-c-screening-partners.jpg", "alt": "KEMRI, MobiLab Africa and National Cancer Institute staff at the South C screening event" }
+      ]
+    }
+  ]
+}

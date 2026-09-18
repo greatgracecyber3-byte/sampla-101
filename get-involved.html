@@ -3,17 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact | External Excellencies Global Foundation</title>
-<meta name="description" content="Get in touch with External Excellencies Global Foundation.">
-<meta property="og:title" content="Contact — External Excellencies Global Foundation">
+<title>Get Involved | External Excellencies Global Foundation</title>
+<meta name="description" content="Donate, partner, volunteer or support a specific program with External Excellencies Global Foundation.">
+<meta property="og:title" content="Get Involved — External Excellencies Global Foundation">
 <meta property="og:type" content="website">
-<link rel="canonical" href="contact.html">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="contact.css">
+<link rel="stylesheet" href="get-involved.css">
 </head>
 <body>
 
@@ -50,7 +49,7 @@
         </li>
         <li><a href="impact.html">Our Impact</a></li>
         <li class="has-dropdown">
-          <a href="get-involved.html">Get Involved</a>
+          <a href="get-involved.html" class="active">Get Involved</a>
           <button class="dropdown-toggle" aria-expanded="false" aria-label="Show Get Involved submenu"><span></span></button>
           <ul class="dropdown-menu">
             <li><a href="get-involved.html#donate">Donate</a></li>
@@ -61,7 +60,7 @@
           </ul>
         </li>
         <li><a href="stories.html">Stories &amp; News</a></li>
-        <li><a href="contact.html" class="active">Contact</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
     <div class="header-actions">
@@ -75,83 +74,175 @@
 
 <main id="main">
 
-  <section class="contact-intro">
-    <div class="contact-intro-inner">
-      <p class="hero-kicker">Contact</p>
-      <h1>We'd like to hear from you.</h1>
+  <section class="gi-intro">
+    <div class="gi-intro-inner">
+      <p class="hero-kicker">Get Involved</p>
+      <h1>Four ways in. One shared goal.</h1>
     </div>
   </section>
 
-  <section class="contact-section">
-    <div class="contact-grid">
+  <nav class="program-jump" aria-label="Jump to section">
+    <ul>
+      <li><a href="#donate">Donate</a></li>
+      <li><a href="#partner">Partner</a></li>
+      <li><a href="#volunteer">Volunteer</a></li>
+      <li><a href="#support-program">Support a Program</a></li>
+    </ul>
+  </nav>
 
-      <div class="contact-info">
-        <h2>Reach us directly</h2>
-        <dl class="info-list">
-          <div>
-            <dt>Address</dt>
-            <dd class="ph-inline">[ADD VERIFIED OFFICE ADDRESS]</dd>
-          </div>
-          <div>
-            <dt>Phone</dt>
-            <dd class="ph-inline">[ADD VERIFIED PHONE NUMBER]</dd>
-          </div>
-          <div>
-            <dt>Email</dt>
-            <dd class="ph-inline">[ADD VERIFIED EMAIL ADDRESS]</dd>
-          </div>
-          <div>
-            <dt>Office hours</dt>
-            <dd class="ph-inline">[ADD OFFICE HOURS]</dd>
-          </div>
-        </dl>
+  <!-- ============ DONATE ============ -->
+  <section class="gi-section" id="donate">
+    <div class="gi-inner">
+      <p class="section-eyebrow">Donate</p>
+      <h2>Your support can create a pathway to possibility.</h2>
+      <p class="gi-lede">Donations go toward women's empowerment, youth development, healthcare, education, skills training and community programs — the seven areas of work described on <a href="our-work.html">Our Work</a>.</p>
 
-        <div class="contact-map ph-photo" data-slot="contact-map"><span class="ph-label">[ADD MAP EMBED once address is verified]</span></div>
-
-        <p class="safeguard-note">To raise a safeguarding concern, please use the "Safeguarding" reason below, or contact us directly using the details above once verified.</p>
+      <div class="donate-options">
+        <button class="donate-option is-active" data-amount="one-time">One-time</button>
+        <button class="donate-option" data-amount="monthly">Monthly</button>
       </div>
 
-      <form class="contact-form" id="contact-form" action="#" method="post">
-        <h2>Send a message</h2>
+      <div class="donate-panel">
+        <label for="donate-purpose">What should this support?</label>
+        <select id="donate-purpose">
+          <option>Wherever it's needed most</option>
+          <option>Women Empowerment</option>
+          <option>Youth Development</option>
+          <option>Health &amp; Wellness</option>
+          <option>Education &amp; Skills</option>
+          <option>Economic Empowerment</option>
+          <option>Leadership Development</option>
+          <option>Community Development</option>
+        </select>
+
+        <label for="donate-custom">Amount</label>
+        <div class="amount-row">
+          <button class="amount-chip">$10</button>
+          <button class="amount-chip">$25</button>
+          <button class="amount-chip">$50</button>
+          <input type="number" id="donate-custom" placeholder="Custom amount" min="1">
+        </div>
+
+        <p class="payment-methods-label">Payment method</p>
+        <div class="payment-methods">
+          <span class="payment-chip payment-chip--ghost">[M-Pesa — connect payment handler]</span>
+          <span class="payment-chip payment-chip--ghost">[Card — connect payment handler]</span>
+          <span class="payment-chip payment-chip--ghost">[Bank transfer — add details]</span>
+        </div>
+
+        <p class="donate-note">Payment processing isn't connected yet. Before this goes live, plug in a real payment provider (e.g. Paystack, Flutterwave, or an M-Pesa paybill/till number) — this page is deliberately not collecting money until that's verified and in place.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PARTNER ============ -->
+  <section class="gi-section gi-section--alt" id="partner">
+    <div class="gi-inner">
+      <p class="section-eyebrow">Partner with us</p>
+      <h2>Partnerships that create sustainable community impact.</h2>
+      <p class="gi-lede">We work with a range of organizations to extend what any one group could do alone.</p>
+
+      <div class="partner-categories">
+        <span>Corporates</span>
+        <span>Foundations</span>
+        <span>Government</span>
+        <span>Healthcare institutions</span>
+        <span>Development organizations</span>
+        <span>Community organizations</span>
+        <span>Educational institutions</span>
+      </div>
+
+      <a href="contact.html?reason=partnership" class="btn btn-primary">Start a Partnership</a>
+    </div>
+  </section>
+
+  <!-- ============ VOLUNTEER ============ -->
+  <section class="gi-section" id="volunteer">
+    <div class="gi-inner">
+      <p class="section-eyebrow">Volunteer</p>
+      <h2>Contribute your skills and expertise.</h2>
+      <p class="gi-lede">Tell us where you'd like to help, and we'll get in touch about current opportunities.</p>
+
+      <form class="volunteer-form" action="#" method="post">
         <div class="form-row">
-          <label for="c-name">Full name</label>
-          <input type="text" id="c-name" name="name" required>
+          <label for="v-name">Full name</label>
+          <input type="text" id="v-name" name="name" required>
         </div>
         <div class="form-row form-row--split">
           <div>
-            <label for="c-email">Email</label>
-            <input type="email" id="c-email" name="email" required>
+            <label for="v-email">Email</label>
+            <input type="email" id="v-email" name="email" required>
           </div>
           <div>
-            <label for="c-phone">Phone (optional)</label>
-            <input type="tel" id="c-phone" name="phone">
+            <label for="v-phone">Phone</label>
+            <input type="tel" id="v-phone" name="phone">
           </div>
         </div>
         <div class="form-row">
-          <label for="c-reason">Reason for contact</label>
-          <select id="c-reason" name="reason">
-            <option value="general">General inquiry</option>
-            <option value="partnership">Partnership</option>
-            <option value="volunteer">Volunteering</option>
-            <option value="media">Media &amp; press</option>
-            <option value="donation">Donation question</option>
-            <option value="safeguarding">Safeguarding concern</option>
-            <option value="other">Other</option>
-          </select>
+          <label>Areas of interest</label>
+          <div class="checkbox-grid">
+            <label><input type="checkbox" name="interest" value="medical"> Medical outreach</label>
+            <label><input type="checkbox" name="interest" value="training"> Training</label>
+            <label><input type="checkbox" name="interest" value="mentorship"> Mentorship</label>
+            <label><input type="checkbox" name="interest" value="media"> Media</label>
+            <label><input type="checkbox" name="interest" value="technology"> Technology</label>
+            <label><input type="checkbox" name="interest" value="admin"> Administration</label>
+            <label><input type="checkbox" name="interest" value="mobilization"> Community mobilization</label>
+            <label><input type="checkbox" name="interest" value="expertise"> Professional expertise</label>
+          </div>
         </div>
         <div class="form-row">
-          <label for="c-message">Message</label>
-          <textarea id="c-message" name="message" rows="6" required></textarea>
+          <label for="v-message">Tell us more (optional)</label>
+          <textarea id="v-message" name="message" rows="4"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Send message</button>
+        <button type="submit" class="btn btn-primary">Submit interest</button>
         <p class="form-note">This form has no backend connected yet — wire it to a form service (e.g. Formspree) before publishing.</p>
       </form>
+    </div>
+  </section>
 
+  <!-- ============ SUPPORT A PROGRAM ============ -->
+  <section class="gi-section gi-section--alt" id="support-program">
+    <div class="gi-inner">
+      <p class="section-eyebrow">Support a program</p>
+      <h2>Choose exactly what you want your support to go toward.</h2>
+      <div class="program-choice-grid">
+        <a href="our-work.html#women" class="program-choice">Women</a>
+        <a href="our-work.html#youth" class="program-choice">Youth</a>
+        <a href="our-work.html#health" class="program-choice">Health</a>
+        <a href="our-work.html#education" class="program-choice">Education</a>
+        <a href="our-work.html#economic" class="program-choice">Entrepreneurship</a>
+        <a href="our-work.html#community" class="program-choice">Community Development</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ADVOCATE ============ -->
+  <section class="gi-section" id="advocate">
+    <div class="gi-inner">
+      <p class="section-eyebrow">Advocate</p>
+      <h2>Help amplify stories and opportunities.</h2>
+      <p class="gi-lede">Share our work, follow us on social media, and help the right people hear about what's happening.</p>
+      <div class="advocate-links">
+        <a href="https://www.facebook.com/p/External-Excellencies-Global-Foundation-61575571245237/" target="_blank" rel="noopener">Facebook</a>
+        <span class="social-soon">Instagram (link coming soon)</span>
+        <span class="social-soon">LinkedIn (link coming soon)</span>
+        <span class="social-soon">X / Twitter (link coming soon)</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="dark-band">
+    <div class="dark-band-inner">
+      <p class="section-eyebrow">One thing you can do today</p>
+      <h2>Pick whichever way in fits your life right now.</h2>
+      <p>Donating, partnering, volunteering, or simply telling someone about us — every one of these genuinely moves the work forward.</p>
+      <a href="#donate" class="btn btn-gold">Start with a donation</a>
     </div>
   </section>
 
   <!-- ============ CUSTOM PHOTO GALLERY (added via /admin) ============ -->
-  <section class="custom-gallery" data-zone="contact">
+  <section class="custom-gallery" data-zone="get-involved">
     <div class="section-head">
       <p class="section-eyebrow">Gallery</p>
       <h2>Photo gallery</h2>
@@ -249,7 +340,7 @@
 </footer>
 
 <script src="main.js"></script>
-<script src="contact.js"></script>
+<script src="get-involved.js"></script>
 <script src="site-images.js"></script>
 <script src="custom-photos.js"></script>
 </body>

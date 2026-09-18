@@ -1,0 +1,133 @@
+/* ===== GET INVOLVED PAGE ===== */
+
+.gi-intro { padding-bottom: 20px; }
+.gi-intro-inner { max-width: 820px; margin: 0 auto; }
+.gi-intro h1 { font-size: clamp(2rem, 4.2vw, 3rem); max-width: 16ch; }
+
+.gi-section { border-bottom: 1px solid var(--line); }
+.gi-section--alt { background: var(--ivory-soft); }
+.gi-inner { max-width: 760px; margin: 0 auto; }
+.gi-inner h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); max-width: 22ch; }
+.gi-lede { font-size: 1.02rem; color: #3c3c38; max-width: 58ch; }
+
+/* Donate */
+.donate-options { display: flex; gap: 10px; margin: 24px 0 20px; }
+.donate-option {
+  padding: 10px 22px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--forest-deep);
+}
+.donate-option.is-active { background: var(--forest); color: var(--ivory); border-color: var(--forest); }
+
+.donate-panel { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
+.donate-panel label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--sand); margin-bottom: 8px; }
+.donate-panel select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  margin-bottom: 22px;
+  background: var(--ivory);
+}
+.amount-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 22px; }
+.amount-chip {
+  padding: 10px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ivory);
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--forest-deep);
+}
+.amount-chip.is-selected { background: var(--forest); color: var(--ivory); border-color: var(--forest); }
+#donate-custom {
+  flex: 1;
+  min-width: 140px;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  font-family: var(--font-body);
+}
+.payment-methods-label { margin-top: 4px; }
+.payment-methods { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+.payment-chip--ghost {
+  display: inline-block;
+  padding: 10px 16px;
+  border: 1px dashed var(--sand);
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  color: var(--sand);
+}
+.donate-note { font-size: 0.85rem; color: var(--sand); margin: 0; }
+
+/* Partner */
+.partner-categories { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 28px; }
+.partner-categories span {
+  padding: 10px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  background: #fff;
+}
+
+/* Volunteer form */
+.volunteer-form { margin-top: 28px; display: flex; flex-direction: column; gap: 22px; }
+.form-row label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--sand); margin-bottom: 6px; }
+.form-row input[type="text"], .form-row input[type="email"], .form-row input[type="tel"], .form-row textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background: #fff;
+}
+.form-row--split { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.checkbox-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.checkbox-grid label { display: flex; align-items: center; gap: 8px; font-size: 0.92rem; font-weight: 400; color: var(--charcoal); }
+.checkbox-grid input { width: 16px; height: 16px; }
+.form-note { font-size: 0.82rem; color: var(--sand); margin-top: -4px; }
+
+/* Support a program */
+.program-choice-grid {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.program-choice {
+  display: block;
+  text-align: center;
+  padding: 22px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--forest-deep);
+  background: #fff;
+}
+.program-choice:hover { border-color: var(--gold); }
+
+/* Advocate */
+.advocate-links { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 20px; }
+.advocate-links a {
+  padding: 10px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--sand);
+}
+
+@media (max-width: 640px) {
+  .form-row--split, .checkbox-grid { grid-template-columns: 1fr; }
+  .program-choice-grid { grid-template-columns: 1fr 1fr; }
+}

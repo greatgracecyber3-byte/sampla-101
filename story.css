@@ -1,0 +1,20 @@
+/* ===== IMPACT STORY TEMPLATE ===== */
+
+.story-full { max-width: 760px; margin: 0 auto; padding: clamp(40px, 6vw, 72px) var(--gutter); }
+.story-full-head .story-tag { color: var(--sand); font-weight: 600; font-size: 0.85rem; margin-bottom: 10px; }
+.story-full-head h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); max-width: 20ch; }
+.story-full-note {
+  font-size: 0.88rem;
+  color: var(--sand);
+  border: 1px dashed var(--sand);
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  margin: 16px 0 32px;
+}
+.story-full-media { aspect-ratio: 16/10; border-radius: var(--radius); margin-bottom: 36px; }
+.story-full-body section { margin-bottom: 28px; }
+.story-full-body h2 { font-size: 1.1rem; margin-bottom: 8px; }
+.story-full-body p { color: #3c3c38; }
+.story-full-share { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); }
+
+.site-footer .footer-bottom { color: rgba(246,242,233,0.7); font-size: 0.8rem; }
